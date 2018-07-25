@@ -1,11 +1,11 @@
 package com.redhat.patriot.generator.device;
 
-import java.util.Observable;
-
 /**
  * Created by jsmolar on 7/5/18.
  */
-public class Data extends Observable {
+public class Data {
+
+    private String deviceName;
 
     private double time;
 
@@ -35,9 +35,11 @@ public class Data extends Observable {
         this.value = value;
     }
 
-//    public void setReady() {
-//        setChanged();
-//        notifyObservers();
-//    }
+    public String getDeviceName() {
+        return deviceName;
+    }
 
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 }

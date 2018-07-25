@@ -14,24 +14,23 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.observer;
+package com.redhat.patriot.generator.convertors;
 
-import java.util.Observable;
-import java.util.Observer;
+import com.redhat.patriot.generator.device.Data;
 
 /**
  * Created by jsmolar on 7/24/18.
  */
-public class DataObserver implements Observer {
+public abstract class Converter<T> {
 
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+    public Data data;
 
-//        JSONObject data = new JSONObject();
-//        data.put("name", name)
-//            .put("data", getSingleRandomValue());
-
+    public Converter(Data data) {
+        this.data = data;
     }
+
+    abstract public T convert();
+
+    abstract public void send();
 
 }

@@ -42,7 +42,6 @@ public class DataEvent extends Event {
 
     public DataEvent(Device device, Boolean repeat) {
         this.device = device;
-//        device.poissonDist();
         this.repeat = repeat;
     }
 
@@ -51,9 +50,7 @@ public class DataEvent extends Event {
             this.schedule(timeGeneration.nextDouble());
         }
 
-        Data data = new Data(this.time(), device.getSingleRandomValue());
-
-        simulatedData.add(data);
+        simulatedData.add(device.getSingleRandomValue());
     }
 
     public void binomialConvolution() {

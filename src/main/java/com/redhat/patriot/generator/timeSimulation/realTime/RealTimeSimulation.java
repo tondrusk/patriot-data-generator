@@ -46,7 +46,7 @@ public class RealTimeSimulation {
         return new TimerTask() {
             @Override
             public void run() {
-                System.out.println(new Date(System.currentTimeMillis()).toString() + " - " + device.generateValue());
+                System.out.println(new Date(System.currentTimeMillis()).toString() + " - " + device.getSingleRandomValue());
                 timer.schedule(task(), Math.round(timeFeed.getTime()));
             }
         };

@@ -14,32 +14,27 @@ public class Device {
 
     private DataFeed dataFeed;
 
-    private Data data;
+    private DataEncoding dataEncoding = DataEncoding.JSON;
 
     public Device(double lambda) {
         this.dataFeed = new DataFeed(lambda);
-//        setObserver();
     }
 
     public Device(Expression expression) {
         this.dataFeed = new DataFeed(expression);
     }
-
-    public Data generateValue() {
-        data.setValue(getSingleRandomValue());
-//        data.setReady();
+    
+    public Data getSingleRandomValue() {
+        Data data = new Data();
+        data.setValue(dataFeed.getValue());
 
         return data;
-    }
-
-    public Double getSingleRandomValue() {
-        return dataFeed.getValue();
     }
 
     public List<Double> getNRandomValues(int n) {
         List<Double> result = new ArrayList<>();
 
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             result.add(dataFeed.getValue());
         }
         return result;
@@ -53,10 +48,11 @@ public class Device {
         this.name = name;
     }
 
-//    private void setObserver() {
-//        data = new Data();
-//        DataObserver observer = new DataObserver();
-//        data.addObserver(observer);
-//    }
+    public DataEncoding getDataEncoding() {
+        return dataEncoding;
+    }
 
+    public void setDataEncoding(DataEncoding dataEncoding) {
+        this.dataEncoding = dataEncoding;
+    }
 }
