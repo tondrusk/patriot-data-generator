@@ -8,6 +8,98 @@
   <artifactId>generator</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>obabec</id>
+      <email>ond.babec@gmail.com</email>
+      <organization>Red Hat</organization>
+      <name>Ondřej Babec</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>Europe/Prague</timezone>
+    </developer>
+    <developer>
+      <id>sbunciak</id>
+      <email>sbunciak@redhat.com</email>
+      <organization>Red Hat</organization>
+      <name>Štefan Bunčiak</name>
+      <roles>
+        <role>Project manager</role>
+      </roles>
+      <timezone>Europe/Prague</timezone>
+    </developer>
+    <developer>
+      <id>mbures</id>
+      <email>miroslav.bures@fel.cvut.cz</email>
+      <organization>FEL CVUT</organization>
+      <name>Miroslav Bureš</name>
+      <roles>
+        <role>Product owner</role>
+      </roles>
+      <timezone>Europe/Prague</timezone>
+    </developer>
+    <developer>
+      <id>ficap</id>
+      <email>ficap@redhat.com</email>
+      <organization>Red Hat</organization>
+      <name>Filip Čáp</name>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Prague</timezone>
+    </developer>
+    <developer>
+      <id>mijaros</id>
+      <email>mjaros@redhat.com</email>
+      <organization>Red Hat</organization>
+      <name>Mirek Jaroš</name>
+      <roles>
+        <role>Tech lead</role>
+      </roles>
+      <timezone>Europe/Prague</timezone>
+    </developer>
+    <developer>
+      <id>pmacik</id>
+      <email>pmacik@redhat.com</email>
+      <organization>Red Hat</organization>
+      <name>Pavel Macík</name>
+      <roles>
+        <role>Tech lead</role>
+      </roles>
+      <timezone>Europe/Prague</timezone>
+    </developer>
+    <developer>
+      <id>jpechane</id>
+      <email>jpechane@redhat.com</email>
+      <organization>Red Hat</organization>
+      <name>Jiří Pechanec</name>
+      <roles>
+        <role>The guru</role>
+      </roles>
+      <timezone>Europe/Prague</timezone>
+    </developer>
+    <developer>
+      <id>jsmolar</id>
+      <email>jsmolar@redhat.com</email>
+      <organization>Red Hat</organization>
+      <name>Jakub Smolár</name>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Bratislava</timezone>
+    </developer>
+  </developers>
+
   <build>
     <plugins>
       <plugin>
