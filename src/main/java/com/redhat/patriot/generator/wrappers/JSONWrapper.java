@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.convertors;
+package com.redhat.patriot.generator.wrappers;
 
 import java.io.IOException;
 
@@ -28,18 +28,20 @@ import org.json.JSONObject;
 /**
  * Created by jsmolar on 7/24/18.
  */
-public class JSONConverter extends Converter {
+public class JSONWrapper extends Wrapper {
 
-    public JSONConverter(Data data) {
+    public JSONWrapper(Data data) {
         super(data);
     }
 
     @Override
-    public JSONObject convert() {
+    public JSONObject wrapData() {
         JSONObject obj = new JSONObject();
         obj.put("name", data.getDeviceName())
             .put("data", data.getValue())
             .put("time", data.getTime());
+
+        System.out.println("data: " + data.getValue());
 
         return obj;
     }
@@ -49,8 +51,8 @@ public class JSONConverter extends Converter {
         HttpClient httpClient = HttpClientBuilder.create().build();
 
         try {
-            HttpPost request = new HttpPost("");
-            request.setEntity(new StringEntity(convert().toString()));
+            HttpPost request = new HttpPost("http://requestbin.fullcontact.com/s52om8s5");
+            request.setEntity(new StringEntity(wrapData().toString()));
             request.addHeader("content-type", "application/json");
             httpClient.execute(request);
         } catch (IOException e) {

@@ -14,22 +14,22 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.convertors;
+package com.redhat.patriot.generator.wrappers;
 
 import com.redhat.patriot.generator.device.Data;
 
 /**
  * Created by jsmolar on 7/24/18.
  */
-public abstract class Converter<T> {
+public abstract class Wrapper<T> {
 
     public Data data;
 
-    public Converter(Data data) {
+    public Wrapper(Data data) {
         this.data = data;
     }
 
-    abstract public T convert();
+    abstract public T wrapData();
 
     abstract public void send();
 

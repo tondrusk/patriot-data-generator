@@ -14,15 +14,18 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.timeSimulation;
+package com.redhat.patriot.device;
 
-import com.redhat.patriot.generator.device.Device;
+import org.junit.jupiter.api.Test;
 
 /**
- * Created by jsmolar on 7/23/18.
+ * Created by jsmolar on 7/25/18.
  */
-public abstract class Simulation {
+public class DeviceTest {
 
-    private Device device;
+    @Test
+    public void createDevice() {
+
+    }
 
 }

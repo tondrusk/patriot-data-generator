@@ -35,7 +35,9 @@ public class DataFeed {
     private Integer iteration = 0;
 
     public DataFeed(double lambda) {
+        MRG32k3a.setPackageSeed(Seed.generate());
         RandomStream randomStream = new MRG32k3a();
+
         randomVariate = new PoissonGen(randomStream, new PoissonDist(lambda));
     }
 
@@ -55,16 +57,15 @@ public class DataFeed {
         }
     }
 
-    //    public void poissonDist() {
-    //        long[] seed = {1L , 2L, 3L, 4L, 5L, 6L};
-    //        MRG32k3a rng = new MRG32k3a();
-    //        setPackageSeed(seed);
+    //        public void poissonDist() {
+    //            RandomStream rng = new MRG32k3a();
+    //            MRG32k3a.setPackageSeed(Seed.generate());
     //
-    //        RandomStream streamDemand = rng;
-    //        rng.resetStartStream();
+    //            RandomStream streamDemand = rng;
+    //            rng.resetStartStream();
     //
-    //        RandomVariateGenInt genDemand = new PoissonGen(streamDemand, new PoissonDist(lambda));
-    //        randomValues = genDemand;
-    //    }
+    //            RandomVariateGenInt genDemand = new PoissonGen(streamDemand, new PoissonDist(lambda));
+    //            randomValues = genDemand;
+    //        }
 
 }

@@ -19,6 +19,7 @@ package com.redhat.patriot.generator.device;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.redhat.patriot.generator.wrappers.JSONWrapper;
 import net.objecthunter.exp4j.Expression;
 
 /**
@@ -40,8 +41,13 @@ public class Device {
         this.dataFeed = new DataFeed(expression);
     }
 
+    public void simulate() {
+        new JSONWrapper(getSingleRandomValue()).send();
+    }
+
     public Data getSingleRandomValue() {
         Data data = new Data();
+        data.setDeviceName(name);
         data.setValue(dataFeed.getValue());
 
         return data;
