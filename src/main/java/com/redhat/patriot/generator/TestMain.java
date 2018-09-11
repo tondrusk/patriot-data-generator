@@ -1,6 +1,8 @@
 package com.redhat.patriot.generator;
 
 import com.redhat.patriot.generator.device.Device;
+import com.redhat.patriot.generator.device.dateFeed.DataFeed;
+import com.redhat.patriot.generator.device.dateFeed.DayTemperatureDataFeed;
 import com.redhat.patriot.generator.timeSimulation.TimeFeed;
 import com.redhat.patriot.generator.timeSimulation.realTime.RealTimeSimulation;
 import net.objecthunter.exp4j.Expression;
@@ -12,7 +14,8 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 public class TestMain {
 
     public static void main(String[] args) {
-        Device device = new Device(50);
+        DataFeed dataFeed = new DayTemperatureDataFeed(13, 29);
+        Device device = new Device(dataFeed);
 
         Expression calc = new ExpressionBuilder("abs(10000 * sin(y))")
             .variable("y")

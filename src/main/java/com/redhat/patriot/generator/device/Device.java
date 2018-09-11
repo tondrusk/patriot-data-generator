@@ -16,11 +16,8 @@
 
 package com.redhat.patriot.generator.device;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.redhat.patriot.generator.device.dateFeed.DataFeed;
 import com.redhat.patriot.generator.wrappers.JSONWrapper;
-import net.objecthunter.exp4j.Expression;
 
 /**
  * Created by jsmolar on 7/3/18.
@@ -33,12 +30,8 @@ public class Device {
 
     private DataEncoding dataEncoding = DataEncoding.JSON;
 
-    public Device(double lambda) {
-        this.dataFeed = new DataFeed(lambda);
-    }
-
-    public Device(Expression expression) {
-        this.dataFeed = new DataFeed(expression);
+    public Device(DataFeed dataFeed) {
+        this.dataFeed = dataFeed;
     }
 
     public void simulate() {
@@ -48,19 +41,19 @@ public class Device {
     public Data getSingleRandomValue() {
         Data data = new Data();
         data.setDeviceName(name);
-        data.setValue(dataFeed.getValue());
+        data.setValue(dataFeed.getValue(1));
 
         return data;
     }
 
-    public List<Double> getNRandomValues(int n) {
-        List<Double> result = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
-            result.add(dataFeed.getValue());
-        }
-        return result;
-    }
+//    public List<Double> getNRandomValues(int n) {
+//        List<Double> result = new ArrayList<>();
+//
+//        for (int i = 0; i < n; i++) {
+//            result.add(dataFeed.getValue());
+//        }
+//        return result;
+//    }
 
     public String getName() {
         return name;
