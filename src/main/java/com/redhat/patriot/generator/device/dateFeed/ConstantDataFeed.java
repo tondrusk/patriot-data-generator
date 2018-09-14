@@ -16,16 +16,19 @@
 
 package com.redhat.patriot.generator.device.dateFeed;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Created by jsmolar on 9/9/18.
+ * Created by jsmolar on 9/11/18.
  */
-public abstract class DataFeed {
+public class ConstantDataFeed extends DataFeed {
 
-    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private double value;
 
-    abstract public double getValue(double time);
+    public ConstantDataFeed(double value) {
+        this.value = value;
+    }
 
+    @Override
+    public double getValue(double time) {
+        return value;
+    }
 }

@@ -16,17 +16,20 @@
 
 package com.redhat.patriot.generator.timeSimulation.realTime;
 
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.redhat.patriot.generator.device.Device;
-import com.redhat.patriot.generator.timeSimulation.TimeFeed;
+import com.redhat.patriot.generator.timeSimulation.timeFeed.TimeFeed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by jsmolar on 7/17/18.
  */
 public class RealTimeSimulation {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RealTimeSimulation.class);
 
     private Device device;
 
@@ -53,7 +56,7 @@ public class RealTimeSimulation {
         return new TimerTask() {
             @Override
             public void run() {
-                timer.schedule(task(), Math.round(timeFeed.getTime()));
+                timer.schedule(task(), Math.round(timeFeed.getSimulatedTime()));
             }
         };
     }
@@ -62,10 +65,12 @@ public class RealTimeSimulation {
         return new TimerTask() {
             @Override
             public void run() {
-                System.out.println(new Date(System.currentTimeMillis()).toString());
                 System.out.println("Thread: " + Thread.currentThread().getId());
-                device.simulate();
-                timer.schedule(task(), Math.round(timeFeed.getTime()));
+                double simTime = timeFeed.getSimulatedTime();
+                LOGGER.info("Simulated time: " + (simTime/1000) % 24);
+
+                device.simulateForTime(Math.round(simTime));
+                timer.schedule(task(), Math.round(timeFeed.getTimeChange()));
             }
         };
     }

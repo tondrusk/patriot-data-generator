@@ -18,30 +18,35 @@ package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.device.dateFeed.DataFeed;
 import com.redhat.patriot.generator.wrappers.JSONWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by jsmolar on 7/3/18.
  */
 public class Device {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Device.class);
+
     private String name;
 
     private DataFeed dataFeed;
 
-    private DataEncoding dataEncoding = DataEncoding.JSON;
+    public Device() {
+    }
 
     public Device(DataFeed dataFeed) {
         this.dataFeed = dataFeed;
     }
 
-    public void simulate() {
-        new JSONWrapper(getSingleRandomValue()).send();
+    public void simulateForTime(double time) {
+        new JSONWrapper(getSingleRandomValue(time)).send();
     }
 
-    public Data getSingleRandomValue() {
+    public Data getSingleRandomValue(double time) {
         Data data = new Data();
         data.setDeviceName(name);
-        data.setValue(dataFeed.getValue(1));
+        data.setValue(dataFeed.getValue(time));
 
         return data;
     }
@@ -63,11 +68,11 @@ public class Device {
         this.name = name;
     }
 
-    public DataEncoding getDataEncoding() {
-        return dataEncoding;
+    public DataFeed getDataFeed() {
+        return dataFeed;
     }
 
-    public void setDataEncoding(DataEncoding dataEncoding) {
-        this.dataEncoding = dataEncoding;
+    public void setDataFeed(DataFeed dataFeed) {
+        this.dataFeed = dataFeed;
     }
 }

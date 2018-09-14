@@ -16,6 +16,8 @@
 
 package com.redhat.patriot.generator.device.dateFeed;
 
+import java.util.Set;
+
 import net.objecthunter.exp4j.Expression;
 
 /**
@@ -23,12 +25,35 @@ import net.objecthunter.exp4j.Expression;
  */
 public class ExpressionDataFeed extends DataFeed {
 
+    private Expression expression;
+
+    private String variable;
+
     public ExpressionDataFeed(Expression expression) {
+        this.expression = expression;
+        validate();
     }
 
     @Override
     public double getValue(double time) {
-        return 0;
+        expression.setVariable(variable, time);
+        double result = expression.evaluate();
+        LOGGER.info("Generated data from expression: " + result);
+
+        return result;
+    }
+
+    private void validate() {
+        if(expression.validate().isValid()) {
+            Set<String> variables = expression.getVariableNames();
+            if(variables.size() != 1) {
+                // Handle invalid expression
+            }
+
+            variable = (String) variables.toArray()[0];
+        } else {
+            // Throw exception
+        }
     }
 }
 

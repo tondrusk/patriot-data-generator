@@ -14,18 +14,25 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device.dateFeed;
+package com.redhat.patriot.generator.timeSimulation.timeFeed;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.objecthunter.exp4j.Expression;
 
 /**
- * Created by jsmolar on 9/9/18.
+ * Created by jsmolar on 9/14/18.
  */
-public abstract class DataFeed {
+public class ExpressionTimeFeed extends TimeFeed {
 
-    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private Expression expression;
 
-    abstract public double getValue(double time);
+    @Override
+    public double getSimulatedTime() {
+        return 0;
+    }
+
+    @Override
+    public double getTimeChange() {
+        return 0;
+    }
 
 }

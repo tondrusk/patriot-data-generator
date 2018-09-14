@@ -14,15 +14,26 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.timeSimulation;
+package com.redhat.patriot.generator.device.dateFeed;
 
-import com.redhat.patriot.generator.device.Device;
+import umontreal.ssj.probdist.NormalDist;
 
 /**
- * Created by jsmolar on 7/23/18.
+ * Created by jsmolar on 9/19/18.
  */
-public abstract class Simulation {
+public class NormalDistributionDataFeed extends DataFeed {
 
-    private Device device;
+    private NormalDist normalDist;
 
+    public NormalDistributionDataFeed(double mu, double sigma) {
+        this.normalDist = new NormalDist(mu, sigma);
+    }
+
+    @Override
+    public double getValue(double time) {
+        double result = normalDist.density(time);
+        LOGGER.info("Generated data from Normal distribution Data feed: " + result);
+
+        return result;
+    }
 }

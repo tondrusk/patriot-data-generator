@@ -27,7 +27,7 @@ public class DayTemperatureDataFeed extends DataFeed {
     private double dayMin;
     private double dayMax;
 
-    private static final int T_MIN = 6;
+    private static final int T_MIN = 5;
     private static final int T_MAX = 16;
 
     private static final Expression F1 = new ExpressionBuilder("( cos( pi * ("+ T_MIN +" - t ) / 24 + pi * " +  T_MIN + "/24 - pi * " + T_MAX + "/24) + 1 ) / 2")
@@ -51,6 +51,8 @@ public class DayTemperatureDataFeed extends DataFeed {
     public double getValue(double time) {
         double result = 0;
 
+        time = (time/1000) % 24;
+
         if(time < T_MIN) {
             F1.setVariable("t", time);
             double a = F1.evaluate();
@@ -58,10 +60,17 @@ public class DayTemperatureDataFeed extends DataFeed {
             result = (a * dayMin) + (second * dayMax);
         } else if(T_MIN < time && time < T_MAX) {
             F2.setVariable("t", time);
-            double a = F1.evaluate();
+            double a = F2.evaluate();
             double second = 1 -a;
             result = (a * dayMin) + (second * dayMax);
+        } else if(T_MIN < time) {
+            F3.setVariable("t", time);
+            double a = F3.evaluate();
+            double second = 1 - a;
+            result = (a * dayMin) + (second * dayMax);
         }
+
+        LOGGER.info("Day temperature is: " + result);
 
         return result;
     }
