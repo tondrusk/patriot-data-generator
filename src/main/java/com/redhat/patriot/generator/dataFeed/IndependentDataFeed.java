@@ -14,18 +14,10 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device.dateFeed;
+package com.redhat.patriot.generator.dataFeed;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public interface IndependentDataFeed extends DataFeed {
 
-/**
- * Created by jsmolar on 9/9/18.
- */
-public abstract class DataFeed {
-
-    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
-
-    abstract public double getValue(double time);
+    double getNextValue();
 
 }

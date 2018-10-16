@@ -14,26 +14,12 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device.dateFeed;
+package com.redhat.patriot.generator.device.passive;
 
-import umontreal.ssj.probdist.NormalDist;
+import com.redhat.patriot.generator.device.Device;
 
-/**
- * Created by jsmolar on 9/19/18.
- */
-public class NormalDistributionDataFeed extends DataFeed {
+public interface PassiveDevice extends Device {
 
-    private NormalDist normalDist;
+    double requestData();
 
-    public NormalDistributionDataFeed(double mu, double sigma) {
-        this.normalDist = new NormalDist(mu, sigma);
-    }
-
-    @Override
-    public double getValue(double time) {
-        double result = normalDist.density(time);
-        LOGGER.info("Generated data from Normal distribution Data feed: " + result);
-
-        return result;
-    }
 }

@@ -14,21 +14,13 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device.dateFeed;
+package com.redhat.patriot.generator.dataFeed;
 
-/**
- * Created by jsmolar on 9/11/18.
- */
-public class ConstantDataFeed extends DataFeed {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    private double value;
+public abstract class AbstractDataFeed implements DataFeed {
 
-    public ConstantDataFeed(double value) {
-        this.value = value;
-    }
+    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    @Override
-    public double getValue(double time) {
-        return value;
-    }
 }

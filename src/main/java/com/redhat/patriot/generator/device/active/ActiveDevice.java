@@ -14,7 +14,14 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.device.active;
 
-public interface Device {
+import com.redhat.patriot.generator.device.Device;
+
+public interface ActiveDevice extends Device {
+
+    void simulate();
+
+    void stopSimulation();
+
 }

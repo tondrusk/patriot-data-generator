@@ -14,7 +14,25 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.device.passive;
 
-public interface Device {
+import com.redhat.patriot.generator.device.AbstractDevice;
+
+public class AbstractPassiveDevice extends AbstractDevice implements PassiveDevice {
+
+    public double requestData() {
+//        dataWrapper.wrapData(this, );
+        dataWrapper.send();
+        return 0;
+    }
+
+    private double generateValue(double time) {
+//        dataFeed.
+        return 0;
+    }
+
+    @Override
+    protected AbstractDevice getThis() {
+        return null;
+    }
 }

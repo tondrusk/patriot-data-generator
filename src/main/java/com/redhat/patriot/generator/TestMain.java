@@ -1,13 +1,12 @@
 package com.redhat.patriot.generator;
 
-import static java.util.concurrent.TimeUnit.DAYS;
-
-import com.redhat.patriot.generator.device.Device;
-import com.redhat.patriot.generator.device.dateFeed.DataFeed;
-import com.redhat.patriot.generator.device.dateFeed.DayTemperatureDataFeed;
-import com.redhat.patriot.generator.timeSimulation.realTime.RealTimeSimulation;
+import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.device.active.AbstractActiveDevice;
+import com.redhat.patriot.generator.dataFeed.NormalDistributionDataFeed;
 import com.redhat.patriot.generator.timeSimulation.timeFeed.LinearTimeFeed;
 import com.redhat.patriot.generator.timeSimulation.timeFeed.TimeFeed;
+
+import java.util.ArrayList;
 
 /**
  * Created by jsmolar on 7/5/18.
@@ -15,15 +14,13 @@ import com.redhat.patriot.generator.timeSimulation.timeFeed.TimeFeed;
 public class TestMain {
 
     public static void main(String[] args) {
-        DataFeed dataFeed = new DayTemperatureDataFeed(13, 29);
-        Device device = new Device(dataFeed);
+        DataFeed dataFeed = new NormalDistributionDataFeed(0, 1);
+        TimeFeed feed = new LinearTimeFeed(2000);
+        AbstractActiveDevice device = new AbstractActiveDevice();
+        device.setDataFeed(dataFeed);
+        device.setTimeFeed(feed);
 
-        TimeFeed feed = new LinearTimeFeed(DAYS.toMillis(1));
-        RealTimeSimulation simulation = new RealTimeSimulation(device, feed);
-        RealTimeSimulation simulation1 = new RealTimeSimulation(device, feed);
-
-        simulation.simulateData();
-        simulation1.simulateData();
+        device.simulate();
     }
 
 }

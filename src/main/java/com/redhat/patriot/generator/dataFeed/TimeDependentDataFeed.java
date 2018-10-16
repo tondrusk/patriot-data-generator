@@ -14,23 +14,10 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.wrappers;
+package com.redhat.patriot.generator.dataFeed;
 
-import com.redhat.patriot.generator.device.Data;
+public interface TimeDependentDataFeed extends DataFeed {
 
-/**
- * Created by jsmolar on 7/24/18.
- */
-public abstract class Wrapper<T> {
-
-    public Data data;
-
-    public Wrapper(Data data) {
-        this.data = data;
-    }
-
-    abstract public T wrapData();
-
-    abstract public void send();
+    double getNextValue(double time);
 
 }

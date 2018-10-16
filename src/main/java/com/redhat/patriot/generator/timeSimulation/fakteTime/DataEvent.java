@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.redhat.patriot.generator.device.Data;
-import com.redhat.patriot.generator.device.Device;
+import com.redhat.patriot.generator.device.AbstractDevice;
 import umontreal.ssj.randvar.BinomialConvolutionGen;
 import umontreal.ssj.randvar.ErlangConvolutionGen;
 import umontreal.ssj.randvar.RandomVariateGen;
@@ -32,7 +32,7 @@ import umontreal.ssj.simevents.Event;
  */
 public class DataEvent extends Event {
 
-    private Device device;
+    private AbstractDevice device;
 
     private Boolean repeat = false;
 
@@ -40,7 +40,7 @@ public class DataEvent extends Event {
 
     private RandomVariateGen timeGeneration = new ErlangConvolutionGen(new MRG32k3a(), 2);
 
-    public DataEvent(Device device, Boolean repeat) {
+    public DataEvent(AbstractDevice device, Boolean repeat) {
         this.device = device;
         this.repeat = repeat;
     }

@@ -18,7 +18,7 @@ package com.redhat.patriot.generator.wrappers;
 
 import java.io.IOException;
 
-import com.redhat.patriot.generator.device.Data;
+import com.redhat.patriot.generator.device.AbstractDevice;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -28,22 +28,20 @@ import org.json.JSONObject;
 /**
  * Created by jsmolar on 7/24/18.
  */
-public class JSONWrapper extends Wrapper {
+public class JSONWrapper extends DataWrapper {
 
-    public JSONWrapper(Data data) {
-        super(data);
-    }
+    private JSONObject jsonObject;
 
     @Override
-    public JSONObject wrapData() {
-        JSONObject obj = new JSONObject();
-        obj.put("name", data.getDeviceName())
-            .put("data", data.getValue())
-            .put("time", data.getTime());
+    public JSONObject wrapData(AbstractDevice device, double data) {
+        jsonObject = new JSONObject();
+        jsonObject.put("name", device.getName())
+            .put("data", data);
+            //.put("time", data.getTime());
 
-        System.out.println("data: " + data.getValue());
+        System.out.println("data: " + data);
 
-        return obj;
+        return jsonObject;
     }
 
     @Override
@@ -52,7 +50,7 @@ public class JSONWrapper extends Wrapper {
 
         try {
             HttpPost request = new HttpPost("http://requestbin.fullcontact.com/s52om8s5");
-            request.setEntity(new StringEntity(wrapData().toString()));
+            request.setEntity(new StringEntity(jsonObject.toString()));
             request.addHeader("content-type", "application/json");
             httpClient.execute(request);
         } catch (IOException e) {

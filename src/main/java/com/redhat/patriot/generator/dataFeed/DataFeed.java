@@ -14,7 +14,10 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.dataFeed;
 
-public interface Device {
+public interface DataFeed {
+
+    double getPreviousValue();
+
 }
