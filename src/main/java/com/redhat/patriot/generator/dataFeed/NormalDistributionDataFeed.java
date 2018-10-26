@@ -24,7 +24,7 @@ import umontreal.ssj.rng.RandomStream;
 /**
  * Created by jsmolar on 9/19/18.
  */
-public class NormalDistributionDataFeed implements IndependentDataFeed {
+public class NormalDistributionDataFeed implements DataFeed {
 
     private NormalGen normalDist;
 
@@ -34,7 +34,7 @@ public class NormalDistributionDataFeed implements IndependentDataFeed {
     }
 
     @Override
-    public double getNextValue() {
+    public double getNextValue(Object... params) {
         double result = normalDist.nextDouble();
         //LOGGER.info("Generated data from Normal distribution Data feed: " + result);
 

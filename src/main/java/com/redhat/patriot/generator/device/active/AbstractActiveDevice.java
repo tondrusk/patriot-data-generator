@@ -16,8 +16,6 @@
 
 package com.redhat.patriot.generator.device.active;
 
-import com.redhat.patriot.generator.dataFeed.IndependentDataFeed;
-import com.redhat.patriot.generator.dataFeed.TimeDependentDataFeed;
 import com.redhat.patriot.generator.device.AbstractDevice;
 import com.redhat.patriot.generator.timeSimulation.timeFeed.TimeFeed;
 
@@ -50,14 +48,10 @@ public class AbstractActiveDevice extends AbstractDevice implements ActiveDevice
         timer.purge();
     }
 
-    private double generateValue(double time) {
+    private double generateValue(Object... param) {
         double value = 0;
 
-        if(dataFeed instanceof IndependentDataFeed) {
-           value = ((IndependentDataFeed) dataFeed).getNextValue();
-        } else if(dataFeed instanceof TimeDependentDataFeed) {
-           value = ((TimeDependentDataFeed) dataFeed).getNextValue(time);
-        }
+        dataFeed.getNextValue();
 
         return value;
     }

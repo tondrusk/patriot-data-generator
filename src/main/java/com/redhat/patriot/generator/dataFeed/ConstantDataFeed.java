@@ -21,7 +21,7 @@ import com.redhat.patriot.generator.timeSimulation.timeFeed.TimeFeed;
 /**
  * Created by jsmolar on 9/11/18.
  */
-public class ConstantDataFeed implements IndependentDataFeed {
+public class ConstantDataFeed implements DataFeed {
 
     private double timer;
 
@@ -30,7 +30,7 @@ public class ConstantDataFeed implements IndependentDataFeed {
     }
 
     @Override
-    public double getNextValue() {
+    public double getNextValue(Object... params) {
         return timer;
     }
 

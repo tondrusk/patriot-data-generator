@@ -18,6 +18,8 @@ package com.redhat.patriot.generator.dataFeed;
 
 public interface DataFeed {
 
+    double getNextValue(Object... params);
+
     double getPreviousValue();
 
 }
