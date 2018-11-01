@@ -14,32 +14,20 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.timeSimulation.timeFeed;
+package com.redhat.patriot.generator.dataFeed;
 
 /**
  * Created by jsmolar on 9/11/18.
  */
-public class LinearTimeFeed extends TimeFeed {
+public class LinearDataFeed implements DataFeed {
 
     private double period;
 
-    private double time;
+    private double currentTime;
 
-    public LinearTimeFeed(double period) {
+    public LinearDataFeed(double period) {
         this.period = period;
-        time = 0;
-    }
-
-    @Override
-    public double getSimulatedTime() {
-        time += period;
-
-        return time;
-    }
-
-    @Override
-    public double getTimeChange() {
-        return period;
+        currentTime = 0;
     }
 
     public double getPeriod() {
@@ -50,11 +38,23 @@ public class LinearTimeFeed extends TimeFeed {
         this.period = period;
     }
 
-    public double getTime() {
-        return time;
+    public double getCurrentTime() {
+        return currentTime;
     }
 
-    public void setTime(double time) {
-        this.time = time;
+    public void setCurrentTime(double currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    @Override
+    public double getNextValue(Object... params) {
+        currentTime += period;
+
+        return currentTime;
+    }
+
+    @Override
+    public double getPreviousValue() {
+        return currentTime - period;
     }
 }

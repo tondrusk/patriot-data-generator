@@ -16,25 +16,5 @@
 
 package com.redhat.patriot.generator.wrappers;
 
-import com.redhat.patriot.generator.device.Data;
-import com.redhat.patriot.generator.device.AbstractDevice;
-
-/**
- * Created by jsmolar on 7/24/18.
- */
-public abstract class DataWrapper<T> {
-
-    protected Data data;
-
-    abstract public T wrapData(AbstractDevice device, double data);
-
-    abstract public void send();
-
-    public Data getData() {
-        return data;
-    }
-
-    public void setData(Data data) {
-        this.data = data;
-    }
+public interface DataWrapper {
 }

@@ -28,16 +28,16 @@ import org.json.JSONObject;
 /**
  * Created by jsmolar on 7/24/18.
  */
-public class JSONWrapper extends DataWrapper {
+public class JSONWrapper extends AbstractDataWrapper {
 
     private JSONObject jsonObject;
 
     @Override
     public JSONObject wrapData(AbstractDevice device, double data) {
         jsonObject = new JSONObject();
-        jsonObject.put("name", device.getName())
+        jsonObject.put("name", device.getLabel())
             .put("data", data);
-            //.put("time", data.getTime());
+            //.put("time", data.getCurrentTime());
 
         System.out.println("data: " + data);
 

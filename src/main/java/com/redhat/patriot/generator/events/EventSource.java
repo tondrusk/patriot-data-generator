@@ -14,27 +14,7 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.dataFeed;
+package com.redhat.patriot.generator.events;
 
-/**
- * Created by jsmolar on 9/11/18.
- */
-public class ConstantDataFeed implements DataFeed {
-
-    private double timer;
-
-    public ConstantDataFeed(double timer) {
-        this.timer = timer;
-    }
-
-    @Override
-    public double getNextValue(Object... params) {
-        return timer;
-    }
-
-    @Override
-    public double getPreviousValue() {
-        return timer;
-    }
-
+public class EventSource {
 }

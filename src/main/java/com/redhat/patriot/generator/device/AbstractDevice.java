@@ -17,7 +17,7 @@
 package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.wrappers.DataWrapper;
+import com.redhat.patriot.generator.wrappers.AbstractDataWrapper;
 import com.redhat.patriot.generator.wrappers.JSONWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,22 +29,32 @@ public abstract class AbstractDevice<T extends AbstractDevice<T>> {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractDevice.class);
 
-    protected String name;
+    protected String label;
 
     protected DataFeed dataFeed;
 
-    protected DataWrapper dataWrapper = new JSONWrapper();
+    protected AbstractDataWrapper dataWrapper = new JSONWrapper();
 
     //protected connection;
 
-    protected abstract T getThis();
 
-    public String getName() {
-        return name;
+    public AbstractDevice(String label) {
+        this.label = label;
     }
 
-    public T setName(String name) {
-        this.name = name;
+    public AbstractDevice(String label, DataFeed dataFeed) {
+        this.label = label;
+        this.dataFeed = dataFeed;
+    }
+
+    protected abstract T getThis();
+
+    public String getLabel() {
+        return label;
+    }
+
+    public T setLabel(String label) {
+        this.label = label;
         return getThis();
     }
 
@@ -57,11 +67,11 @@ public abstract class AbstractDevice<T extends AbstractDevice<T>> {
         return getThis();
     }
 
-    public DataWrapper getDataWrapper() {
+    public AbstractDataWrapper getDataWrapper() {
         return dataWrapper;
     }
 
-    public T setDataWrapper(DataWrapper dataWrapper) {
+    public T setDataWrapper(AbstractDataWrapper dataWrapper) {
         this.dataWrapper = dataWrapper;
         return getThis();
     }

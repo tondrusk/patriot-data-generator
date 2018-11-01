@@ -14,27 +14,27 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.dataFeed;
+package com.redhat.patriot.generator.wrappers;
+
+import com.redhat.patriot.generator.device.Data;
+import com.redhat.patriot.generator.device.AbstractDevice;
 
 /**
- * Created by jsmolar on 9/11/18.
+ * Created by jsmolar on 7/24/18.
  */
-public class ConstantDataFeed implements DataFeed {
+public abstract class AbstractDataWrapper<T> {
 
-    private double timer;
+    protected Data data;
 
-    public ConstantDataFeed(double timer) {
-        this.timer = timer;
+    abstract public T wrapData(AbstractDevice device, double data);
+
+    abstract public void send();
+
+    public Data getData() {
+        return data;
     }
 
-    @Override
-    public double getNextValue(Object... params) {
-        return timer;
+    public void setData(Data data) {
+        this.data = data;
     }
-
-    @Override
-    public double getPreviousValue() {
-        return timer;
-    }
-
 }

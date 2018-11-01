@@ -16,20 +16,25 @@
 
 package com.redhat.patriot.generator.device.active;
 
+import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.device.AbstractDevice;
-import com.redhat.patriot.generator.timeSimulation.timeFeed.TimeFeed;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AbstractActiveDevice extends AbstractDevice implements ActiveDevice {
+public abstract class AbstractActiveDevice extends AbstractDevice implements ActiveDevice {
 
-    private TimeFeed timeFeed;
+    private DataFeed timeFeed;
 
     private Timer timer;
 
-    public AbstractActiveDevice() {
-        timer = new Timer();
+    public AbstractActiveDevice(String label) {
+        super(label);
+    }
+
+    public AbstractActiveDevice(String label, DataFeed dataFeed, DataFeed timeFeed) {
+        super(label, dataFeed);
+        this.timeFeed = timeFeed;
     }
 
     @Override
@@ -49,11 +54,7 @@ public class AbstractActiveDevice extends AbstractDevice implements ActiveDevice
     }
 
     private double generateValue(Object... param) {
-        double value = 0;
-
-        dataFeed.getNextValue();
-
-        return value;
+        return dataFeed.getNextValue();
     }
 
     private void sendData(double data) {
@@ -66,20 +67,21 @@ public class AbstractActiveDevice extends AbstractDevice implements ActiveDevice
             @Override
             public void run() {
                 System.out.println("Thread: " + Thread.currentThread().getId());
-                double simTime = timeFeed.getSimulatedTime();
+                double simTime = timeFeed.getNextValue();
                 LOGGER.info("Simulated time: " + (simTime/1000) % 24);
 
                 sendData(generateValue(simTime));
-                timer.schedule(task(), Math.round(timeFeed.getTimeChange()));
+                double nextTask = simTime - timeFeed.getPreviousValue();
+                timer.schedule(task(), Math.round(nextTask));
             }
         };
     }
 
-    public TimeFeed getTimeFeed() {
+    public DataFeed getTimeFeed() {
         return timeFeed;
     }
 
-    public AbstractDevice setTimeFeed(TimeFeed timeFeed) {
+    public AbstractDevice setTimeFeed(DataFeed timeFeed) {
         this.timeFeed = timeFeed;
         return this;
     }

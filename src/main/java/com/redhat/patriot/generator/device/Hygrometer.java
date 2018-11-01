@@ -14,15 +14,25 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.timeSimulation.timeFeed;
+package com.redhat.patriot.generator.device;
 
-/**
- * Created by jsmolar on 9/11/18.
- */
-public abstract class TimeFeed {
+import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.device.active.AbstractActiveDevice;
+import com.redhat.patriot.generator.device.active.ActiveDevice;
 
-    abstract public double getSimulatedTime();
+public class Hygrometer extends AbstractActiveDevice implements ActiveDevice {
 
-    abstract public double getTimeChange();
+    public Hygrometer(String label) {
+        super(label);
+    }
+
+    public Hygrometer(String label, DataFeed dataFeed, DataFeed timeFeed) {
+        super(label, dataFeed, timeFeed);
+    }
+
+    @Override
+    protected Hygrometer getThis() {
+        return this;
+    }
 
 }

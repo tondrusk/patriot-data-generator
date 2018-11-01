@@ -16,9 +16,23 @@
 
 package com.redhat.patriot.generator.device.passive;
 
+import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.device.AbstractDevice;
 
 public class AbstractPassiveDevice extends AbstractDevice implements PassiveDevice {
+
+    public AbstractPassiveDevice(String label) {
+        super(label);
+    }
+
+    public AbstractPassiveDevice(String label, DataFeed dataFeed) {
+        super(label, dataFeed);
+    }
+
+    @Override
+    protected AbstractDevice getThis() {
+        return null;
+    }
 
     public double requestData() {
 //        dataWrapper.wrapData(this, );
@@ -31,8 +45,4 @@ public class AbstractPassiveDevice extends AbstractDevice implements PassiveDevi
         return 0;
     }
 
-    @Override
-    protected AbstractDevice getThis() {
-        return null;
-    }
 }

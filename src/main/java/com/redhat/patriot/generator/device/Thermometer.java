@@ -14,25 +14,25 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.timeSimulation.timeFeed;
+package com.redhat.patriot.generator.device;
 
-import net.objecthunter.exp4j.Expression;
+import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.device.active.AbstractActiveDevice;
+import com.redhat.patriot.generator.device.active.ActiveDevice;
 
-/**
- * Created by jsmolar on 9/14/18.
- */
-public class ExpressionTimeFeed extends TimeFeed {
+public class Thermometer extends AbstractActiveDevice implements ActiveDevice {
 
-    private Expression expression;
+    public Thermometer(String label) {
+        super(label);
+    }
 
-    @Override
-    public double getSimulatedTime() {
-        return 0;
+    public Thermometer(String label, DataFeed dataFeed, DataFeed timeFeed) {
+        super(label, dataFeed, timeFeed);
     }
 
     @Override
-    public double getTimeChange() {
-        return 0;
+    protected Thermometer getThis() {
+        return this;
     }
 
 }
