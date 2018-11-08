@@ -16,5 +16,10 @@
 
 package com.redhat.patriot.generator.wrappers;
 
-public interface DataWrapper {
+import com.redhat.patriot.generator.device.AbstractDevice;
+
+public interface DataWrapper<T> {
+
+    public T wrapData(AbstractDevice device, double data);
+
 }

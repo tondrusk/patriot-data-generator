@@ -18,6 +18,8 @@ package com.redhat.patriot.generator.device.active;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.device.AbstractDevice;
+import com.redhat.patriot.generator.device.Data;
+import com.redhat.patriot.generator.events.DataQueue;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,13 +30,19 @@ public abstract class AbstractActiveDevice extends AbstractDevice implements Act
 
     private Timer timer;
 
+    private DataQueue queue;
+
     public AbstractActiveDevice(String label) {
         super(label);
+        timer = new Timer();
+        queue = DataQueue.getInstance();
     }
 
     public AbstractActiveDevice(String label, DataFeed dataFeed, DataFeed timeFeed) {
         super(label, dataFeed);
         this.timeFeed = timeFeed;
+        timer = new Timer();
+        queue = DataQueue.getInstance();
     }
 
     @Override
@@ -54,7 +62,10 @@ public abstract class AbstractActiveDevice extends AbstractDevice implements Act
     }
 
     private double generateValue(Object... param) {
-        return dataFeed.getNextValue();
+        Double generatedValue = dataFeed.getNextValue();
+        queue.add(new Data());
+
+        return generatedValue;
     }
 
     private void sendData(double data) {
@@ -72,6 +83,7 @@ public abstract class AbstractActiveDevice extends AbstractDevice implements Act
 
                 sendData(generateValue(simTime));
                 double nextTask = simTime - timeFeed.getPreviousValue();
+
                 timer.schedule(task(), Math.round(nextTask));
             }
         };
@@ -86,4 +98,9 @@ public abstract class AbstractActiveDevice extends AbstractDevice implements Act
         return this;
     }
 
+    public DataQueue getQueue() {
+        return queue;
+    }
+
+//    abstract String dataToString();
 }

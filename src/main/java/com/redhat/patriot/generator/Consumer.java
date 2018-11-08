@@ -14,10 +14,25 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.events;
+package com.redhat.patriot.generator;
 
-import java.util.EventObject;
+import com.redhat.patriot.generator.events.DataQueue;
 
-public interface EventListener {
-    public void handleEvent(EventObject e);
+public class Consumer implements Runnable{
+
+    protected DataQueue queue = null;
+
+    public Consumer(DataQueue queue) {
+        this.queue = queue;
+    }
+
+    public void run() {
+        try {
+            while(true) {
+                System.out.println(queue.take());
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

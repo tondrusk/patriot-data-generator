@@ -14,16 +14,9 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.events;
+package com.redhat.patriot.generator.device.units;
 
-import org.w3c.dom.events.Event;
-
-import java.util.EventObject;
-
-public class EventGenerator extends EventObject {
-
-    public EventGenerator(Object source) {
-        super(source);
-    }
-
+public interface DeviceValues<VALUE, UNIT> {
+    VALUE getValue();
+    UNIT getUnit();
 }

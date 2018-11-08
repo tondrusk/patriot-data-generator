@@ -35,9 +35,6 @@ public abstract class AbstractDevice<T extends AbstractDevice<T>> {
 
     protected AbstractDataWrapper dataWrapper = new JSONWrapper();
 
-    //protected connection;
-
-
     public AbstractDevice(String label) {
         this.label = label;
     }

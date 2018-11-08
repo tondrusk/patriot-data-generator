@@ -17,16 +17,13 @@
 package com.redhat.patriot.generator.wrappers;
 
 import com.redhat.patriot.generator.device.Data;
-import com.redhat.patriot.generator.device.AbstractDevice;
 
 /**
  * Created by jsmolar on 7/24/18.
  */
-public abstract class AbstractDataWrapper<T> {
+public abstract class AbstractDataWrapper<T> implements DataWrapper {
 
     protected Data data;
-
-    abstract public T wrapData(AbstractDevice device, double data);
 
     abstract public void send();
 
