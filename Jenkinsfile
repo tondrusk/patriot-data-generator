@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        deviceLabel 'maven-docker'
+        label 'maven-docker'
     }
 
     stages {

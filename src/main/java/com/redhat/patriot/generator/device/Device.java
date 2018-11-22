@@ -30,4 +30,8 @@ public interface Device {
 
     DataFeed getDataFeed();
 
+    boolean isQueuingEnabled();
+
+    void setQueuingEnabled(boolean queuingEnabled);
+
 }

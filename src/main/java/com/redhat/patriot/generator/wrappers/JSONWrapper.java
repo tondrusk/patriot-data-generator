@@ -18,18 +18,12 @@ package com.redhat.patriot.generator.wrappers;
 
 import com.redhat.patriot.generator.device.AbstractDevice;
 import com.redhat.patriot.generator.device.Device;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 /**
  * Created by jsmolar on 7/24/18.
  */
-public class JSONWrapper extends AbstractDataWrapper {
+public class JSONWrapper implements DataWrapper {
 
     private JSONObject jsonObject;
 
@@ -42,20 +36,6 @@ public class JSONWrapper extends AbstractDataWrapper {
         System.out.println("data: " + data);
 
         return jsonObject;
-    }
-
-    @Override
-    public void send() {
-        HttpClient httpClient = HttpClientBuilder.create().build();
-
-        try {
-            HttpPost request = new HttpPost("http://requestbin.fullcontact.com/s52om8s5");
-            request.setEntity(new StringEntity(jsonObject.toString()));
-            request.addHeader("content-type", "application/json");
-            httpClient.execute(request);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -16,22 +16,11 @@
 
 package com.redhat.patriot.generator.events;
 
-import com.redhat.patriot.generator.device.Device;
+import java.util.concurrent.LinkedBlockingQueue;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DataQueue implements Runnable {
+public class DataQueue extends LinkedBlockingQueue {
 
     private static DataQueue singleInstance = null;
-
-//    private final BlockingQueue<Data> queue = new LinkedBlockingQueue<>();
-
-//    private HashMap<Device, String> sadasd = new HashMap<>();
-
-    private List<Device> devices = new ArrayList<>();
-
-    private List<Device> subscriptions = new ArrayList<>();
 
     private DataQueue() {
     }
@@ -42,76 +31,5 @@ public class DataQueue implements Runnable {
 
         return singleInstance;
     }
-
-    public void registerDevice(Device device) {
-        devices.add(device);
-    }
-
-    public void remvoeDevice(Device device) {
-        devices.remove(device);
-    }
-
-    public void subscribe(Device device) {
-        subscriptions.add(device);
-    }
-
-    public void removeSubscription(Device device) {
-        subscriptions.remove(device);
-    }
-
-    public void subscribeAll() {
-        devices = subscriptions;
-    }
-
-    public void aaaa() {
-//        for(Device device : subscriptions) {
-//          device.
-//        }
-    }
-
-    @Override
-    public void run() {
-
-    }
-
-
-//    public BlockingQueue<Data> get() {
-//        return queue;
-//    }
-//
-//
-//
-//    // Inserts the specified element into this queue if it is possible to do so
-//    // immediately without violating capacity restrictions
-//    public void add(Data value) {
-//        synchronized (queue) {
-//            queue.add(value);
-//        }
-//    }
-//
-//    // Removes a single instance of the specified element from this collection
-//    public void remove(Data value) {
-//        synchronized (queue) {
-//            queue.remove(value);
-//        }
-//    }
-//
-//    // Retrieves and removes the head of this queue, or returns null if this
-//    // queue is empty.
-//    public Data take() throws InterruptedException {
-//        Data data = queue.take();
-//        return data;
-//    }
-//
-//    // Returns true if this collection contains no elements
-//    public boolean isEmpty() {
-//        return queue.isEmpty();
-//    }
-//
-//    // Returns the number of elements in this collection. If this collection
-//    // contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE
-//    public int getTotalSize() {
-//        return queue.size();
-//    }
 
 }

@@ -21,7 +21,7 @@ import com.redhat.patriot.generator.device.units.DeviceUnits;
 
 public class Thermometer extends AbstractDevice implements DeviceUnits<String> {
 
-    public static final String DEFAULT_UNIT = "°C";
+    public static final String DEFAULT_UNIT = "C";
 
     public Thermometer(String label) {
         super(label);

@@ -17,6 +17,7 @@
 package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.events.DataQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,9 +28,12 @@ public abstract class AbstractDevice implements Device {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractDevice.class);
 
-    protected String label;
+    private String label;
 
-    protected DataFeed dataFeed;
+    private DataFeed dataFeed;
+
+    private DataQueue dataQueue = DataQueue.getInstance();
+    private boolean queuingEnabled = false;
 
     public AbstractDevice(String label) {
         this.label = label;
@@ -42,23 +46,41 @@ public abstract class AbstractDevice implements Device {
 
     @Override
     public double requestData(Object... param) {
-        return dataFeed.getNextValue(param);
+        double newData = dataFeed.getNextValue(param);
+
+        if(queuingEnabled) {
+            dataQueue.add(newData);
+        }
+        return newData;
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
 
+    @Override
     public void setLabel(String label) {
         this.label = label;
     }
 
+    @Override
     public DataFeed getDataFeed() {
         return dataFeed;
     }
 
+    @Override
     public void setDataFeed(DataFeed dataFeed) {
         this.dataFeed = dataFeed;
     }
 
+    @Override
+    public boolean isQueuingEnabled() {
+        return queuingEnabled;
+    }
+
+    @Override
+    public void setQueuingEnabled(boolean queuingEnabled) {
+        this.queuingEnabled = queuingEnabled;
+    }
 }

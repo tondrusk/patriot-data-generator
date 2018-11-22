@@ -14,11 +14,38 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.sample;
 
 /**
- * Created by jsmolar on 7/17/18.
+ * Simple counter file
  */
-public enum DataEncoding {
-    JSON
+public class SampleCounter {
+
+    private int count;
+
+    SampleCounter() {
+        this.count = 0;
+    }
+
+    /**
+     * Get current value
+     * @return current value
+     */
+    public int getCount() {
+        return this.count;
+    }
+
+    /**
+     * Increments current value by one
+     */
+    public void increment() {
+        this.count++;
+    }
+
+    /**
+     * Decrements current value by one
+     */
+    public void decrement() {
+        this.count--;
+    }
 }

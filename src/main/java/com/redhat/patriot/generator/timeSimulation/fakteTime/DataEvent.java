@@ -50,7 +50,7 @@ public class DataEvent extends Event {
             this.schedule(timeGeneration.nextDouble());
         }
 
-//        simulatedData.add(device.getSingleRandomValue());
+//        simulatedData.add(sample.getSingleRandomValue());
     }
 
     public void binomialConvolution() {

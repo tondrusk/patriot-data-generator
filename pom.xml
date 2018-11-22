@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2018 Patriot project
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -8,9 +24,12 @@
   <artifactId>generator</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+   <name>Device generator</name>
+   <description>
+   </description>
   <licenses>
     <license>
-      <deviceLabel>Apache License, Version 2.0</deviceLabel>
+      <name>Apache License, Version 2.0</name>
       <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
       <comments>A business-friendly OSS license</comments>
@@ -22,7 +41,7 @@
       <id>obabec</id>
       <email>ond.babec@gmail.com</email>
       <organization>Red Hat</organization>
-      <deviceLabel>Ondřej Babec</deviceLabel>
+      <name>Ondřej Babec</name>
       <roles>
         <role>developer</role>
       </roles>
@@ -32,7 +51,7 @@
       <id>sbunciak</id>
       <email>sbunciak@redhat.com</email>
       <organization>Red Hat</organization>
-      <deviceLabel>Štefan Bunčiak</deviceLabel>
+      <name>Štefan Bunčiak</name>
       <roles>
         <role>Project manager</role>
       </roles>
@@ -42,7 +61,7 @@
       <id>mbures</id>
       <email>miroslav.bures@fel.cvut.cz</email>
       <organization>FEL CVUT</organization>
-      <deviceLabel>Miroslav Bureš</deviceLabel>
+      <name>Miroslav Bureš</name>
       <roles>
         <role>Product owner</role>
       </roles>
@@ -52,7 +71,7 @@
       <id>ficap</id>
       <email>ficap@redhat.com</email>
       <organization>Red Hat</organization>
-      <deviceLabel>Filip Čáp</deviceLabel>
+      <name>Filip Čáp</name>
       <roles>
         <role>Developer</role>
       </roles>
@@ -62,7 +81,7 @@
       <id>mijaros</id>
       <email>mjaros@redhat.com</email>
       <organization>Red Hat</organization>
-      <deviceLabel>Mirek Jaroš</deviceLabel>
+      <name>Mirek Jaroš</name>
       <roles>
         <role>Tech lead</role>
       </roles>
@@ -72,7 +91,7 @@
       <id>pmacik</id>
       <email>pmacik@redhat.com</email>
       <organization>Red Hat</organization>
-      <deviceLabel>Pavel Macík</deviceLabel>
+      <name>Pavel Macík</name>
       <roles>
         <role>Tech lead</role>
       </roles>
@@ -82,7 +101,7 @@
       <id>jpechane</id>
       <email>jpechane@redhat.com</email>
       <organization>Red Hat</organization>
-      <deviceLabel>Jiří Pechanec</deviceLabel>
+      <name>Jiří Pechanec</name>
       <roles>
         <role>The guru</role>
       </roles>
@@ -92,7 +111,7 @@
       <id>jsmolar</id>
       <email>jsmolar@redhat.com</email>
       <organization>Red Hat</organization>
-      <deviceLabel>Jakub Smolár</deviceLabel>
+      <name>Jakub Smolár</name>
       <roles>
         <role>Developer</role>
       </roles>
@@ -101,23 +120,49 @@
   </developers>
 
   <properties>
-    <org.junit.jupiter.version>5.2.0</org.junit.jupiter.version>
+     <org.junit.platform.version>1.2.0</org.junit.platform.version>
+     <org.junit.jupiter.version>5.2.0</org.junit.jupiter.version>
+     <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
   </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.7.0</version>
+            <configuration>
+               <source>1.8</source>
+               <target>1.8</target>
+            </configuration>
+         </plugin>
+         <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <dependencies>
+               <dependency>
+                  <groupId>org.junit.platform</groupId>
+                  <artifactId>junit-platform-surefire-provider</artifactId>
+                  <version>${org.junit.platform.version}</version>
+               </dependency>
+               <dependency>
+                  <groupId>org.junit.jupiter</groupId>
+                  <artifactId>junit-jupiter-engine</artifactId>
+                  <version>${org.junit.jupiter.version}</version>
+               </dependency>
+            </dependencies>
+         </plugin>
+      </plugins>
+   </build>
 
   <dependencies>
+
+     <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${org.junit.jupiter.version}</version>
+        <scope>test</scope>
+     </dependency>
 
     <!-- https://mvnrepository.com/artifact/ca.umontreal.iro.simul/ssj -->
     <dependency>
@@ -168,6 +213,5 @@
      </dependency>
 
   </dependencies>
-
 
 </project>

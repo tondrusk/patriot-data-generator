@@ -22,7 +22,7 @@ public class TestMain {
         TimeSimulation simT = new TimeSimulationImpl(timeFeed, device);
         simT.simulate();
 
-//        device.simulate();
+//        sample.simulate();
 //        Consumer consumer = new Consumer(DataQueue.getInstance());
 //        new Thread(consumer).start();
     }
