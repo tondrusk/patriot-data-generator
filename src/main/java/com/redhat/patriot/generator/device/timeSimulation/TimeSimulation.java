@@ -14,9 +14,19 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device.units;
+package com.redhat.patriot.generator.device.timeSimulation;
 
-public interface DeviceValues<VALUE, UNIT> {
-    VALUE getValue();
-    UNIT getUnit();
+import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.device.Device;
+
+public interface TimeSimulation {
+
+    void setDevice(Device device);
+
+    void setTimeFeed(DataFeed timeFeed);
+
+    void simulate();
+
+    void stopSimulation();
+
 }

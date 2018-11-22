@@ -19,94 +19,94 @@
       "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
       "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
-<module label="Checker">
+<module deviceLabel="Checker">
 
    <!-- Checks for whitespace                               -->
    <!-- See http://checkstyle.sf.net/config_whitespace.html -->
-   <module label="FileTabCharacter"/>
+   <module deviceLabel="FileTabCharacter"/>
 
-   <module label="TreeWalker">
+   <module deviceLabel="TreeWalker">
       <!-- Checks for Javadoc comments.                     -->
       <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-      <module label="JavadocMethod">
-         <property label="scope" value="public"/>
-         <property label="allowMissingPropertyJavadoc" value="true"/>
-         <property label="severity" value="warning" />
+      <module deviceLabel="JavadocMethod">
+         <property deviceLabel="scope" value="public"/>
+         <property deviceLabel="allowMissingPropertyJavadoc" value="true"/>
+         <property deviceLabel="severity" value="warning" />
       </module>
-      <module label="JavadocType">
-         <property label="scope" value="public"/>
-         <property label="severity" value="warning" />
+      <module deviceLabel="JavadocType">
+         <property deviceLabel="scope" value="public"/>
+         <property deviceLabel="severity" value="warning" />
       </module>
-      <module label="JavadocStyle">
-         <property label="scope" value="public"/>
-         <property label="checkFirstSentence" value="false"/>
-         <property label="severity" value="warning" />
+      <module deviceLabel="JavadocStyle">
+         <property deviceLabel="scope" value="public"/>
+         <property deviceLabel="checkFirstSentence" value="false"/>
+         <property deviceLabel="severity" value="warning" />
       </module>
 
       <!-- Checks for Naming Conventions.                  -->
       <!-- See http://checkstyle.sf.net/config_naming.html -->
-      <module label="ConstantName"/>
-      <module label="LocalFinalVariableName"/>
-      <module label="LocalVariableName"/>
-      <module label="MemberName"/>
-      <module label="MethodName"/>
-      <module label="PackageName"/>
-      <module label="ParameterName"/>
-      <module label="StaticVariableName"/>
-      <module label="TypeName"/>
+      <module deviceLabel="ConstantName"/>
+      <module deviceLabel="LocalFinalVariableName"/>
+      <module deviceLabel="LocalVariableName"/>
+      <module deviceLabel="MemberName"/>
+      <module deviceLabel="MethodName"/>
+      <module deviceLabel="PackageName"/>
+      <module deviceLabel="ParameterName"/>
+      <module deviceLabel="StaticVariableName"/>
+      <module deviceLabel="TypeName"/>
 
       <!-- Checks for imports                              -->
       <!-- See http://checkstyle.sf.net/config_import.html -->
-      <module label="AvoidStarImport">
-         <property label="severity" value="warning" />
+      <module deviceLabel="AvoidStarImport">
+         <property deviceLabel="severity" value="warning" />
       </module>
-      <module label="IllegalImport"/> <!-- defaults to sun.* packages -->
-      <module label="RedundantImport"/>
-      <module label="UnusedImports"/>
+      <module deviceLabel="IllegalImport"/> <!-- defaults to sun.* packages -->
+      <module deviceLabel="RedundantImport"/>
+      <module deviceLabel="UnusedImports"/>
 
       <!-- Checks for Size Violations.                    -->
       <!-- See http://checkstyle.sf.net/config_sizes.html -->
-      <module label="LineLength">
-         <property label="max" value="120"/>
+      <module deviceLabel="LineLength">
+         <property deviceLabel="max" value="120"/>
       </module>
-      <module label="MethodLength">
-         <property label="max" value="30"/>
-         <property label="countEmpty" value="false"/>
+      <module deviceLabel="MethodLength">
+         <property deviceLabel="max" value="30"/>
+         <property deviceLabel="countEmpty" value="false"/>
       </module>
-      <module label="ParameterNumber"/>
+      <module deviceLabel="ParameterNumber"/>
 
       <!-- Modifier Checks                                    -->
       <!-- See http://checkstyle.sf.net/config_modifier.html -->
-      <module label="ModifierOrder"/>
-      <module label="RedundantModifier"/>
+      <module deviceLabel="ModifierOrder"/>
+      <module deviceLabel="RedundantModifier"/>
 
       <!-- Checks for blocks. You know, those {}'s         -->
       <!-- See http://checkstyle.sf.net/config_blocks.html -->
-      <module label="AvoidNestedBlocks"/>
-      <module label="LeftCurly">
-         <property label="option" value="eol"/>
+      <module deviceLabel="AvoidNestedBlocks"/>
+      <module deviceLabel="LeftCurly">
+         <property deviceLabel="option" value="eol"/>
       </module>
-      <module label="NeedBraces">
-         <property label="allowSingleLineStatement" value="true"/>
+      <module deviceLabel="NeedBraces">
+         <property deviceLabel="allowSingleLineStatement" value="true"/>
       </module>
-      <module label="RightCurly"/>
+      <module deviceLabel="RightCurly"/>
 
       <!-- Checks for common coding problems               -->
       <!-- See http://checkstyle.sf.net/config_coding.html -->
-      <module label="EmptyStatement"/>
-      <module label="EqualsHashCode"/>
-      <module label="MissingSwitchDefault"/>
-      <module label="SimplifyBooleanExpression"/>
-      <module label="SimplifyBooleanReturn"/>
+      <module deviceLabel="EmptyStatement"/>
+      <module deviceLabel="EqualsHashCode"/>
+      <module deviceLabel="MissingSwitchDefault"/>
+      <module deviceLabel="SimplifyBooleanExpression"/>
+      <module deviceLabel="SimplifyBooleanReturn"/>
 
       <!-- Checks for class design                         -->
       <!-- See http://checkstyle.sf.net/config_design.html -->
-      <module label="FinalClass"/>
-      <module label="InterfaceIsType"/>
-      <module label="VisibilityModifier"/>
+      <module deviceLabel="FinalClass"/>
+      <module deviceLabel="InterfaceIsType"/>
+      <module deviceLabel="VisibilityModifier"/>
 
       <!-- Miscellaneous other checks.                   -->
       <!-- See http://checkstyle.sf.net/config_misc.html -->
-      <module label="ArrayTypeStyle"/>
+      <module deviceLabel="ArrayTypeStyle"/>
    </module>
 </module>

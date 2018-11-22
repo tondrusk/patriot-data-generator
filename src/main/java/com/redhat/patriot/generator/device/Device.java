@@ -16,5 +16,18 @@
 
 package com.redhat.patriot.generator.device;
 
+import com.redhat.patriot.generator.dataFeed.DataFeed;
+
 public interface Device {
+
+    double requestData(Object... param);
+
+    void setLabel(String label);
+
+    String getLabel();
+
+    void setDataFeed(DataFeed dataFeed);
+
+    DataFeed getDataFeed();
+
 }

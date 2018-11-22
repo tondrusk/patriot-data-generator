@@ -16,14 +16,15 @@
 
 package com.redhat.patriot.generator.wrappers;
 
-import java.io.IOException;
-
 import com.redhat.patriot.generator.device.AbstractDevice;
+import com.redhat.patriot.generator.device.Device;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 /**
  * Created by jsmolar on 7/24/18.
@@ -32,7 +33,6 @@ public class JSONWrapper extends AbstractDataWrapper {
 
     private JSONObject jsonObject;
 
-    @Override
     public JSONObject wrapData(AbstractDevice device, double data) {
         jsonObject = new JSONObject();
         jsonObject.put("name", device.getLabel())
@@ -58,4 +58,8 @@ public class JSONWrapper extends AbstractDataWrapper {
         }
     }
 
+    @Override
+    public Object wrapData(Device device, double data, double time) {
+        return null;
+    }
 }

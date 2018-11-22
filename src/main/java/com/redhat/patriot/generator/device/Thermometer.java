@@ -17,10 +17,9 @@
 package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.device.active.AbstractActiveDevice;
-import com.redhat.patriot.generator.device.active.ActiveDevice;
+import com.redhat.patriot.generator.device.units.DeviceUnits;
 
-public class Thermometer extends AbstractActiveDevice implements ActiveDevice {
+public class Thermometer extends AbstractDevice implements DeviceUnits<String> {
 
     public static final String DEFAULT_UNIT = "°C";
 
@@ -28,13 +27,13 @@ public class Thermometer extends AbstractActiveDevice implements ActiveDevice {
         super(label);
     }
 
-    public Thermometer(String label, DataFeed dataFeed, DataFeed timeFeed) {
-        super(label, dataFeed, timeFeed);
+    public Thermometer(String label, DataFeed dataFeed) {
+        super(label, dataFeed);
     }
 
     @Override
-    protected Thermometer getThis() {
-        return this;
+    public String getUnit() {
+        return DEFAULT_UNIT;
     }
 
 }

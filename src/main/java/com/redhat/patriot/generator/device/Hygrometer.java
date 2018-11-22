@@ -17,10 +17,9 @@
 package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.device.active.AbstractActiveDevice;
-import com.redhat.patriot.generator.device.units.DeviceValues;
+import com.redhat.patriot.generator.device.units.DeviceUnits;
 
-public class Hygrometer extends AbstractActiveDevice implements DeviceValues<Double, String> {
+public class Hygrometer extends AbstractDevice implements DeviceUnits<String> {
 
     public static final String DEFAULT_UNIT = "%";
 
@@ -28,23 +27,13 @@ public class Hygrometer extends AbstractActiveDevice implements DeviceValues<Dou
         super(label);
     }
 
-    public Hygrometer(String label, DataFeed dataFeed, DataFeed timeFeed) {
-        super(label, dataFeed, timeFeed);
-    }
-
-    @Override
-    protected Hygrometer getThis() {
-        return this;
-    }
-
-    @Override
-    public Double getValue() {
-        return null;
+    public Hygrometer(String label, DataFeed dataFeed) {
+        super(label, dataFeed);
     }
 
     @Override
     public String getUnit() {
-        return null;
+        return DEFAULT_UNIT;
     }
 
 }

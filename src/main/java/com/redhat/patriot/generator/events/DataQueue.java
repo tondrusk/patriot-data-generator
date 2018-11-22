@@ -16,62 +16,102 @@
 
 package com.redhat.patriot.generator.events;
 
-import com.redhat.patriot.generator.device.Data;
+import com.redhat.patriot.generator.device.Device;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DataQueue {
+public class DataQueue implements Runnable {
 
-    private static DataQueue single_instance = null;
+    private static DataQueue singleInstance = null;
 
-    private final BlockingQueue<Data> queue = new LinkedBlockingQueue<>();
+//    private final BlockingQueue<Data> queue = new LinkedBlockingQueue<>();
+
+//    private HashMap<Device, String> sadasd = new HashMap<>();
+
+    private List<Device> devices = new ArrayList<>();
+
+    private List<Device> subscriptions = new ArrayList<>();
 
     private DataQueue() {
     }
 
     public static DataQueue getInstance() {
-        if (single_instance == null)
-            single_instance = new DataQueue();
+        if (singleInstance == null)
+            singleInstance = new DataQueue();
 
-        return single_instance;
+        return singleInstance;
     }
 
-    public BlockingQueue<Data> get() {
-        return queue;
+    public void registerDevice(Device device) {
+        devices.add(device);
     }
 
-    // Inserts the specified element into this queue if it is possible to do so
-    // immediately without violating capacity restrictions
-    public void add(Data value) {
-        synchronized (queue) {
-            queue.add(value);
-        }
+    public void remvoeDevice(Device device) {
+        devices.remove(device);
     }
 
-    // Removes a single instance of the specified element from this collection
-    public void remove(Data value) {
-        synchronized (queue) {
-            queue.remove(value);
-        }
+    public void subscribe(Device device) {
+        subscriptions.add(device);
     }
 
-    // Retrieves and removes the head of this queue, or returns null if this
-    // queue is empty.
-    public Data take() throws InterruptedException {
-        Data data = queue.take();
-        return data;
+    public void removeSubscription(Device device) {
+        subscriptions.remove(device);
     }
 
-    // Returns true if this collection contains no elements
-    public boolean isEmpty() {
-        return queue.isEmpty();
+    public void subscribeAll() {
+        devices = subscriptions;
     }
 
-    // Returns the number of elements in this collection. If this collection
-    // contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE
-    public int getTotalSize() {
-        return queue.size();
+    public void aaaa() {
+//        for(Device device : subscriptions) {
+//          device.
+//        }
     }
+
+    @Override
+    public void run() {
+
+    }
+
+
+//    public BlockingQueue<Data> get() {
+//        return queue;
+//    }
+//
+//
+//
+//    // Inserts the specified element into this queue if it is possible to do so
+//    // immediately without violating capacity restrictions
+//    public void add(Data value) {
+//        synchronized (queue) {
+//            queue.add(value);
+//        }
+//    }
+//
+//    // Removes a single instance of the specified element from this collection
+//    public void remove(Data value) {
+//        synchronized (queue) {
+//            queue.remove(value);
+//        }
+//    }
+//
+//    // Retrieves and removes the head of this queue, or returns null if this
+//    // queue is empty.
+//    public Data take() throws InterruptedException {
+//        Data data = queue.take();
+//        return data;
+//    }
+//
+//    // Returns true if this collection contains no elements
+//    public boolean isEmpty() {
+//        return queue.isEmpty();
+//    }
+//
+//    // Returns the number of elements in this collection. If this collection
+//    // contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE
+//    public int getTotalSize() {
+//        return queue.size();
+//    }
 
 }

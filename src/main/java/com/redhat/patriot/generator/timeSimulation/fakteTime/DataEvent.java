@@ -19,7 +19,7 @@ package com.redhat.patriot.generator.timeSimulation.fakteTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.redhat.patriot.generator.device.Data;
+import com.redhat.patriot.generator.wrappers.Data;
 import com.redhat.patriot.generator.device.AbstractDevice;
 import umontreal.ssj.randvar.BinomialConvolutionGen;
 import umontreal.ssj.randvar.ErlangConvolutionGen;

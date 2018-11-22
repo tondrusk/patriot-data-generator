@@ -16,8 +16,6 @@
 
 package com.redhat.patriot.generator.wrappers;
 
-import com.redhat.patriot.generator.device.Data;
-
 /**
  * Created by jsmolar on 7/24/18.
  */

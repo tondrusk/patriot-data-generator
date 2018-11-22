@@ -17,23 +17,19 @@
 package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.wrappers.AbstractDataWrapper;
-import com.redhat.patriot.generator.wrappers.JSONWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Created by jsmolar on 7/3/18.
  */
-public abstract class AbstractDevice<T extends AbstractDevice<T>> {
+public abstract class AbstractDevice implements Device {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractDevice.class);
 
     protected String label;
 
     protected DataFeed dataFeed;
-
-    protected AbstractDataWrapper dataWrapper = new JSONWrapper();
 
     public AbstractDevice(String label) {
         this.label = label;
@@ -44,32 +40,25 @@ public abstract class AbstractDevice<T extends AbstractDevice<T>> {
         this.dataFeed = dataFeed;
     }
 
-    protected abstract T getThis();
+    @Override
+    public double requestData(Object... param) {
+        return dataFeed.getNextValue(param);
+    }
 
     public String getLabel() {
         return label;
     }
 
-    public T setLabel(String label) {
+    public void setLabel(String label) {
         this.label = label;
-        return getThis();
     }
 
     public DataFeed getDataFeed() {
         return dataFeed;
     }
 
-    public T setDataFeed(DataFeed dataFeed) {
+    public void setDataFeed(DataFeed dataFeed) {
         this.dataFeed = dataFeed;
-        return getThis();
     }
 
-    public AbstractDataWrapper getDataWrapper() {
-        return dataWrapper;
-    }
-
-    public T setDataWrapper(AbstractDataWrapper dataWrapper) {
-        this.dataWrapper = dataWrapper;
-        return getThis();
-    }
 }

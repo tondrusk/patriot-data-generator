@@ -14,18 +14,20 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.wrappers;
+
+import com.redhat.patriot.generator.device.Device;
 
 /**
  * Created by jsmolar on 7/5/18.
  */
-public class Data {
+public class Data implements DataWrapper {
 
-    private String deviceName;
-
-    private double time;
+    private String deviceLabel;
 
     private double value;
+
+    private double time;
 
     public Data() {
     }
@@ -51,11 +53,20 @@ public class Data {
         this.value = value;
     }
 
-    public String getDeviceName() {
-        return deviceName;
+    public String getDeviceLabel() {
+        return deviceLabel;
     }
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    public void setDeviceLabel(String deviceLabel) {
+        this.deviceLabel = deviceLabel;
+    }
+
+    @Override
+    public Object wrapData(Device device, double data, double time) {
+        deviceLabel = device.getLabel();
+        this.value = data;
+        this.time = time;
+
+        return this;
     }
 }

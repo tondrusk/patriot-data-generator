@@ -14,25 +14,8 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator;
+package com.redhat.patriot.generator.device.units;
 
-import com.redhat.patriot.generator.events.DataQueue;
-
-public class Consumer implements Runnable{
-
-    protected DataQueue queue = null;
-
-    public Consumer(DataQueue queue) {
-        this.queue = queue;
-    }
-
-    public void run() {
-        try {
-            while(true) {
-                System.out.println(queue.take());
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+public interface DeviceUnits<T> {
+    T getUnit();
 }

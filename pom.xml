@@ -10,7 +10,7 @@
 
   <licenses>
     <license>
-      <label>Apache License, Version 2.0</label>
+      <deviceLabel>Apache License, Version 2.0</deviceLabel>
       <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
       <comments>A business-friendly OSS license</comments>
@@ -22,7 +22,7 @@
       <id>obabec</id>
       <email>ond.babec@gmail.com</email>
       <organization>Red Hat</organization>
-      <label>Ondřej Babec</label>
+      <deviceLabel>Ondřej Babec</deviceLabel>
       <roles>
         <role>developer</role>
       </roles>
@@ -32,7 +32,7 @@
       <id>sbunciak</id>
       <email>sbunciak@redhat.com</email>
       <organization>Red Hat</organization>
-      <label>Štefan Bunčiak</label>
+      <deviceLabel>Štefan Bunčiak</deviceLabel>
       <roles>
         <role>Project manager</role>
       </roles>
@@ -42,7 +42,7 @@
       <id>mbures</id>
       <email>miroslav.bures@fel.cvut.cz</email>
       <organization>FEL CVUT</organization>
-      <label>Miroslav Bureš</label>
+      <deviceLabel>Miroslav Bureš</deviceLabel>
       <roles>
         <role>Product owner</role>
       </roles>
@@ -52,7 +52,7 @@
       <id>ficap</id>
       <email>ficap@redhat.com</email>
       <organization>Red Hat</organization>
-      <label>Filip Čáp</label>
+      <deviceLabel>Filip Čáp</deviceLabel>
       <roles>
         <role>Developer</role>
       </roles>
@@ -62,7 +62,7 @@
       <id>mijaros</id>
       <email>mjaros@redhat.com</email>
       <organization>Red Hat</organization>
-      <label>Mirek Jaroš</label>
+      <deviceLabel>Mirek Jaroš</deviceLabel>
       <roles>
         <role>Tech lead</role>
       </roles>
@@ -72,7 +72,7 @@
       <id>pmacik</id>
       <email>pmacik@redhat.com</email>
       <organization>Red Hat</organization>
-      <label>Pavel Macík</label>
+      <deviceLabel>Pavel Macík</deviceLabel>
       <roles>
         <role>Tech lead</role>
       </roles>
@@ -82,7 +82,7 @@
       <id>jpechane</id>
       <email>jpechane@redhat.com</email>
       <organization>Red Hat</organization>
-      <label>Jiří Pechanec</label>
+      <deviceLabel>Jiří Pechanec</deviceLabel>
       <roles>
         <role>The guru</role>
       </roles>
@@ -92,7 +92,7 @@
       <id>jsmolar</id>
       <email>jsmolar@redhat.com</email>
       <organization>Red Hat</organization>
-      <label>Jakub Smolár</label>
+      <deviceLabel>Jakub Smolár</deviceLabel>
       <roles>
         <role>Developer</role>
       </roles>
