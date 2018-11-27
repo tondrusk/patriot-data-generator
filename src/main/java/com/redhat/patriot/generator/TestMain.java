@@ -18,6 +18,7 @@ public class TestMain {
         DataFeed dataFeed = new NormalDistributionDataFeed(0, 1);
         DataFeed timeFeed = new LinearDataFeed(2000);
         Device device = new Hygrometer("TestHygrometer", dataFeed);
+        device.setQueuingEnabled(true);
 
         TimeSimulation simT = new TimeSimulationImpl(timeFeed, device);
         simT.simulate();

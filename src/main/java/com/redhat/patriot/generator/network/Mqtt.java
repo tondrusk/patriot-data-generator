@@ -14,12 +14,19 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.wrappers;
+package com.redhat.patriot.generator.network;
 
-import com.redhat.patriot.generator.device.Device;
+import org.eclipse.paho.client.mqttv3.IMqttClient;
 
-public interface DataWrapper<T> {
+import java.util.UUID;
 
-    T wrapData(Device device, double data);
+public class Mqtt {
 
+    private String publisherId = UUID.randomUUID().toString();
+
+    private IMqttClient publisher;
+
+    public Mqtt(IMqttClient publisher) {
+        this.publisher = publisher;
+    }
 }

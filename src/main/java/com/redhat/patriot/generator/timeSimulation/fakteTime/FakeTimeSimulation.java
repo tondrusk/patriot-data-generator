@@ -44,8 +44,6 @@ public class FakeTimeSimulation {
         new EndOfSimulation().schedule(time);
         dataEvent.schedule(1);
         Sim.start();
-
-        System.out.println(dataEvent.getSimulatedData());
     }
 
     public void simDataInRuns(int runs) {

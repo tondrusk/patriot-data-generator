@@ -39,7 +39,7 @@ public class JSONWrapper implements DataWrapper {
     }
 
     @Override
-    public Object wrapData(Device device, double data, double time) {
+    public Object wrapData(Device device, double datae) {
         return null;
     }
 }

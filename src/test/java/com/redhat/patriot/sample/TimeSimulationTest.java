@@ -14,12 +14,7 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.wrappers;
+package com.redhat.patriot.sample;
 
-import com.redhat.patriot.generator.device.Device;
-
-public interface DataWrapper<T> {
-
-    T wrapData(Device device, double data);
-
+public class TimeSimulationTest {
 }

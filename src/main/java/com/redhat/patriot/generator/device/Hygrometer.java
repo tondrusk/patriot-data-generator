@@ -17,9 +17,8 @@
 package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.device.units.DeviceUnits;
 
-public class Hygrometer extends AbstractDevice implements DeviceUnits<String> {
+public class Hygrometer extends AbstractDevice {
 
     public static final String DEFAULT_UNIT = "%";
 

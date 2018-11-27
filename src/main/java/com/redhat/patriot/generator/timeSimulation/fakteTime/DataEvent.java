@@ -16,10 +16,6 @@
 
 package com.redhat.patriot.generator.timeSimulation.fakteTime;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.redhat.patriot.generator.wrappers.Data;
 import com.redhat.patriot.generator.device.AbstractDevice;
 import umontreal.ssj.randvar.BinomialConvolutionGen;
 import umontreal.ssj.randvar.ErlangConvolutionGen;
@@ -36,7 +32,6 @@ public class DataEvent extends Event {
 
     private Boolean repeat = false;
 
-    private List<Data> simulatedData = new ArrayList<>();
 
     private RandomVariateGen timeGeneration = new ErlangConvolutionGen(new MRG32k3a(), 2);
 
@@ -55,10 +50,6 @@ public class DataEvent extends Event {
 
     public void binomialConvolution() {
         timeGeneration = new BinomialConvolutionGen(new MRG32k3a(), 2, 60.0);
-    }
-
-    public List<Data> getSimulatedData() {
-        return simulatedData;
     }
 
 }

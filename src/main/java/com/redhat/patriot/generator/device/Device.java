@@ -17,6 +17,7 @@
 package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.wrappers.DataWrapper;
 
 public interface Device {
 
@@ -33,5 +34,9 @@ public interface Device {
     boolean isQueuingEnabled();
 
     void setQueuingEnabled(boolean queuingEnabled);
+
+    DataWrapper getDataWrapper();
+
+    void setDataWrapper(DataWrapper dataWrapper);
 
 }
