@@ -17,7 +17,6 @@
 package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.device.units.DeviceUnits;
 import com.redhat.patriot.generator.events.DataQueue;
 import com.redhat.patriot.generator.network.Rest;
 import com.redhat.patriot.generator.wrappers.DataWrapper;
@@ -27,7 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by jsmolar on 7/3/18.
  */
-public abstract class AbstractDevice implements Device, DeviceUnits<String> {
+public abstract class AbstractDevice implements Device {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractDevice.class);
 

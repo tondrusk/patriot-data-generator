@@ -20,7 +20,7 @@ import com.redhat.patriot.generator.dataFeed.DataFeed;
 
 public class Hygrometer extends AbstractDevice {
 
-    public static final String DEFAULT_UNIT = "%";
+    private String unit = "%";
 
     public Hygrometer(String label) {
         super(label);
@@ -32,7 +32,12 @@ public class Hygrometer extends AbstractDevice {
 
     @Override
     public String getUnit() {
-        return DEFAULT_UNIT;
+        return unit;
+    }
+
+    @Override
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
 }

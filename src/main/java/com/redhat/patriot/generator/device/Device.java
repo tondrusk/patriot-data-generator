@@ -39,4 +39,8 @@ public interface Device {
 
     void setDataWrapper(DataWrapper dataWrapper);
 
+    String getUnit();
+
+    void setUnit(String unit);
+
 }
