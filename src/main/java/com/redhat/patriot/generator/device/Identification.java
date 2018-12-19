@@ -14,8 +14,7 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.interceptors;
+package com.redhat.patriot.generator.device;
 
-public interface Interceptor {
-    void execute();
+public interface Identification {
 }

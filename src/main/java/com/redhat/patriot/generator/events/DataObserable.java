@@ -14,30 +14,29 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.events;
 
-import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.device.Device;
 
-public class Hygrometer extends AbstractDevice {
+import java.util.Observable;
 
-    private String unit = "%";
+public class DataObserable extends Observable {
 
-    public Hygrometer(String label) {
-        super(label);
+    public void notify(GenericData data) {
+        setChanged();
+        notifyObservers(data);
     }
 
-    public Hygrometer(String label, DataFeed dataFeed) {
-        super(label, dataFeed);
+    public void addDevice(Device device) {
+        synchronized(this) {
+            device.setDataObserable(this);
+        }
     }
 
-    @Override
-    public String getUnit() {
-        return unit;
-    }
-
-    @Override
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void removeDevice(Device device) {
+        synchronized(this) {
+            device.setDataObserable(null);
+        }
     }
 
 }

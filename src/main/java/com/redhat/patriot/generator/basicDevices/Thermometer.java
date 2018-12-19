@@ -14,35 +14,31 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.basicDevices;
 
-import com.redhat.patriot.generator.data.Data;
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.events.DataObserable;
-import com.redhat.patriot.generator.wrappers.DataWrapper;
+import com.redhat.patriot.generator.device.AbstractDevice;
 
-public interface Device<E> {
+public class Thermometer extends AbstractDevice {
 
-    Data<E> requestData(Object... param);
+    private String unit = "\u00B0C";
 
-    void setLabel(String label);
+    public Thermometer(String label) {
+        super(label);
+    }
 
-    String getLabel();
+    public Thermometer(String label, DataFeed dataFeed) {
+        super(label, dataFeed);
+    }
 
-    void setDataFeed(DataFeed dataFeed);
+    @Override
+    public String getUnit() {
+        return unit;
+    }
 
-    DataFeed getDataFeed();
-
-    DataWrapper getDataWrapper();
-
-    void setDataWrapper(DataWrapper dataWrapper);
-
-    String getUnit();
-
-    void setUnit(String unit);
-
-    DataObserable getDataObserable();
-
-    void setDataObserable(DataObserable dataObserable);
+    @Override
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
 }

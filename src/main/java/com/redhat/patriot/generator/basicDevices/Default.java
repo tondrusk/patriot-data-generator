@@ -14,22 +14,31 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.events;
+package com.redhat.patriot.generator.basicDevices;
 
-import java.util.concurrent.LinkedBlockingQueue;
+import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.device.AbstractDevice;
 
-public class DataQueue extends LinkedBlockingQueue {
+public class Default extends AbstractDevice {
 
-    private static DataQueue singleInstance = null;
+    private String unit = null;
 
-    private DataQueue() {
+    public Default(String label) {
+        super(label);
     }
 
-    public static DataQueue getInstance() {
-        if (singleInstance == null)
-            singleInstance = new DataQueue();
+    public Default(String label, DataFeed dataFeed) {
+        super(label, dataFeed);
+    }
 
-        return singleInstance;
+    @Override
+    public String getUnit() {
+        return unit;
+    }
+
+    @Override
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
 }

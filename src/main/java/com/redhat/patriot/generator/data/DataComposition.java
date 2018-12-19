@@ -14,30 +14,22 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.data;
 
-import com.redhat.patriot.generator.dataFeed.DataFeed;
+public class DataComposition<E> implements Data<E> {
 
-public class Thermometer extends AbstractDevice {
+    private E data;
 
-    private String unit = "\u00B0C";
+//    private List<E> list = new ArrayList<>();
 
-    public Thermometer(String label) {
-        super(label);
-    }
-
-    public Thermometer(String label, DataFeed dataFeed) {
-        super(label, dataFeed);
+    @Override
+    public E getData() {
+        return data;
     }
 
     @Override
-    public String getUnit() {
-        return unit;
-    }
-
-    @Override
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void addData(E value) {
+        data = value;
     }
 
 }
