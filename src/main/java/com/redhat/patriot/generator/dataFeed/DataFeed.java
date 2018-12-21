@@ -16,10 +16,10 @@
 
 package com.redhat.patriot.generator.dataFeed;
 
-public interface DataFeed {
+public interface DataFeed<E> {
 
-    double getNextValue(Object... params);
+    E getNextValue(Object... params);
 
-    double getPreviousValue();
+    E getPreviousValue();
 
 }

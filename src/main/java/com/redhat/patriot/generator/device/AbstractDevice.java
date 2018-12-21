@@ -30,7 +30,7 @@ import java.util.UUID;
 /**
  * Created by jsmolar on 7/3/18.
  */
-public abstract class AbstractDevice implements Device {
+public abstract class AbstractDevice implements Sensor {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractDevice.class);
 

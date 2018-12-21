@@ -16,33 +16,13 @@
 
 package com.redhat.patriot.generator.device;
 
-import com.redhat.patriot.generator.data.Data;
+import com.redhat.patriot.generator.Unit;
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.events.DataObserable;
-import com.redhat.patriot.generator.wrappers.DataWrapper;
 
-public interface Device<E> {
-
-    Data<E> requestData(Object... param);
-
-    void setLabel(String label);
-
-    String getLabel();
+public interface Device<E> extends Unit {
 
     void setDataFeed(DataFeed dataFeed);
 
     DataFeed getDataFeed();
-
-    DataWrapper getDataWrapper();
-
-    void setDataWrapper(DataWrapper dataWrapper);
-
-    String getUnit();
-
-    void setUnit(String unit);
-
-    DataObserable getDataObserable();
-
-    void setDataObserable(DataObserable dataObserable);
 
 }

@@ -16,10 +16,10 @@
 
 package com.redhat.patriot.generator.device;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public interface Composition<E> {
+public interface Composition<E> extends Device {
 
-    List<E> requestData(Object... param);
+    ArrayList<E> requestData(Object... param);
 
 }
