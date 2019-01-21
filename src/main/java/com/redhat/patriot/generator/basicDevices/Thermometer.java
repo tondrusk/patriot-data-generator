@@ -17,9 +17,9 @@
 package com.redhat.patriot.generator.basicDevices;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.device.AbstractDevice;
+import com.redhat.patriot.generator.device.AbstractSensor;
 
-public class Thermometer extends AbstractDevice {
+public class Thermometer extends AbstractSensor {
 
     private String unit = "\u00B0C";
 
@@ -29,16 +29,6 @@ public class Thermometer extends AbstractDevice {
 
     public Thermometer(String label, DataFeed dataFeed) {
         super(label, dataFeed);
-    }
-
-    @Override
-    public String getUnit() {
-        return unit;
-    }
-
-    @Override
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
 
 }

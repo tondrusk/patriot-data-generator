@@ -18,11 +18,12 @@ package com.redhat.patriot.generator.events;
 
 import com.redhat.patriot.generator.device.Device;
 
+import java.util.List;
 import java.util.Observable;
 
-public class DataObserable extends Observable {
+public class DataObserable<E> extends Observable {
 
-    public void notify(GenericData data) {
+    public void notify(List<E> data) {
         setChanged();
         notifyObservers(data);
     }

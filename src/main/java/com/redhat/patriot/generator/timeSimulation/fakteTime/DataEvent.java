@@ -16,7 +16,7 @@
 
 package com.redhat.patriot.generator.timeSimulation.fakteTime;
 
-import com.redhat.patriot.generator.device.AbstractDevice;
+import com.redhat.patriot.generator.device.AbstractSensor;
 import umontreal.ssj.randvar.BinomialConvolutionGen;
 import umontreal.ssj.randvar.ErlangConvolutionGen;
 import umontreal.ssj.randvar.RandomVariateGen;
@@ -28,14 +28,14 @@ import umontreal.ssj.simevents.Event;
  */
 public class DataEvent extends Event {
 
-    private AbstractDevice device;
+    private AbstractSensor device;
 
     private Boolean repeat = false;
 
 
     private RandomVariateGen timeGeneration = new ErlangConvolutionGen(new MRG32k3a(), 2);
 
-    public DataEvent(AbstractDevice device, Boolean repeat) {
+    public DataEvent(AbstractSensor device, Boolean repeat) {
         this.device = device;
         this.repeat = repeat;
     }

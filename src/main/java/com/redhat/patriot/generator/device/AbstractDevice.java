@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Patriot project
+ * Copyright 2019 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,31 +16,19 @@
 
 package com.redhat.patriot.generator.device;
 
-import com.redhat.patriot.generator.data.Data;
-import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.events.DataObserable;
-import com.redhat.patriot.generator.events.GenericData;
-import com.redhat.patriot.generator.network.Rest;
+import com.redhat.patriot.generator.network.NetworkAdapter;
 import com.redhat.patriot.generator.wrappers.DataWrapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
-/**
- * Created by jsmolar on 7/3/18.
- */
-public abstract class AbstractDevice implements Sensor {
-
-    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractDevice.class);
+public abstract class AbstractDevice implements Device {
 
     private UUID uuid = UUID.randomUUID();
 
     private String label;
 
-    private DataFeed dataFeed;
-
-    private Rest rest;
+    private NetworkAdapter networkAdapter;
 
     private DataWrapper dataWrapper;
 
@@ -50,47 +38,13 @@ public abstract class AbstractDevice implements Sensor {
         this.label = label;
     }
 
-    public AbstractDevice(String label, DataFeed dataFeed) {
-        this.label = label;
-        this.dataFeed = dataFeed;
-    }
-
     @Override
-    public Data requestData(Object... param) {
-        if(dataFeed == null) {
-            throw new IllegalArgumentException("Data Feed cannot be null");
-        }
-
-        double newData = dataFeed.getNextValue(param);
-
-        if(dataObserable != null) {
-            GenericData d = new GenericData();
-            d.setUuid(uuid);
-            d.setDevice(label);
-            d.addData(newData);
-            dataObserable.notify(d);
-        }
-        sendData(newData);
-
-        return new Data() {
-            @Override
-            public Object getData() {
-                return 1;
-            }
-        };
-    }
-
-    private void sendData(double data) {
-        if(rest != null) {
-            new Rest("http://requestbin.fullcontact.com/17xt3l91").send(this, data); //rest
-        }
-    }
-
-    public UUID getUuid() {
+    public UUID getUUID() {
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    @Override
+    public void setUUID(UUID uuid) {
         this.uuid = uuid;
     }
 
@@ -105,13 +59,23 @@ public abstract class AbstractDevice implements Sensor {
     }
 
     @Override
-    public DataFeed getDataFeed() {
-        return dataFeed;
+    public DataObserable getDataObserable() {
+        return dataObserable;
     }
 
     @Override
-    public void setDataFeed(DataFeed dataFeed) {
-        this.dataFeed = dataFeed;
+    public void setDataObserable(DataObserable dataObserable) {
+        this.dataObserable = dataObserable;
+    }
+
+    @Override
+    public void setNetworkAdapter(NetworkAdapter networkAdapter) {
+        this.networkAdapter = networkAdapter;
+    }
+
+    @Override
+    public NetworkAdapter getNetworkAdapter() {
+        return networkAdapter;
     }
 
     @Override
@@ -122,15 +86,5 @@ public abstract class AbstractDevice implements Sensor {
     @Override
     public void setDataWrapper(DataWrapper dataWrapper) {
         this.dataWrapper = dataWrapper;
-    }
-
-    @Override
-    public DataObserable getDataObserable() {
-        return dataObserable;
-    }
-
-    @Override
-    public void setDataObserable(DataObserable dataObserable) {
-        this.dataObserable = dataObserable;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Patriot project
+ * Copyright 2019 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,22 +14,24 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.data;
+package com.redhat.patriot.generator.device;
 
-public class DataComposition<E> implements Data<E> {
+import com.redhat.patriot.generator.events.DataObserable;
 
-    private E data;
+import java.util.UUID;
 
-//    private List<E> list = new ArrayList<>();
+public interface Unit {
 
-    @Override
-    public E getData() {
-        return data;
-    }
+    UUID getUUID();
 
-    @Override
-    public void addData(E value) {
-        data = value;
-    }
+    void setUUID(UUID uuid);
+
+    String getLabel();
+
+    void setLabel(String label);
+
+    DataObserable getDataObserable();
+
+    void setDataObserable(DataObserable dataObserable);
 
 }

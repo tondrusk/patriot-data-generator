@@ -22,4 +22,8 @@ public interface DataFeed<E> {
 
     E getPreviousValue();
 
+//    void setLabel(String label);
+//
+//    String getLabel();
+
 }

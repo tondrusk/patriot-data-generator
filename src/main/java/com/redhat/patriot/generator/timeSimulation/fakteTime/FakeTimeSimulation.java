@@ -16,7 +16,7 @@
 
 package com.redhat.patriot.generator.timeSimulation.fakteTime;
 
-import com.redhat.patriot.generator.device.AbstractDevice;
+import com.redhat.patriot.generator.device.AbstractSensor;
 import umontreal.ssj.randvar.ErlangConvolutionGen;
 import umontreal.ssj.randvar.ErlangGen;
 import umontreal.ssj.rng.MRG32k3a;
@@ -29,9 +29,9 @@ public class FakeTimeSimulation {
 
     private static final double minute = 1.0 / 60.0;
 
-    private AbstractDevice device;
+    private AbstractSensor device;
 
-    public FakeTimeSimulation(AbstractDevice device) {
+    public FakeTimeSimulation(AbstractSensor device) {
         this.device = device;
     }
 

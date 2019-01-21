@@ -16,14 +16,11 @@
 
 package com.redhat.patriot.sample;
 
+import com.redhat.patriot.generator.basicDevices.Hygrometer;
 import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.dataFeed.NormalDistributionDataFeed;
 import com.redhat.patriot.generator.device.Device;
-import com.redhat.patriot.generator.basicDevices.Hygrometer;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DeviceTest {
 
@@ -35,19 +32,19 @@ class DeviceTest {
         newDevice = new Hygrometer("TestHygrometer", dataFeed);
     }
 
-    @Test
-    void getValue() {
-        double data = newDevice.requestData();
-        assertTrue(data <= 2 );
-        assertTrue(data >= -2 );
-    }
-
-    @Test
-    void getValueWithoutDataFeed() {
-        newDevice.setDataFeed(null);
-
-        assertThrows(IllegalArgumentException.class, () -> newDevice.requestData());
-    }
+//    @Test
+//    void getValue() {
+//        double data = newDevice.requestData();
+//        assertTrue(data <= 2 );
+//        assertTrue(data >= -2 );
+//    }
+//
+//    @Test
+//    void getValueWithoutDataFeed() {
+//        newDevice.setDataFeed(null);
+//
+//        assertThrows(IllegalArgumentException.class, () -> newDevice.requestData());
+//    }
 
 //    @Test
 //    void dataQueue() throws InterruptedException {

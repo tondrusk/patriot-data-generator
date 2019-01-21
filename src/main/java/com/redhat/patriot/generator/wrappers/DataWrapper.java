@@ -18,8 +18,8 @@ package com.redhat.patriot.generator.wrappers;
 
 import com.redhat.patriot.generator.device.Device;
 
-public interface DataWrapper<T> {
+public interface DataWrapper {
 
-    T wrapData(Device device, double data);
+    String wrapData(Device device, double data);
 
 }

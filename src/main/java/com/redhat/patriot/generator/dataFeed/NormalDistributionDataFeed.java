@@ -24,26 +24,43 @@ import umontreal.ssj.rng.RandomStream;
 /**
  * Created by jsmolar on 9/19/18.
  */
-public class NormalDistributionDataFeed implements DataFeed {
+public class NormalDistributionDataFeed implements DataFeed<Double> {
 
-    private NormalGen normalDist;
+    private String label;
+
+    private NormalGen normalGen;
+
+    private NormalDist normalDist;
+
+    private double prevousValue;
 
     public NormalDistributionDataFeed(double mu, double sigma) {
         RandomStream rs = new MRG32k3a();
-        this.normalDist = new NormalGen(rs, mu, sigma);
+        this.normalGen = new NormalGen(rs, mu, sigma);
     }
 
     @Override
-    public double getNextValue(Object... params) {
-        double result = normalDist.nextDouble();
+    public Double getNextValue(Object... params) {
+        Double result = normalGen.nextDouble();
+        prevousValue = result;
         //LOGGER.info("Generated data from Normal distribution Data feed: " + result);
 
         return result;
     }
 
     @Override
-    public double getPreviousValue() {
-        return 0;
+    public Double getPreviousValue() {
+        return prevousValue;
     }
+
+//    @Override
+//    public void setLabel(String label) {
+//
+//    }
+//
+//    @Override
+//    public String getLabel() {
+//        return null;
+//    }
 
 }

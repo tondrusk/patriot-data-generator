@@ -23,7 +23,7 @@ public interface TimeSimulation {
 
     void setDevice(Device device);
 
-    void setTimeFeed(DataFeed timeFeed);
+    void setTimeFeed(DataFeed<Double> timeFeed);
 
     void simulate();
 

@@ -16,13 +16,21 @@
 
 package com.redhat.patriot.generator.device;
 
-import com.redhat.patriot.generator.Unit;
-import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.network.NetworkAdapter;
+import com.redhat.patriot.generator.wrappers.DataWrapper;
+
+import java.util.List;
 
 public interface Device<E> extends Unit {
 
-    void setDataFeed(DataFeed dataFeed);
+    List<E> requestData(Object... params);
 
-    DataFeed getDataFeed();
+    void setNetworkAdapter(NetworkAdapter networkAdapter);
+
+    NetworkAdapter getNetworkAdapter();
+
+    DataWrapper getDataWrapper();
+
+    void setDataWrapper(DataWrapper dataWrapper);
 
 }

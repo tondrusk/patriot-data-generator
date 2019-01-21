@@ -16,10 +16,16 @@
 
 package com.redhat.patriot.generator.device;
 
-import java.util.ArrayList;
+import com.redhat.patriot.generator.dataFeed.DataFeed;
+
+import java.util.List;
 
 public interface Composition<E> extends Device {
 
-    ArrayList<E> requestData(Object... param);
+    void addDataFeed(DataFeed<E> dataFeed);
+
+    void removeDataFeed(DataFeed<E> dataFeed);
+
+    List<DataFeed<E>> getDataFeed();
 
 }

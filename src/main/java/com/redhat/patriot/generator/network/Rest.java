@@ -16,14 +16,12 @@
 
 package com.redhat.patriot.generator.network;
 
-import com.redhat.patriot.generator.device.Device;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class Rest implements NetworkAdapter {
 
@@ -33,17 +31,12 @@ public class Rest implements NetworkAdapter {
         this.endpoint = endpoint;
     }
 
-    public void send(Device device, double value) {
+    public void send(String object) {
         HttpClient httpClient = HttpClientBuilder.create().build();
-        StringEntity se = null;
-        try {
-            se = new StringEntity(device.getDataWrapper().wrapData(device, value).toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
         try {
             HttpPost request = new HttpPost(endpoint);
+            StringEntity se = new StringEntity(object);
             request.setEntity(se);
             request.addHeader("content-type", "application/json");
             httpClient.execute(request);
@@ -60,3 +53,4 @@ public class Rest implements NetworkAdapter {
         this.endpoint = endpoint;
     }
 }
+

@@ -26,14 +26,14 @@ public class TimeSimulationImpl implements TimeSimulation {
 
     private Timer timer = new Timer();
 
-    private DataFeed timeFeed;
+    private DataFeed<Double> timeFeed;
 
     private Device device;
 
     public TimeSimulationImpl() {
     }
 
-    public TimeSimulationImpl(DataFeed timeFeed, Device device) {
+    public TimeSimulationImpl(DataFeed<Double> timeFeed, Device device) {
         this.timeFeed = timeFeed;
         this.device = device;
     }
@@ -44,7 +44,7 @@ public class TimeSimulationImpl implements TimeSimulation {
     }
 
     @Override
-    public void setTimeFeed(DataFeed timeFeed) {
+    public void setTimeFeed(DataFeed<Double> timeFeed) {
         this.timeFeed = timeFeed;
     }
 
@@ -66,8 +66,8 @@ public class TimeSimulationImpl implements TimeSimulation {
                 System.out.println("Thread: " + Thread.currentThread().getId());
                 double simTime = timeFeed.getNextValue();
 
-                double data = device.requestData(simTime);
-                System.out.println(data);
+                device.requestData(simTime);
+
                 double nextTask = simTime - timeFeed.getPreviousValue();
 
                 timer.schedule(task(), Math.round(nextTask));

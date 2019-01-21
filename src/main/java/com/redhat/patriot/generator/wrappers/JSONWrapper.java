@@ -16,7 +16,6 @@
 
 package com.redhat.patriot.generator.wrappers;
 
-import com.redhat.patriot.generator.device.AbstractDevice;
 import com.redhat.patriot.generator.device.Device;
 import org.json.JSONObject;
 
@@ -25,21 +24,16 @@ import org.json.JSONObject;
  */
 public class JSONWrapper implements DataWrapper {
 
-    private JSONObject jsonObject;
-
-    public JSONObject wrapData(AbstractDevice device, double data) {
-        jsonObject = new JSONObject();
+    @Override
+    public String wrapData(Device device, double data) {
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", device.getLabel())
             .put("data", data);
             //.put("time", data.getCurrentTime());
 
         System.out.println("data: " + data);
 
-        return jsonObject;
+        return jsonObject.toString();
     }
 
-    @Override
-    public Object wrapData(Device device, double datae) {
-        return null;
-    }
 }

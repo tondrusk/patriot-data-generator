@@ -16,5 +16,49 @@
 
 package com.redhat.patriot.generator.device;
 
-public abstract class AbstractComposition implements Composition {
+import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.device.timeSimulation.TimeSimulation;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class AbstractComposition<E> extends AbstractDevice implements Composition<E> {
+
+    private TimeSimulation ts;
+
+    private List<DataFeed<E>> dataFeed;
+
+    public AbstractComposition(String label) {
+        super(label);
+    }
+
+    @Override
+    public List<E> requestData(Object... param) {
+        List<E> result = new ArrayList<>();
+
+        for(DataFeed<E> df : dataFeed) {
+            result.add(df.getNextValue());
+        }
+
+        return result;
+    }
+
+    private void sendData() {
+
+    }
+
+    @Override
+    public void addDataFeed(DataFeed<E> dataFeed) {
+        this.dataFeed.add(dataFeed);
+    }
+
+    @Override
+    public void removeDataFeed(DataFeed<E> dataFeed) {
+        this.dataFeed.remove(dataFeed);
+    }
+
+    @Override
+    public List<DataFeed<E>> getDataFeed() {
+        return dataFeed;
+    }
 }

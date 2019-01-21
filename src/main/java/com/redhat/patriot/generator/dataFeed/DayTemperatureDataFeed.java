@@ -22,7 +22,7 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 /**
  * Created by jsmolar on 9/9/18.
  */
-public class DayTemperatureDataFeed implements DataFeed {
+public class DayTemperatureDataFeed implements DataFeed<Double> {
 
     private double dayMin;
     private double dayMax;
@@ -50,7 +50,7 @@ public class DayTemperatureDataFeed implements DataFeed {
     }
 
     @Override
-    public double getNextValue(Object... params) {
+    public Double getNextValue(Object... params) {
         double time = (double) params[0];
         double result = 0;
 
@@ -80,7 +80,7 @@ public class DayTemperatureDataFeed implements DataFeed {
     }
 
     @Override
-    public double getPreviousValue() {
+    public Double getPreviousValue() {
         return lastValue;
     }
 }

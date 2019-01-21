@@ -19,7 +19,7 @@ package com.redhat.patriot.generator.dataFeed;
 /**
  * Created by jsmolar on 9/11/18.
  */
-public class LinearDataFeed implements DataFeed {
+public class LinearDataFeed implements DataFeed<Double> {
 
     private double period;
 
@@ -47,14 +47,15 @@ public class LinearDataFeed implements DataFeed {
     }
 
     @Override
-    public double getNextValue(Object... params) {
+    public Double getNextValue(Object... params) {
         currentTime += period;
 
         return currentTime;
     }
 
     @Override
-    public double getPreviousValue() {
+    public Double getPreviousValue() {
         return currentTime - period;
     }
+
 }

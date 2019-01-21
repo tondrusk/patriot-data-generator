@@ -19,7 +19,7 @@ package com.redhat.patriot.generator.dataFeed;
 /**
  * Created by jsmolar on 9/11/18.
  */
-public class ConstantDataFeed implements DataFeed {
+public class ConstantDataFeed implements DataFeed<Double> {
 
     private double timer;
 
@@ -28,12 +28,12 @@ public class ConstantDataFeed implements DataFeed {
     }
 
     @Override
-    public double getNextValue(Object... params) {
+    public Double getNextValue(Object... params) {
         return timer;
     }
 
     @Override
-    public double getPreviousValue() {
+    public Double getPreviousValue() {
         return timer;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Patriot project
+ * Copyright 2019 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,16 +14,17 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.basicDevices;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
+import com.redhat.patriot.generator.device.AbstractComposition;
 
-public class DataFactory<E> {
+public class DHT11 extends AbstractComposition<Double> {
 
-    private DataFeed<E> dataFeed;
-
-    public E generate(Object... params) {
-        return dataFeed.getNextValue(params);
+    public DHT11(DataFeed<Double> temperature, DataFeed<Double> humidity) {
+        super("DHT11");
+        addDataFeed(temperature);
+        addDataFeed(humidity);
     }
 
 }

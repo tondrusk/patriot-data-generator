@@ -17,4 +17,7 @@
 package com.redhat.patriot.generator.network;
 
 public interface NetworkAdapter {
+
+    void send(String object);
+
 }

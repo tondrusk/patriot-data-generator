@@ -16,18 +16,20 @@
 
 package com.redhat.patriot.generator.dataFeed;
 
-import java.util.Set;
-
 import net.objecthunter.exp4j.Expression;
+
+import java.util.Set;
 
 /**
  * Created by jsmolar on 9/9/18.
  */
-public class ExpressionDataFeed implements DataFeed {
+public class ExpressionDataFeed implements DataFeed<Double> {
 
     private Expression expression;
 
     private String variable;
+
+    private double previousValue;
 
     public ExpressionDataFeed(Expression expression) {
         this.expression = expression;
@@ -48,17 +50,18 @@ public class ExpressionDataFeed implements DataFeed {
     }
 
     @Override
-    public double getNextValue(Object... params) {
+    public Double getNextValue(Object... params) {
         double time = (double) params[0];
         expression.setVariable(variable, time);
         double result = expression.evaluate();
+        previousValue = result;
 //        LOGGER.info("Generated data from expression: " + result);
 
         return result;
     }
 
     @Override
-    public double getPreviousValue() {
-        return 0;
+    public Double getPreviousValue() {
+        return previousValue;
     }
 }

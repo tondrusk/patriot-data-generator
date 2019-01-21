@@ -16,8 +16,12 @@
 
 package com.redhat.patriot.generator.device;
 
-public interface Sensor<E> extends Device {
+import com.redhat.patriot.generator.dataFeed.DataFeed;
 
-    E requestData(Object... param);
+public interface Sensor extends Device {
+
+    void setDataFeed(DataFeed dataFeed);
+
+    DataFeed getDataFeed();
 
 }

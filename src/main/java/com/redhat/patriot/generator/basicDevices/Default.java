@@ -17,9 +17,9 @@
 package com.redhat.patriot.generator.basicDevices;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
-import com.redhat.patriot.generator.device.AbstractDevice;
+import com.redhat.patriot.generator.device.AbstractSensor;
 
-public class Default extends AbstractDevice {
+public class Default extends AbstractSensor {
 
     private String unit = null;
 
@@ -29,16 +29,6 @@ public class Default extends AbstractDevice {
 
     public Default(String label, DataFeed dataFeed) {
         super(label, dataFeed);
-    }
-
-    @Override
-    public String getUnit() {
-        return unit;
-    }
-
-    @Override
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
 
 }
