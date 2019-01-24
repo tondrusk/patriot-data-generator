@@ -17,10 +17,12 @@
 package com.redhat.patriot.generator.dataFeed;
 
 /**
- * Created by jsmolar on 7/6/18.
+ * SSJ uses RandomStreams to generate uniform variates (real numbers) over the interval (0,1).
+ * Seed is array of 6 integers, that provides initial state for RandomStreams. It is starting point for computing.
+ * As initial seed for RandomStreams SSJ library uses vector [0..5]. This ensures,
+ * that repetition of number generation returns same values. For test diversity we need tool that will provide different,
+ * but repeatable results.
  */
-//Seed should be in format: the first 3 values of the seed must all be less than m1=4294967087, and not all 0;
-//and the last 3 values must all be less than m2=4294944443, and not all 0.
 public class Seed {
 
     private static final long M1 = 4294967087L;

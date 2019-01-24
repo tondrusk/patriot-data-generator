@@ -22,16 +22,13 @@ import org.json.JSONObject;
 /**
  * Created by jsmolar on 7/24/18.
  */
-public class JSONWrapper implements DataWrapper {
+public class JSONWrapper<E> implements DataWrapper<E> {
 
     @Override
-    public String wrapData(Device device, double data) {
+    public String wrapData(Device device, E data) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", device.getLabel())
-            .put("data", data);
-            //.put("time", data.getCurrentTime());
-
-        System.out.println("data: " + data);
+            .put("data", data.toString());
 
         return jsonObject.toString();
     }

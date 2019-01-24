@@ -16,9 +16,10 @@
 
 package com.redhat.patriot.generator.device;
 
-import com.redhat.patriot.generator.events.DataObserable;
+import com.redhat.patriot.generator.events.DataObservable;
 import com.redhat.patriot.generator.network.NetworkAdapter;
 import com.redhat.patriot.generator.wrappers.DataWrapper;
+import com.redhat.patriot.generator.wrappers.JSONWrapper;
 
 import java.util.UUID;
 
@@ -30,9 +31,9 @@ public abstract class AbstractDevice implements Device {
 
     private NetworkAdapter networkAdapter;
 
-    private DataWrapper dataWrapper;
+    private DataWrapper dataWrapper = new JSONWrapper();
 
-    private DataObserable dataObserable;
+    private DataObservable dataObserable;
 
     public AbstractDevice(String label) {
         this.label = label;
@@ -59,13 +60,13 @@ public abstract class AbstractDevice implements Device {
     }
 
     @Override
-    public DataObserable getDataObserable() {
+    public DataObservable getDataObservable() {
         return dataObserable;
     }
 
     @Override
-    public void setDataObserable(DataObserable dataObserable) {
-        this.dataObserable = dataObserable;
+    public void setDataObservable(DataObservable dataObservable) {
+        this.dataObserable = dataObservable;
     }
 
     @Override

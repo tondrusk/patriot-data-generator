@@ -25,17 +25,24 @@ import java.util.List;
 /**
  * Created by jsmolar on 7/3/18.
  */
-public abstract class AbstractSensor<E> extends AbstractDevice implements Sensor {
+public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sensor {
 
-    private DataFeed<E> dataFeed;
+    private DataFeed<T> dataFeed;
+
+    private Class<E> outputType;
+    private Class<T> inputType;
 
     public AbstractSensor(String label) {
         super(label);
     }
 
-    public AbstractSensor(String label, DataFeed<E> dataFeed) {
+    public AbstractSensor(String label, DataFeed<T> dataFeed) {
         super(label);
         this.dataFeed = dataFeed;
+
+        if (!inputType.isAssignableFrom(outputType)) {
+
+        }
     }
 
     @Override
@@ -44,17 +51,21 @@ public abstract class AbstractSensor<E> extends AbstractDevice implements Sensor
             throw new IllegalArgumentException("Data Feed cannot be null");
         }
 
-        E newData = dataFeed.getNextValue(param);
+        T newData = dataFeed.getNextValue(param);
+        E result = outputType.cast(newData);
 
-        return Collections.singletonList(newData);
+        if(getNetworkAdapter() != null) {
+            sendData(result);
+        }
+
+        return Collections.singletonList(result);
     }
 
-    private void sendData(double data) {
+    private void sendData(E data) {
         String dw = getDataWrapper().wrapData(this, data);
         NetworkAdapter networkAdapter = getNetworkAdapter();
         if(networkAdapter != null) {
             networkAdapter.send(dw);
-//            new Rest("http://requestbin.fullcontact.com/17xt3l91").send(dw);
         }
     }
 

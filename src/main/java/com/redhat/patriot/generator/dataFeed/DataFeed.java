@@ -16,10 +16,30 @@
 
 package com.redhat.patriot.generator.dataFeed;
 
+/**
+ * Source of data for Device and TimeSimulation classes. For stochastic data simulation library uses
+ * SSJ (Stochastic Simulation in Java) - developed at Université de Montréal
+ * https://www.iro.umontreal.ca/~lecuyer/ssj-gh-pages/html/index.html
+ *
+ * @param <E> Type of generated data
+ */
 public interface DataFeed<E> {
 
+    /**
+     * Returns value from DataFeed. This method is used to compute new data.
+     * Flexibility with number of parameters aims to provide freedom in implementation of whole DataFeed.
+     *
+     * @param params for DataFeed computing
+     * @return computed value
+     */
     E getNextValue(Object... params);
 
+    /**
+     * Returns last generated value from DataFeed.
+     * Important for easy comparison between new and previous values.
+     *
+     * @return last generated value
+     */
     E getPreviousValue();
 
 //    void setLabel(String label);

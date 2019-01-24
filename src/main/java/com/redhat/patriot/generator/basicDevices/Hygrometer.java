@@ -19,7 +19,7 @@ package com.redhat.patriot.generator.basicDevices;
 import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.device.AbstractSensor;
 
-public class Hygrometer extends AbstractSensor {
+public class Hygrometer<E> extends AbstractSensor<E,E> {
 
     private String unit = "%";
 

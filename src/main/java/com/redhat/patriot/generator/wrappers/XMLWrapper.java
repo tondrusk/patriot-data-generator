@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Patriot project
+ * Copyright 2019 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,30 +14,24 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.events;
+package com.redhat.patriot.generator.wrappers;
 
 import com.redhat.patriot.generator.device.Device;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
-import java.util.List;
-import java.util.Observable;
+public class XMLWrapper<E> implements DataWrapper<E> {
 
-public class DataObserable<E> extends Observable {
+    private Document document = DocumentHelper.createDocument();
 
-    public void notify(List<E> data) {
-        setChanged();
-        notifyObservers(data);
-    }
+    @Override
+    public String wrapData(Device device, E data) {
+        Element root = document.addElement("root");
+        root.addAttribute("name", device.getLabel())
+            .addAttribute("data", data.toString());
 
-    public void addDevice(Device device) {
-        synchronized(this) {
-            device.setDataObserable(this);
-        }
-    }
-
-    public void removeDevice(Device device) {
-        synchronized(this) {
-            device.setDataObserable(null);
-        }
+        return document.asXML();
     }
 
 }

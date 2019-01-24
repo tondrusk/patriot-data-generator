@@ -14,41 +14,7 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.basicDevices;
 
-import java.util.UUID;
-
-/**
- * Interface for methods used for identification of Devices.
- */
-public interface Unit {
-
-    /**
-     * Returns UUID
-     *
-     * @return instance of UUID
-     */
-    UUID getUUID();
-
-    /**
-     * Sets UUID
-     *
-     * @param uuid instance of UUID
-     */
-    void setUUID(UUID uuid);
-
-    /**
-     * Returns Label
-     *
-     * @return label
-     */
-    String getLabel();
-
-    /**
-     * Sets Label
-     *
-     * @param label
-     */
-    void setLabel(String label);
-
+public class DefaultComposition {
 }

@@ -18,10 +18,27 @@ package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
 
-public interface Sensor extends Device {
+/**
+ * Interface allows to set DataFeed for Device.
+ *
+ * User should use this interface instead of Device.
+ *
+ * @param <T> type of object with which DataFeed operates
+ */
+public interface Sensor<T> {
 
-    void setDataFeed(DataFeed dataFeed);
+    /**
+     * Sets DataFeed for Sensor
+     *
+     * @param dataFeed instance of DataFeed
+     */
+    void setDataFeed(DataFeed<T> dataFeed);
 
-    DataFeed getDataFeed();
+    /**
+     * Returns DataFeed for Sensor
+     *
+     * @return instance of DataFeed
+     */
+    DataFeed<T> getDataFeed();
 
 }

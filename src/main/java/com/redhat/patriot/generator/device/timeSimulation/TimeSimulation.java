@@ -19,14 +19,52 @@ package com.redhat.patriot.generator.device.timeSimulation;
 import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.device.Device;
 
+/**
+ * This interface provides possibility to simulate Device in time.
+ * Time intervals of data polling are determined from DataFeed.
+ *
+ * As Time Simulations requests data from Device with series of continuous tasks,
+ * the generated value itself is lost, therefore user is not able to get it as return value.
+ * This behavior requires use of DataObservable class and Observer Pattern.
+ */
 public interface TimeSimulation {
 
-    void setDevice(Device device);
-
-    void setTimeFeed(DataFeed<Double> timeFeed);
-
+    /**
+     * Starts simulation process.
+     */
     void simulate();
 
+    /**
+     * Stops simulation.
+     */
     void stopSimulation();
+
+    /**
+     * Sets Device for TimeSimulation
+     *
+     * @param device instance of Device
+     */
+    void setDevice(Device device);
+
+    /**
+     * Gets Device for TimeSimulation
+     *
+     * @return instance of Device
+     */
+    Device getDevice();
+
+    /**
+     * Sets DataFeed for TimeSimulation
+     *
+     * @param timeFeed instance of DataFeed
+     */
+    void setTimeFeed(DataFeed<Double> timeFeed);
+
+    /**
+     * Returns DataFeed for TimeSimulation
+     *
+     * @return instance of DataFeed
+     */
+    DataFeed<Double> getTimeFeed();
 
 }

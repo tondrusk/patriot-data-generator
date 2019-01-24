@@ -43,7 +43,6 @@ public class NormalDistributionDataFeed implements DataFeed<Double> {
     public Double getNextValue(Object... params) {
         Double result = normalGen.nextDouble();
         prevousValue = result;
-        //LOGGER.info("Generated data from Normal distribution Data feed: " + result);
 
         return result;
     }

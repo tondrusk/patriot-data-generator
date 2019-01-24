@@ -19,22 +19,22 @@ package com.redhat.patriot.sample;
 import com.redhat.patriot.generator.basicDevices.Hygrometer;
 import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.dataFeed.NormalDistributionDataFeed;
-import com.redhat.patriot.generator.device.Device;
+import com.redhat.patriot.generator.device.Sensor;
 import org.junit.jupiter.api.BeforeEach;
 
 class DeviceTest {
 
-    private Device newDevice;
+    private Sensor<Double> newDevice;
 
     @BeforeEach
     void setUp() {
-        DataFeed dataFeed = new NormalDistributionDataFeed(0, 1);
+        DataFeed<Double> dataFeed = new NormalDistributionDataFeed(0, 1);
         newDevice = new Hygrometer("TestHygrometer", dataFeed);
     }
 
 //    @Test
 //    void getValue() {
-//        double data = newDevice.requestData();
+//        List<Double> data = newDevice.requestData();
 //        assertTrue(data <= 2 );
 //        assertTrue(data >= -2 );
 //    }
@@ -44,15 +44,6 @@ class DeviceTest {
 //        newDevice.setDataFeed(null);
 //
 //        assertThrows(IllegalArgumentException.class, () -> newDevice.requestData());
-//    }
-
-//    @Test
-//    void dataQueue() throws InterruptedException {
-//        newDevice.setQueuingEnabled(true);
-//        DataQueue queue = DataQueue.getInstance();
-//
-//        newDevice.requestData();
-//        assertNotNull(queue.take());
 //    }
 
 }

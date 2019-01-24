@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2018 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,41 +14,30 @@
  *    limitations under the License.
  */
 
-package com.redhat.patriot.generator.device;
+package com.redhat.patriot.generator.events;
 
-import java.util.UUID;
+import com.redhat.patriot.generator.device.Device;
 
-/**
- * Interface for methods used for identification of Devices.
- */
-public interface Unit {
+import java.util.List;
+import java.util.Observable;
 
-    /**
-     * Returns UUID
-     *
-     * @return instance of UUID
-     */
-    UUID getUUID();
+public class DataObservable<E> extends Observable {
 
-    /**
-     * Sets UUID
-     *
-     * @param uuid instance of UUID
-     */
-    void setUUID(UUID uuid);
+    public void notify(List<E> data) {
+        setChanged();
+        notifyObservers(data);
+    }
 
-    /**
-     * Returns Label
-     *
-     * @return label
-     */
-    String getLabel();
+    public void addDevice(Device device) {
+        synchronized(this) {
+            device.setDataObservable(this);
+        }
+    }
 
-    /**
-     * Sets Label
-     *
-     * @param label
-     */
-    void setLabel(String label);
+    public void removeDevice(Device device) {
+        synchronized(this) {
+            device.setDataObservable(null);
+        }
+    }
 
 }

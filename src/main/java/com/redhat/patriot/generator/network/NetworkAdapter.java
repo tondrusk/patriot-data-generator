@@ -16,8 +16,16 @@
 
 package com.redhat.patriot.generator.network;
 
+/**
+ * Provides possibility to send data by network protocol to right destination.
+ */
 public interface NetworkAdapter {
 
+    /**
+     * Sends data which are wrapped by DataWrappers, there fore in String format.
+     *
+     * @param object
+     */
     void send(String object);
 
 }

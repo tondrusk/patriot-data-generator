@@ -39,16 +39,6 @@ public class TimeSimulationImpl implements TimeSimulation {
     }
 
     @Override
-    public void setDevice(Device device) {
-        this.device = device;
-    }
-
-    @Override
-    public void setTimeFeed(DataFeed<Double> timeFeed) {
-        this.timeFeed = timeFeed;
-    }
-
-    @Override
     public void simulate() {
         timer.schedule(task(), 0);
     }
@@ -74,4 +64,25 @@ public class TimeSimulationImpl implements TimeSimulation {
             }
         };
     }
+
+    @Override
+    public void setDevice(Device device) {
+        this.device = device;
+    }
+
+    @Override
+    public Device getDevice() {
+        return device;
+    }
+
+    @Override
+    public void setTimeFeed(DataFeed<Double> timeFeed) {
+        this.timeFeed = timeFeed;
+    }
+
+    @Override
+    public DataFeed<Double> getTimeFeed() {
+        return timeFeed;
+    }
+
 }

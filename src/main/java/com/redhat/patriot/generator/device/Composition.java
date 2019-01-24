@@ -20,12 +20,35 @@ import com.redhat.patriot.generator.dataFeed.DataFeed;
 
 import java.util.List;
 
-public interface Composition<E> extends Device {
+/**
+ * Interface enables multiple DataFeeds for single device, but preserves single identification parameters.
+ * Therefore it needs several different DataFeeds, where values are generated simultaneously.
+ *
+ * User should use this interface instead of Device.
+ *
+ * @param <T> type of object with which DataFeeds operates
+ */
+public interface Composition<T> {
 
-    void addDataFeed(DataFeed<E> dataFeed);
+    /**
+     * Adds DataFeed to Composition
+     *
+     * @param dataFeed instance of DataFeed
+     */
+    void addDataFeed(DataFeed<T> dataFeed);
 
-    void removeDataFeed(DataFeed<E> dataFeed);
+    /**
+     * Removes DataFeed from Composition
+     *
+     * @param dataFeed instance of DataFeed
+     */
+    void removeDataFeed(DataFeed<T> dataFeed);
 
-    List<DataFeed<E>> getDataFeed();
+    /**
+     * Returns list of all DataFeeds for Composition
+     *
+     * @return list of DataFeeds
+     */
+    List<DataFeed<T>> getDataFeed();
 
 }
