@@ -18,6 +18,8 @@ package com.redhat.patriot.generator.wrappers;
 
 import com.redhat.patriot.generator.device.Device;
 
+import java.util.HashMap;
+
 /**
  * Interface provides method for wrapping all important data in to properly documented format,
  * design mainly for data transfer. Format should contain generated data and all necessary information,
@@ -28,12 +30,21 @@ import com.redhat.patriot.generator.device.Device;
 public interface DataWrapper<E> {
 
     /**
-     * Wraps data
+     * Wraps data into specific format
      *
      * @param device from which generated data origin
      * @param data generated from device
      * @return String representation of data format
      */
     String wrapData(Device device, E data);
+
+    /**
+     * Wraps data into specific format.
+     *
+     * @param device
+     * @param data
+     * @return
+     */
+    String wrapData(Device device, HashMap<String, E> data);
 
 }

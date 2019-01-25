@@ -25,6 +25,8 @@ import java.util.Set;
  */
 public class ExpressionDataFeed implements DataFeed<Double> {
 
+    private String label;
+
     private Expression expression;
 
     private String variable;
@@ -63,5 +65,15 @@ public class ExpressionDataFeed implements DataFeed<Double> {
     @Override
     public Double getPreviousValue() {
         return previousValue;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
     }
 }

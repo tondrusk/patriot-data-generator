@@ -23,9 +23,12 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by jsmolar on 7/3/18.
+ * Abstract class for Sensor - device with single DataFeed.
+ *
+ * @param <E> type of generated data
+ * @param <T> type of object with which DataFeed operates
  */
-public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sensor {
+public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sensor<T> {
 
     private DataFeed<T> dataFeed;
 
@@ -40,9 +43,9 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
         super(label);
         this.dataFeed = dataFeed;
 
-        if (!inputType.isAssignableFrom(outputType)) {
-
-        }
+//        if (!inputType.isAssignableFrom(outputType)) {
+//            throw new IllegalArgumentException("DataFeed type is not castable to Sensors type");
+//        }
     }
 
     @Override
@@ -52,7 +55,8 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
         }
 
         T newData = dataFeed.getNextValue(param);
-        E result = outputType.cast(newData);
+        E result = (E) newData;
+//        E result = outputType.cast(newData);
 
         if(getNetworkAdapter() != null) {
             sendData(result);
@@ -70,12 +74,12 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
     }
 
     @Override
-    public void setDataFeed(DataFeed dataFeed) {
+    public void setDataFeed(DataFeed<T> dataFeed) {
         this.dataFeed = dataFeed;
     }
 
     @Override
-    public DataFeed getDataFeed() {
+    public DataFeed<T> getDataFeed() {
         return dataFeed;
     }
 

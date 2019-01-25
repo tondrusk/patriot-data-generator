@@ -42,8 +42,18 @@ public interface DataFeed<E> {
      */
     E getPreviousValue();
 
-//    void setLabel(String label);
-//
-//    String getLabel();
+    /**
+     * Sets label for DataFeed
+     *
+     * @param label
+     */
+    void setLabel(String label);
+
+    /**
+     * Returns label for DataFeed
+     *
+     * @return label
+     */
+    String getLabel();
 
 }

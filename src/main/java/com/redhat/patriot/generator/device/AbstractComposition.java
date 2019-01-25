@@ -18,47 +18,73 @@ package com.redhat.patriot.generator.device;
 
 import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.device.timeSimulation.TimeSimulation;
+import com.redhat.patriot.generator.network.NetworkAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public abstract class AbstractComposition<E> extends AbstractDevice implements Composition<E> {
+/**
+ * Abstract class for device Composition - one unit with multiple DataFeeds
+ *
+ * @param <E> type of generated data
+ * @param <T> type of object with which all DataFeeds operate
+ */
+public abstract class AbstractComposition<E,T> extends AbstractDevice implements Composition<T> {
 
     private TimeSimulation ts;
 
-    private List<DataFeed<E>> dataFeed;
+    private List<DataFeed<T>> dataFeed;
+
+    private Class<E> outputType;
+    private Class<T> inputType;
 
     public AbstractComposition(String label) {
         super(label);
+
+//        if (!inputType.isAssignableFrom(outputType)) {
+//            throw new IllegalArgumentException("DataFeed type is not castable to Sensors type");
+//        }
     }
 
     @Override
     public List<E> requestData(Object... param) {
         List<E> result = new ArrayList<>();
+        HashMap<String, E> networkData = new HashMap<>();
 
-        for(DataFeed<E> df : dataFeed) {
-            result.add(df.getNextValue());
+        for(DataFeed<T> df : dataFeed) {
+            E newValue = outputType.cast(df.getNextValue());
+            networkData.put(df.getLabel(), newValue);
+            result.add(newValue);
+        }
+
+        if(getNetworkAdapter() != null) {
+            sendData(networkData);
         }
 
         return result;
     }
 
-    private void sendData() {
-
+    private void sendData(HashMap<String, E> data) {
+        String dw = getDataWrapper().wrapData(this, data);
+        NetworkAdapter networkAdapter = getNetworkAdapter();
+        if(networkAdapter != null) {
+            networkAdapter.send(dw);
+        }
     }
 
     @Override
-    public void addDataFeed(DataFeed<E> dataFeed) {
+    public void addDataFeed(DataFeed<T> dataFeed) {
         this.dataFeed.add(dataFeed);
     }
 
     @Override
-    public void removeDataFeed(DataFeed<E> dataFeed) {
+    public void removeDataFeed(DataFeed<T> dataFeed) {
         this.dataFeed.remove(dataFeed);
     }
 
     @Override
-    public List<DataFeed<E>> getDataFeed() {
+    public List<DataFeed<T>> getDataFeed() {
         return dataFeed;
     }
 }

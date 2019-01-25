@@ -21,6 +21,8 @@ package com.redhat.patriot.generator.dataFeed;
  */
 public class ConstantDataFeed implements DataFeed<Double> {
 
+    private String label;
+
     private double timer;
 
     public ConstantDataFeed(double timer) {
@@ -35,6 +37,16 @@ public class ConstantDataFeed implements DataFeed<Double> {
     @Override
     public Double getPreviousValue() {
         return timer;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
     }
 
 }

@@ -21,6 +21,9 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class XMLWrapper<E> implements DataWrapper<E> {
 
     private Document document = DocumentHelper.createDocument();
@@ -30,6 +33,17 @@ public class XMLWrapper<E> implements DataWrapper<E> {
         Element root = document.addElement("root");
         root.addAttribute("name", device.getLabel())
             .addAttribute("data", data.toString());
+
+        return document.asXML();
+    }
+
+    @Override
+    public String wrapData(Device device, HashMap<String, E> data) {
+        Element root = document.addElement("root");
+        root.addAttribute("name", device.getLabel());
+        for (Map.Entry me : data.entrySet()) {
+            root.addAttribute(me.getKey().toString(), me.getValue().toString());
+        }
 
         return document.asXML();
     }

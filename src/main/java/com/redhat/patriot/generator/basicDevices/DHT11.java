@@ -19,7 +19,7 @@ package com.redhat.patriot.generator.basicDevices;
 import com.redhat.patriot.generator.dataFeed.DataFeed;
 import com.redhat.patriot.generator.device.AbstractComposition;
 
-public class DHT11 extends AbstractComposition<Double> {
+public class DHT11 extends AbstractComposition<Double,Double> {
 
     public DHT11(DataFeed<Double> temperature, DataFeed<Double> humidity) {
         super("DHT11");

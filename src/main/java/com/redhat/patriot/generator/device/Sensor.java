@@ -25,7 +25,7 @@ import com.redhat.patriot.generator.dataFeed.DataFeed;
  *
  * @param <T> type of object with which DataFeed operates
  */
-public interface Sensor<T> {
+public interface Sensor<T> extends Device {
 
     /**
      * Sets DataFeed for Sensor

@@ -21,6 +21,8 @@ package com.redhat.patriot.generator.dataFeed;
  */
 public class LinearDataFeed implements DataFeed<Double> {
 
+    private String label;
+
     private double period;
 
     private double currentTime;
@@ -56,6 +58,16 @@ public class LinearDataFeed implements DataFeed<Double> {
     @Override
     public Double getPreviousValue() {
         return currentTime - period;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
     }
 
 }

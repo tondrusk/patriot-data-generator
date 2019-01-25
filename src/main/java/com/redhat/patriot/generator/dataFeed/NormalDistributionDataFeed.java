@@ -52,14 +52,14 @@ public class NormalDistributionDataFeed implements DataFeed<Double> {
         return prevousValue;
     }
 
-//    @Override
-//    public void setLabel(String label) {
-//
-//    }
-//
-//    @Override
-//    public String getLabel() {
-//        return null;
-//    }
+    @Override
+    public void setLabel(String label) {
+
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
+    }
 
 }

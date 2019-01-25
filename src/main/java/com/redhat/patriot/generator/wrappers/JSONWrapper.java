@@ -19,16 +19,30 @@ package com.redhat.patriot.generator.wrappers;
 import com.redhat.patriot.generator.device.Device;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by jsmolar on 7/24/18.
  */
 public class JSONWrapper<E> implements DataWrapper<E> {
 
+    private JSONObject jsonObject = new JSONObject();
+
     @Override
     public String wrapData(Device device, E data) {
-        JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", device.getLabel())
             .put("data", data.toString());
+
+        return jsonObject.toString();
+    }
+
+    @Override
+    public String wrapData(Device device, HashMap<String, E> data) {
+        jsonObject.put("name", device.getLabel());
+        for (Map.Entry me : data.entrySet()) {
+            jsonObject.put(me.getKey().toString(), me.getValue().toString());
+        }
 
         return jsonObject.toString();
     }

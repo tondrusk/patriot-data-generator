@@ -24,6 +24,8 @@ import net.objecthunter.exp4j.ExpressionBuilder;
  */
 public class DayTemperatureDataFeed implements DataFeed<Double> {
 
+    private String label;
+
     private double dayMin;
     private double dayMax;
 
@@ -82,5 +84,15 @@ public class DayTemperatureDataFeed implements DataFeed<Double> {
     @Override
     public Double getPreviousValue() {
         return lastValue;
+    }
+
+    @Override
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
     }
 }
