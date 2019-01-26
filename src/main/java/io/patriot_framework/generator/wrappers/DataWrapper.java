@@ -41,9 +41,9 @@ public interface DataWrapper<E> {
     /**
      * Wraps data into specific format.
      *
-     * @param device
-     * @param data
-     * @return
+     * @param device from which generated data origin
+     * @param data HashMap where key is name of DataFeed and value is generated value
+     * @return String representation of data format
      */
     String wrapData(Device device, HashMap<String, E> data);
 

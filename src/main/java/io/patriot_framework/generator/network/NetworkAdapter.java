@@ -24,7 +24,7 @@ public interface NetworkAdapter {
     /**
      * Sends data which are wrapped by DataWrappers, there fore in String format.
      *
-     * @param object
+     * @param object in right format converted into String
      */
     void send(String object);
 

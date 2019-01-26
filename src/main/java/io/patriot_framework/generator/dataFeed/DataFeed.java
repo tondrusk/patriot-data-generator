@@ -45,7 +45,7 @@ public interface DataFeed<E> {
     /**
      * Sets label for DataFeed
      *
-     * @param label
+     * @param label the label
      */
     void setLabel(String label);
 
