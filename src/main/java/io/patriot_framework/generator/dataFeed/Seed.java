@@ -16,6 +16,9 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * SSJ uses RandomStreams to generate uniform variates (real numbers) over the interval (0,1).
  * Seed is array of 6 integers, that provides initial state for RandomStreams. It is starting point for computing.
@@ -28,8 +31,13 @@ public class Seed {
     private static final long M1 = 4294967087L;
     private static final long M2 = 4294944443L;
 
+    private static final Logger log = LogManager.getLogger(Seed.class);
+
     public static long[] generate() {
         long[] seed = {random(M1), random(M1), random(M1), random(M2), random(M2), random(M2)};
+
+        log.error("LOLOLOOOO");
+
         return seed;
     }
 

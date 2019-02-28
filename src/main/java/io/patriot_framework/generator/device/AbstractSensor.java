@@ -18,6 +18,7 @@ package io.patriot_framework.generator.device;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.network.NetworkAdapter;
+import io.patriot_framework.generator.converter.DataConverter;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +30,8 @@ import java.util.List;
  * @param <T> type of object with which DataFeed operates
  */
 public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sensor<T> {
+
+    private DataConverter<E,T> dataConverter;
 
     private DataFeed<T> dataFeed;
 
@@ -55,8 +58,7 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
         }
 
         T newData = dataFeed.getNextValue(param);
-        E result = (E) newData;
-//        E result = outputType.cast(newData);
+        E result = dataConverter.transform(newData);
 
         if(getNetworkAdapter() != null) {
             sendData(result);
@@ -83,4 +85,11 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
         return dataFeed;
     }
 
+    public DataConverter<E, T> getDataConverter() {
+        return dataConverter;
+    }
+
+    public void setDataConverter(DataConverter<E, T> dataConverter) {
+        this.dataConverter = dataConverter;
+    }
 }

@@ -19,6 +19,7 @@ package io.patriot_framework.generator.device;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.timeSimulation.TimeSimulation;
 import io.patriot_framework.generator.network.NetworkAdapter;
+import io.patriot_framework.generator.converter.DataConverter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,10 +35,12 @@ public abstract class AbstractComposition<E,T> extends AbstractDevice implements
 
     private TimeSimulation ts;
 
+    private DataConverter<E,T> transform;
+
     private List<DataFeed<T>> dataFeed;
 
-    private Class<E> outputType;
-    private Class<T> inputType;
+//    private Class<E> outputType;
+//    private Class<T> inputType;
 
     public AbstractComposition(String label) {
         super(label);
@@ -53,7 +56,7 @@ public abstract class AbstractComposition<E,T> extends AbstractDevice implements
         HashMap<String, E> networkData = new HashMap<>();
 
         for(DataFeed<T> df : dataFeed) {
-            E newValue = outputType.cast(df.getNextValue());
+            E newValue = transform.transform(df.getNextValue());
             networkData.put(df.getLabel(), newValue);
             result.add(newValue);
         }
@@ -87,4 +90,7 @@ public abstract class AbstractComposition<E,T> extends AbstractDevice implements
     public List<DataFeed<T>> getDataFeed() {
         return dataFeed;
     }
+
+    public abstract void setDataConverter(DataConverter<E,T> dataConverter);
+
 }

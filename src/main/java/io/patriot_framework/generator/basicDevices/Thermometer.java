@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.basicDevices;
 
+import io.patriot_framework.generator.converter.DataConverter;
+import io.patriot_framework.generator.converter.DoubleConverter;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.AbstractSensor;
 
@@ -26,12 +28,16 @@ import io.patriot_framework.generator.device.AbstractSensor;
  */
 public class Thermometer<E> extends AbstractSensor<E,E> {
 
+    private DataConverter<E,E> dc = new DoubleConverter<>();
+
     public Thermometer(String label) {
         super(label);
+        setDataConverter(dc);
     }
 
     public Thermometer(String label, DataFeed dataFeed) {
         super(label, dataFeed);
+        setDataConverter(dc);
     }
 
 }

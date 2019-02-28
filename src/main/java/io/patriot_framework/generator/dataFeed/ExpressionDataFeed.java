@@ -57,7 +57,6 @@ public class ExpressionDataFeed implements DataFeed<Double> {
         expression.setVariable(variable, time);
         double result = expression.evaluate();
         previousValue = result;
-//        LOGGER.info("Generated data from expression: " + result);
 
         return result;
     }
