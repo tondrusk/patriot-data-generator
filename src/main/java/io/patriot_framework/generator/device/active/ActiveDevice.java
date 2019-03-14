@@ -14,25 +14,25 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.timeSimulation;
+package io.patriot_framework.generator.device.active;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.Device;
 
 /**
- * This interface provides possibility to simulate Device in time.
+ * This interface provides possibility to startSimulation Device in time.
  * Time intervals of data polling are determined from DataFeed.
  *
  * As Time Simulations requests data from Device with series of continuous tasks,
  * the generated value itself is lost, therefore user is not able to get it as return value.
  * This behavior requires use of DataObservable class and Observer Pattern.
  */
-public interface TimeSimulation {
+public interface ActiveDevice {
 
     /**
      * Starts simulation process.
      */
-    void simulate();
+    void startSimulation();
 
     /**
      * Stops simulation.

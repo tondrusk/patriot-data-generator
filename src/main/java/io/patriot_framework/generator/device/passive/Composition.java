@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device;
+package io.patriot_framework.generator.device.passive;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
 

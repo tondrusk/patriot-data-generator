@@ -16,7 +16,7 @@
 //
 //package io.patriot_framework.generator.basicDevices;
 //
-//import io.patriot_framework.generator.device.AbstractComposition;
+//import io.patriot_framework.generator.device.passive.AbstractComposition;
 //
 ///**
 // * Default Composition class. This should be used when creating composition of devices,

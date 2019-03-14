@@ -16,22 +16,14 @@
 
 package io.patriot_framework.generator.basicDevices;
 
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.passive.AbstractSensor;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Class should be used when creating Humidity sensor. Generic types of DataFeed and Sensor itself are the same.
- *
- * @param <E> type of DataFeed and Sensor
- */
-public class Hygrometer<E> extends AbstractSensor<E,E> {
+public class Lala extends Thermometer<Double> {
 
-    public Hygrometer(String label) {
+    @JsonCreator
+    public Lala(@JsonProperty("label") String label) {
         super(label);
-    }
-
-    public Hygrometer(String label, DataFeed dataFeed) {
-        super(label, dataFeed);
     }
 
 }

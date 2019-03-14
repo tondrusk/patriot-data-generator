@@ -14,33 +14,42 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.timeSimulation;
+package io.patriot_framework.generator.device.active;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.dataFeed.Seed;
 import io.patriot_framework.generator.device.Device;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TimeSimulationImpl implements TimeSimulation {
+public class ActiveDeviceImpl implements ActiveDevice {
+
+    private static final Logger log = LogManager.getLogger(Seed.class);
 
     private Timer timer = new Timer();
 
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private DataFeed<Double> timeFeed;
 
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private Device device;
 
-    public TimeSimulationImpl() {
+    public ActiveDeviceImpl() {
     }
 
-    public TimeSimulationImpl(DataFeed<Double> timeFeed, Device device) {
+    public ActiveDeviceImpl(DataFeed<Double> timeFeed, Device device) {
         this.timeFeed = timeFeed;
         this.device = device;
     }
 
     @Override
-    public void simulate() {
+    public void startSimulation() {
         timer.schedule(task(), 0);
+        log.info("Device is started");
     }
 
     @Override

@@ -16,9 +16,20 @@
 
 package io.patriot_framework.generator.network;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Provides possibility to send data by network protocol to right destination.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Rest.class, name = "rest"),
+        @JsonSubTypes.Type(value = MQTT.class, name = "mqtt")
+})
 public interface NetworkAdapter {
 
     /**

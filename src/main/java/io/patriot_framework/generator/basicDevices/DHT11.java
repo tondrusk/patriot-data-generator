@@ -17,7 +17,7 @@
 //package io.patriot_framework.generator.basicDevices;
 //
 //import io.patriot_framework.generator.dataFeed.DataFeed;
-//import io.patriot_framework.generator.device.AbstractComposition;
+//import io.patriot_framework.generator.device.passive.AbstractComposition;
 //
 ///**
 // * This class represents temperature and humidity sensor as Device Composition.

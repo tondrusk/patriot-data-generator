@@ -19,7 +19,6 @@ package io.patriot_framework.generator.device;
 import io.patriot_framework.generator.events.DataObservable;
 import io.patriot_framework.generator.network.NetworkAdapter;
 import io.patriot_framework.generator.wrappers.DataWrapper;
-import io.patriot_framework.generator.wrappers.JSONWrapper;
 
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ public abstract class AbstractDevice implements Device {
 
     private NetworkAdapter networkAdapter;
 
-    private DataWrapper dataWrapper = new JSONWrapper();
+    private DataWrapper dataWrapper;
 
     private DataObservable dataObserable;
 

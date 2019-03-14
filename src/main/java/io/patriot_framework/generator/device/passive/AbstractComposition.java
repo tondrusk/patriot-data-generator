@@ -14,12 +14,13 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device;
+package io.patriot_framework.generator.device.passive;
 
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.timeSimulation.TimeSimulation;
-import io.patriot_framework.generator.network.NetworkAdapter;
 import io.patriot_framework.generator.converter.DataConverter;
+import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.device.AbstractDevice;
+import io.patriot_framework.generator.device.active.ActiveDevice;
+import io.patriot_framework.generator.network.NetworkAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public abstract class AbstractComposition<E,T> extends AbstractDevice implements Composition<T> {
 
-    private TimeSimulation ts;
+    private ActiveDevice ts;
 
     private DataConverter<E,T> transform;
 

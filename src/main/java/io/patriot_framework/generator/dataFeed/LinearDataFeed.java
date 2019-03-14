@@ -16,6 +16,9 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Data stream values from this feed follows linear function.
  */
@@ -33,7 +36,8 @@ public class LinearDataFeed implements DataFeed<Double> {
      */
     private double currentTime;
 
-    public LinearDataFeed(double period) {
+    @JsonCreator
+    public LinearDataFeed(@JsonProperty("period") double period) {
         this.period = period;
         currentTime = 0;
     }

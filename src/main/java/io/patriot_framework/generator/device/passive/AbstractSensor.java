@@ -14,11 +14,15 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device;
+package io.patriot_framework.generator.device.passive;
 
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.network.NetworkAdapter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.converter.DataConverter;
+import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.device.AbstractDevice;
+import io.patriot_framework.generator.network.NetworkAdapter;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,12 +37,14 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
 
     private DataConverter<E,T> dataConverter;
 
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private DataFeed<T> dataFeed;
 
     private Class<E> outputType;
     private Class<T> inputType;
 
-    public AbstractSensor(String label) {
+    @JsonCreator
+    public AbstractSensor(@JsonProperty("label") String label) {
         super(label);
     }
 

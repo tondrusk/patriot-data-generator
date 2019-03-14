@@ -17,7 +17,7 @@
 package io.patriot_framework.generator.basicDevices;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.AbstractSensor;
+import io.patriot_framework.generator.device.passive.AbstractSensor;
 
 /**
  * Default Device class. This should be used when creating device, that is not jet implemented.

@@ -16,10 +16,6 @@
 
 package io.patriot_framework.sample;
 
-import io.patriot_framework.generator.controll.CoapDeviceControlServer;
-
-import java.net.SocketException;
-
 public class TestMain {
 
     public static void main(String[] args) {
@@ -31,15 +27,16 @@ public class TestMain {
 //        DataFeed tf = new ConstantDataFeed(2000);
 //        TimeSimulation simulation = new TimeSimulationImpl(tf, temperature);
 //        simulation.simulate();
+//
+//        CoapDeviceControlServer server = null;
+//        try {
+//            server = new CoapDeviceControlServer();
+//            server.addEndpoints();
+//            server.start();
+//        } catch (SocketException e) {
+//            e.printStackTrace();
+//        }
 
-        CoapDeviceControlServer server = null;
-        try {
-            server = new CoapDeviceControlServer();
-            server.addEndpoints();
-            server.start();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
     }
 
 }

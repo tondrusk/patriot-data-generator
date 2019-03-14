@@ -16,6 +16,9 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Feed generates same predefined value on every request.
  */
@@ -25,7 +28,8 @@ public class ConstantDataFeed implements DataFeed<Double> {
 
     private double timer;
 
-    public ConstantDataFeed(double timer) {
+    @JsonCreator
+    public ConstantDataFeed(@JsonProperty("timer") double timer) {
         this.timer = timer;
     }
 

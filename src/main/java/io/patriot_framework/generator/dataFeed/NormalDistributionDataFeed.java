@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import umontreal.ssj.probdist.NormalDist;
 import umontreal.ssj.randvar.NormalGen;
 import umontreal.ssj.rng.MRG32k3a;
@@ -34,7 +36,8 @@ public class NormalDistributionDataFeed implements DataFeed<Double> {
 
     private double previousValue;
 
-    public NormalDistributionDataFeed(double mu, double sigma) {
+    @JsonCreator
+    public NormalDistributionDataFeed(@JsonProperty("mu") double mu, @JsonProperty("sigma") double sigma) {
         RandomStream rs = new MRG32k3a();
         this.normalGen = new NormalGen(rs, mu, sigma);
         this.normalDist = new NormalDist(mu, sigma);

@@ -14,31 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device;
+package io.patriot_framework.generator.dataFeed;
 
-import io.patriot_framework.generator.dataFeed.DataFeed;
-
-/**
- * Interface allows to set DataFeed for Device.
- *
- * User should use this interface instead of Device.
- *
- * @param <T> type of object with which DataFeed operates
- */
-public interface Sensor<T> extends Device {
-
-    /**
-     * Sets DataFeed for Sensor
-     *
-     * @param dataFeed instance of DataFeed
-     */
-    void setDataFeed(DataFeed<T> dataFeed);
-
-    /**
-     * Returns DataFeed for Sensor
-     *
-     * @return instance of DataFeed
-     */
-    DataFeed<T> getDataFeed();
-
-}
+//public class TimeFeed extends DataFeed<Long> {
+//}

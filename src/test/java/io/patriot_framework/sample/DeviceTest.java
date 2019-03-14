@@ -19,7 +19,7 @@ package io.patriot_framework.sample;
 import io.patriot_framework.generator.basicDevices.Hygrometer;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
-import io.patriot_framework.generator.device.Sensor;
+import io.patriot_framework.generator.device.passive.Sensor;
 import org.junit.jupiter.api.BeforeEach;
 
 class DeviceTest {

@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.network;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -27,7 +29,8 @@ public class Rest implements NetworkAdapter {
 
     private String endpoint;
 
-    public Rest(String endpoint) {
+    @JsonCreator
+    public Rest(@JsonProperty("endpoint") String endpoint) {
         this.endpoint = endpoint;
     }
 
