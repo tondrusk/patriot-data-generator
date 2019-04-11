@@ -23,6 +23,8 @@ import io.patriot_framework.generator.converter.DataConverter;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.AbstractDevice;
 import io.patriot_framework.generator.network.NetworkAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +36,8 @@ import java.util.List;
  * @param <T> type of object with which DataFeed operates
  */
 public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sensor<T> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSensor.class);
 
     private DataConverter<E,T> dataConverter;
 
@@ -69,6 +73,8 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
         if(getNetworkAdapter() != null) {
             sendData(result);
         }
+
+        LOGGER.info(this.toString() + " new data: " + result.toString());
 
         return Collections.singletonList(result);
     }

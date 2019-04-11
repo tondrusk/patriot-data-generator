@@ -55,11 +55,11 @@ public class NormalDistributionDataFeed implements DataFeed<Double> {
     public Double getNextValue(Object... params) {
         Double result = null;
 
-        if(params.length == 0) {
+//        if(params.length == 0) {
             result = normalGen.nextDouble();
-        } else {
-            result = normalDist.cdf((Double) params[0]);
-        }
+//        } else {
+//            result = normalDist.cdf((Double) params[0]);
+//        }
         previousValue = result;
 
         return result;

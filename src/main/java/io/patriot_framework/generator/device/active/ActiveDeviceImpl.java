@@ -18,17 +18,16 @@ package io.patriot_framework.generator.device.active;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.dataFeed.Seed;
 import io.patriot_framework.generator.device.Device;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ActiveDeviceImpl implements ActiveDevice {
 
-    private static final Logger log = LogManager.getLogger(Seed.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActiveDeviceImpl.class);
 
     private Timer timer = new Timer();
 
@@ -49,27 +48,26 @@ public class ActiveDeviceImpl implements ActiveDevice {
     @Override
     public void startSimulation() {
         timer.schedule(task(), 0);
-        log.info("Device is started");
+        LOGGER.info("Device: " + device.getLabel() + " started active simulation");
     }
 
     @Override
     public void stopSimulation() {
         timer.cancel();
         timer.purge();
+        LOGGER.info("Device: " + device.getLabel() + " stopped active simulation");
     }
 
     private TimerTask task() {
         return new TimerTask() {
             @Override
             public void run() {
-                System.out.println("Thread: " + Thread.currentThread().getId());
                 double simTime = timeFeed.getNextValue();
+                LOGGER.info("Next clock for device: " + device.getLabel() + " is in seconds: " + simTime);
 
                 device.requestData(simTime);
 
-                double nextTask = simTime - timeFeed.getPreviousValue();
-
-                timer.schedule(task(), Math.round(nextTask));
+                timer.schedule(task(), Math.round(simTime));
             }
         };
     }

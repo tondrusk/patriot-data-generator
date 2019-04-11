@@ -16,17 +16,25 @@
 
 package io.patriot_framework.sample;
 
+import io.patriot_framework.generator.basicDevices.Thermometer;
+import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
+import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
+import io.patriot_framework.generator.device.active.ActiveDevice;
+import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
+import io.patriot_framework.generator.device.passive.Sensor;
+
 public class TestMain {
 
     public static void main(String[] args) {
-//        DataFeed df = new NormalDistributionDataFeed(18, 2);
+        DataFeed df = new NormalDistributionDataFeed(18, 2);
 //        NetworkAdapter na = new Rest("http://requestbin.fullcontact.com/wv2m0ywv");
-//        Sensor temperature = new Thermometer("thermometer", df);
+        Sensor temperature = new Thermometer("thermometer", df);
 //        temperature.setNetworkAdapter(na);
-//
-//        DataFeed tf = new ConstantDataFeed(2000);
-//        TimeSimulation simulation = new TimeSimulationImpl(tf, temperature);
-//        simulation.simulate();
+
+        DataFeed tf = new ConstantDataFeed(10000);
+        ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
+        simulation.startSimulation();
 //
 //        CoapDeviceControlServer server = null;
 //        try {
@@ -36,6 +44,9 @@ public class TestMain {
 //        } catch (SocketException e) {
 //            e.printStackTrace();
 //        }
+
+
+//        Actuator actuator = new AbstractActuator("aaaa");
 
     }
 

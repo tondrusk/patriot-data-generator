@@ -16,65 +16,45 @@
 
 package io.patriot_framework.generator.controll;
 
+import io.patriot_framework.generator.controll.resources.DeviceResource;
+import io.patriot_framework.generator.device.Device;
+import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
+import org.eclipse.californium.core.network.CoapEndpoint;
+import org.eclipse.californium.core.network.EndpointManager;
+import org.eclipse.californium.core.network.config.NetworkConfig;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CoapDeviceControlServer extends CoapServer {
 
-//    private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
-//
-//    private List<Device> register = new ArrayList<>();
-//
-//    public void registerDevice(Device device) {
-//        register.add(device);
-//        CoapResource res = new DataFeedResource();
-//    }
-//
-//    public CoapDeviceControlServer() throws SocketException {
-//
-//        // provide an instance of a Hello-World resource
-//        add(new DataFeedResource());
-//    }
-//
-//    public void addEndpoints() {
-//        for (InetAddress addr : EndpointManager.getEndpointManager().getNetworkInterfaces()) {
-//            // only binds to IPv4 addresses and localhost
-//            if (addr instanceof Inet4Address || addr.isLoopbackAddress()) {
-//                InetSocketAddress bindToAddress = new InetSocketAddress(addr, COAP_PORT);
-//                addEndpoint(new CoapEndpoint(bindToAddress));
-//            }
-//        }
-//    }
-//
-//    /*
-//     * Definition of the Hello-World Resource
-//     */
-//    class DataFeedResource extends CoapResource {
-//
-//        private String deviceLabel;
-//
-//
-//        public DataFeedResource() {
-//            this.deviceLabel = deviceLabel;
-//            // set resource identifier
-//            super("dataFeed");
-//
-//            // set display name
-//            getAttributes().setTitle("Hello-World Resource");
-//        }
-//
-//        @Override
-//        public void handleGET(CoapExchange exchange) {
-//
-//            // respond to the request
-//            exchange.respond("Hello World!");
-//        }
-//
-//        @Override
-//        public void handlePOST(CoapExchange exchange) {
-//            exchange.accept();
-////
-//
-////            exchange.respond(ResponseCode.CREATED);
-//        }
-//    }
+    private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
+
+    private List<Device> register = new ArrayList<>();
+
+    public CoapDeviceControlServer() throws SocketException {
+
+    }
+
+    public void registerDevice(Device device) {
+        register.add(device);
+        CoapResource res = new DeviceResource(device);
+        add(res);
+    }
+
+    public void addEndpoints() {
+        for (InetAddress addr : EndpointManager.getEndpointManager().getNetworkInterfaces()) {
+            // only binds to IPv4 addresses and localhost
+            if (addr instanceof Inet4Address || addr.isLoopbackAddress()) {
+                InetSocketAddress bindToAddress = new InetSocketAddress(addr, COAP_PORT);
+                addEndpoint(new CoapEndpoint(bindToAddress));
+            }
+        }
+    }
+
 }

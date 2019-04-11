@@ -21,6 +21,8 @@ import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.AbstractDevice;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.network.NetworkAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +35,8 @@ import java.util.List;
  * @param <T> type of object with which all DataFeeds operate
  */
 public abstract class AbstractComposition<E,T> extends AbstractDevice implements Composition<T> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractComposition.class);
 
     private ActiveDevice ts;
 
@@ -65,6 +69,8 @@ public abstract class AbstractComposition<E,T> extends AbstractDevice implements
         if(getNetworkAdapter() != null) {
             sendData(networkData);
         }
+
+        LOGGER.info(this.toString() + " new data: " + result.toString());
 
         return result;
     }
