@@ -19,14 +19,14 @@ package io.patriot_framework.generator.basicDevices;
 import io.patriot_framework.generator.converter.DataConverter;
 import io.patriot_framework.generator.converter.DoubleConverter;
 import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.passive.AbstractSensor;
+import io.patriot_framework.generator.device.passive.AbstractSingleSensor;
 
 /**
  * Class should be used when creating Thermometer sensor. Generic types of DataFeed and Sensor itself are the same.
  *
  * @param <E> type of DataFeed and Sensor
  */
-public class Thermometer<E> extends AbstractSensor<E,E> {
+public class Thermometer<E> extends AbstractSingleSensor<E,E> {
 
     private DataConverter<E,E> dc = new DoubleConverter<>();
 

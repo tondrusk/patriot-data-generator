@@ -16,17 +16,30 @@
 
 package io.patriot_framework.generator.controll.resources;
 
-import io.patriot_framework.generator.device.Device;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.device.passive.DataProducer;
 import org.eclipse.californium.core.CoapResource;
+import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
-public class DataFeedResource extends CoapResource {
+import java.io.IOException;
 
-    private Device device;
 
-    public DataFeedResource(Device device) {
+public class DataFeedResource<E> extends CoapResource {
+
+    private DataProducer<E> sensor;
+
+    private ObjectMapper mapper;
+
+    public DataFeedResource(DataProducer sensor) {
         super("dataFeed");
-        this.device = device;
+        this.sensor = sensor;
+
+        JsonFactory factory = new JsonFactory();
+        mapper = new ObjectMapper(factory);
     }
 
     @Override
@@ -38,7 +51,18 @@ public class DataFeedResource extends CoapResource {
 
     @Override
     public void handlePOST(CoapExchange exchange) {
+        exchange.accept();
+        String body = exchange.getRequestText();
 
+        DataFeed dataFeed = null;
+        try {
+            dataFeed = mapper.readValue(body, new TypeReference<DataFeed>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sensor.addDataFeed(dataFeed);
+
+        exchange.respond(CoAP.ResponseCode.CHANGED);
     }
 
 }

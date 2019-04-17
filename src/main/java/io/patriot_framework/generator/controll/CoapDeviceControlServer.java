@@ -16,9 +16,10 @@
 
 package io.patriot_framework.generator.controll;
 
+import io.patriot_framework.generator.controll.resources.ActuatorResource;
 import io.patriot_framework.generator.controll.resources.DeviceResource;
-import io.patriot_framework.generator.device.Device;
-import org.eclipse.californium.core.CoapResource;
+import io.patriot_framework.generator.device.passive.Actuator;
+import io.patriot_framework.generator.device.passive.DataProducer;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.network.CoapEndpoint;
 import org.eclipse.californium.core.network.EndpointManager;
@@ -28,23 +29,44 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CoapDeviceControlServer extends CoapServer {
 
     private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
 
-    private List<Device> register = new ArrayList<>();
+    private static CoapDeviceControlServer singleInstance;
 
-    public CoapDeviceControlServer() throws SocketException {
+    private Map<String,DataProducer> sensorRegister = new HashMap<>();
+    private Map<String,Actuator> actuatorRegister = new HashMap<>();
+
+    private CoapDeviceControlServer() throws SocketException {
 
     }
 
-    public void registerDevice(Device device) {
-        register.add(device);
-        CoapResource res = new DeviceResource(device);
-        add(res);
+    public static CoapDeviceControlServer getInstance() {
+        if (singleInstance == null) {
+            try {
+                singleInstance = new CoapDeviceControlServer();
+            } catch (SocketException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return singleInstance;
+    }
+
+    public void registerSensor(DataProducer sensor) {
+        sensorRegister.put(sensor.getLabel(), sensor);
+
+        add(new DeviceResource(sensor));
+    }
+
+    public void registerActuator(Actuator actuator) {
+        actuatorRegister.put(actuator.getLabel(), actuator);
+
+        add(new ActuatorResource(actuator));
     }
 
     public void addEndpoints() {

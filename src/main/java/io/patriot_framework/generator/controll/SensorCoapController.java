@@ -14,34 +14,43 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.controll.resources;
+package io.patriot_framework.generator.controll;
 
+import io.patriot_framework.generator.controll.resources.DeviceResource;
 import io.patriot_framework.generator.device.passive.DataProducer;
 import org.eclipse.californium.core.CoapResource;
-import org.eclipse.californium.core.server.resources.CoapExchange;
 
-public class DeviceResource extends CoapResource {
+public class SensorCoapController implements CoapController {
+
+    private CoapDeviceControlServer server;
 
     private DataProducer sensor;
 
-    public DeviceResource(DataProducer sensor) {
-        super(sensor.getLabel());
+    private DeviceResource resource = null;
+
+    public SensorCoapController(DataProducer sensor) {
         this.sensor = sensor;
-
-        getAttributes().setTitle("Device resources");
-        add(new DataFeedResource(sensor));
-    }
-
-
-    @Override
-    public void handleGET(CoapExchange exchange) {
-
-        // respond to the request
-        exchange.respond("Hello World!");
+        server = CoapDeviceControlServer.getInstance();
+//        sensor.addDataFeed(new ConstantDataFeed(10000);
     }
 
     @Override
-    public void handlePOST(CoapExchange exchange) {
-
+    public void registerDevice() {
+        server.add(createResource());
     }
+
+    @Override
+    public void removeDevice() {
+        server.remove(resource);
+        resource = null;
+    }
+
+    private CoapResource createResource() {
+        if(resource == null) {
+            resource = new DeviceResource(sensor);
+        }
+
+        return resource;
+    }
+
 }

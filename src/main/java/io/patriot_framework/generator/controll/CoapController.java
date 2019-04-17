@@ -14,24 +14,12 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.basicDevices;
+package io.patriot_framework.generator.controll;
 
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.passive.AbstractSingleSensor;
+public interface CoapController {
 
-/**
- * Class should be used when creating Humidity sensor. Generic types of DataFeed and Sensor itself are the same.
- *
- * @param <E> type of DataFeed and Sensor
- */
-public class Hygrometer<E> extends AbstractSingleSensor<E,E> {
+    void registerDevice();
 
-    public Hygrometer(String label) {
-        super(label);
-    }
-
-    public Hygrometer(String label, DataFeed dataFeed) {
-        super(label, dataFeed);
-    }
+    void removeDevice();
 
 }

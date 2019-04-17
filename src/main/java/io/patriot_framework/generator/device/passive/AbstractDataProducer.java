@@ -16,45 +16,39 @@
 
 package io.patriot_framework.generator.device.passive;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.converter.DataConverter;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.AbstractDevice;
+import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.network.NetworkAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * Abstract class for Sensor - device with single DataFeed.
+ * Abstract class for device Composition - one unit with multiple DataFeeds
  *
  * @param <E> type of generated data
- * @param <T> type of object with which DataFeed operates
+ * @param <T> type of object with which all DataFeeds operate
  */
-public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sensor<T> {
+public abstract class AbstractDataProducer<E,T> extends AbstractDevice implements DataProducer<T> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSensor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDataProducer.class);
 
-    private DataConverter<E,T> dataConverter;
+    private ActiveDevice ts;
 
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
-    private DataFeed<T> dataFeed;
+    private DataConverter<E,T> transform;
 
-    private Class<E> outputType;
-    private Class<T> inputType;
+    private List<DataFeed<T>> dataFeed;
 
-    @JsonCreator
-    public AbstractSensor(@JsonProperty("label") String label) {
+//    private Class<E> outputType;
+//    private Class<T> inputType;
+
+    public AbstractDataProducer(String label) {
         super(label);
-    }
-
-    public AbstractSensor(String label, DataFeed<T> dataFeed) {
-        super(label);
-        this.dataFeed = dataFeed;
 
 //        if (!inputType.isAssignableFrom(outputType)) {
 //            throw new IllegalArgumentException("DataFeed type is not castable to Sensors type");
@@ -63,23 +57,25 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
 
     @Override
     public List<E> requestData(Object... param) {
-        if(dataFeed == null) {
-            throw new IllegalArgumentException("Data Feed cannot be null");
+        List<E> result = new ArrayList<>();
+        HashMap<String, E> networkData = new HashMap<>();
+
+        for(DataFeed<T> df : dataFeed) {
+            E newValue = transform.transform(df.getNextValue());
+            networkData.put(df.getLabel(), newValue);
+            result.add(newValue);
         }
 
-        T newData = dataFeed.getNextValue(param);
-        E result = dataConverter.transform(newData);
-
         if(getNetworkAdapter() != null) {
-            sendData(result);
+            sendData(networkData);
         }
 
         LOGGER.info(this.toString() + " new data: " + result.toString());
 
-        return Collections.singletonList(result);
+        return result;
     }
 
-    private void sendData(E data) {
+    private void sendData(HashMap<String, E> data) {
         String dw = getDataWrapper().wrapData(this, data);
         NetworkAdapter networkAdapter = getNetworkAdapter();
         if(networkAdapter != null) {
@@ -88,20 +84,20 @@ public abstract class AbstractSensor<E,T> extends AbstractDevice implements Sens
     }
 
     @Override
-    public void setDataFeed(DataFeed<T> dataFeed) {
-        this.dataFeed = dataFeed;
+    public void addDataFeed(DataFeed<T> dataFeed) {
+        this.dataFeed.add(dataFeed);
     }
 
     @Override
-    public DataFeed<T> getDataFeed() {
+    public void removeDataFeed(DataFeed<T> dataFeed) {
+        this.dataFeed.remove(dataFeed);
+    }
+
+    @Override
+    public List<DataFeed<T>> getDataFeed() {
         return dataFeed;
     }
 
-    public DataConverter<E, T> getDataConverter() {
-        return dataConverter;
-    }
+    public abstract void setDataConverter(DataConverter<E,T> dataConverter);
 
-    public void setDataConverter(DataConverter<E, T> dataConverter) {
-        this.dataConverter = dataConverter;
-    }
 }

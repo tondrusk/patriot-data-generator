@@ -27,7 +27,7 @@ import io.patriot_framework.generator.device.Device;
  * the generated value itself is lost, therefore user is not able to get it as return value.
  * This behavior requires use of DataObservable class and Observer Pattern.
  */
-public interface ActiveDevice {
+public interface ActiveDevice<Double> {
 
     /**
      * Starts simulation process.

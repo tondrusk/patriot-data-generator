@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device;
 
+import io.patriot_framework.generator.controll.CoapController;
 import io.patriot_framework.generator.events.DataObservable;
 import io.patriot_framework.generator.network.NetworkAdapter;
 import io.patriot_framework.generator.wrappers.DataWrapper;
@@ -34,8 +35,20 @@ public abstract class AbstractDevice implements Device {
 
     private DataObservable dataObserable;
 
+    private CoapController coapController;
+
     public AbstractDevice(String label) {
         this.label = label;
+    }
+
+    @Override
+    public void startCoapController() {
+        coapController.registerDevice();
+    }
+
+    @Override
+    public void stopCoapController() {
+        coapController.removeDevice();
     }
 
     @Override
@@ -87,4 +100,15 @@ public abstract class AbstractDevice implements Device {
     public void setDataWrapper(DataWrapper dataWrapper) {
         this.dataWrapper = dataWrapper;
     }
+
+    @Override
+    public CoapController getCoapController() {
+        return coapController;
+    }
+
+    @Override
+    public void setCoapController(CoapController coapController) {
+        this.coapController = coapController;
+    }
+
 }

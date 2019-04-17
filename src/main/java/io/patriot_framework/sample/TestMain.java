@@ -22,17 +22,17 @@ import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
-import io.patriot_framework.generator.device.passive.Sensor;
+import io.patriot_framework.generator.device.passive.DataProducer;
 
 public class TestMain {
 
     public static void main(String[] args) {
         DataFeed df = new NormalDistributionDataFeed(18, 2);
 //        NetworkAdapter na = new Rest("http://requestbin.fullcontact.com/wv2m0ywv");
-        Sensor temperature = new Thermometer("thermometer", df);
+        DataProducer temperature = new Thermometer("thermometer", df);
 //        temperature.setNetworkAdapter(na);
 
-        DataFeed tf = new ConstantDataFeed(10000);
+        DataFeed<Double> tf = new ConstantDataFeed(10000);
         ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
         simulation.startSimulation();
 //

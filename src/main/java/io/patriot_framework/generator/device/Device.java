@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device;
 
+import io.patriot_framework.generator.controll.CoapController;
 import io.patriot_framework.generator.events.DataObservable;
 import io.patriot_framework.generator.network.NetworkAdapter;
 import io.patriot_framework.generator.wrappers.DataWrapper;
@@ -40,6 +41,10 @@ public interface Device<E> extends Unit {
      * @return a list of generated values
      */
     List<E> requestData(Object... params);
+
+    void startCoapController();
+
+    void stopCoapController();
 
     /**
      * Sets Network Adapter for device which enables sending data wi
@@ -83,5 +88,19 @@ public interface Device<E> extends Unit {
      * @param dataObservable instance of DataObservable
      */
     void setDataObservable(DataObservable dataObservable);
+
+    /**
+     * Returns CoapController for Device
+     *
+     * @return instacne of CoapController
+     */
+    CoapController getCoapController();
+
+    /**
+     * Sets CoapController for Device
+     *
+     * @param coapController instance of CoapController
+     */
+    void setCoapController(CoapController coapController);
 
 }

@@ -18,37 +18,13 @@ package io.patriot_framework.generator.device.passive;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
 
-import java.util.List;
-
-/**
- * Interface enables multiple DataFeeds for single device, but preserves single identification parameters.
- * Therefore it needs several different DataFeeds, where values are generated simultaneously.
- *
- * User should use this interface instead of Device.
- *
- * @param <T> type of object with which DataFeeds operates
- */
-public interface Composition<T> {
+public interface SingleSensor<T> extends DataProducer<T> {
 
     /**
-     * Adds DataFeed to Composition
+     * Sets DataFeed for Sensor
      *
      * @param dataFeed instance of DataFeed
      */
-    void addDataFeed(DataFeed<T> dataFeed);
-
-    /**
-     * Removes DataFeed from Composition
-     *
-     * @param dataFeed instance of DataFeed
-     */
-    void removeDataFeed(DataFeed<T> dataFeed);
-
-    /**
-     * Returns list of all DataFeeds for Composition
-     *
-     * @return list of DataFeeds
-     */
-    List<DataFeed<T>> getDataFeed();
+    void setDataFeed(DataFeed<T> dataFeed);
 
 }
