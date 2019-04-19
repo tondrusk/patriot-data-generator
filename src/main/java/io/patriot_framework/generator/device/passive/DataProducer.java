@@ -29,27 +29,27 @@ import java.util.List;
  *
  * @param <T> type of object with which DataFeeds operates
  */
-public interface DataProducer<T> extends Device {
+public interface DataProducer extends Device {
 
     /**
      * Adds DataFeed to Composition
      *
      * @param dataFeed instance of DataFeed
      */
-    void addDataFeed(DataFeed<T> dataFeed);
+    void addDataFeed(DataFeed dataFeed);
 
     /**
      * Removes DataFeed from Composition
      *
      * @param dataFeed instance of DataFeed
      */
-    void removeDataFeed(DataFeed<T> dataFeed);
+    void removeDataFeed(DataFeed dataFeed);
 
     /**
      * Returns list of all DataFeeds for Composition
      *
      * @return list of DataFeeds
      */
-    List<DataFeed<T>> getDataFeed();
+    List<DataFeed> getDataFeed();
 
 }

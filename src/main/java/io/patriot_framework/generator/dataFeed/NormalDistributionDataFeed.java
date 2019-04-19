@@ -18,6 +18,7 @@ package io.patriot_framework.generator.dataFeed;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.patriot_framework.generator.Data;
 import umontreal.ssj.probdist.NormalDist;
 import umontreal.ssj.randvar.NormalGen;
 import umontreal.ssj.rng.MRG32k3a;
@@ -26,7 +27,7 @@ import umontreal.ssj.rng.RandomStream;
 /**
  * DataFeed based on Normal Distribution from SSJ library.
  */
-public class NormalDistributionDataFeed implements DataFeed<Double> {
+public class NormalDistributionDataFeed implements DataFeed {
 
     private String label;
 
@@ -52,7 +53,7 @@ public class NormalDistributionDataFeed implements DataFeed<Double> {
      * @return next evaluated value
      */
     @Override
-    public Double getNextValue(Object... params) {
+    public Data getNextValue(Object... params) {
         Double result = null;
 
 //        if(params.length == 0) {
@@ -62,12 +63,12 @@ public class NormalDistributionDataFeed implements DataFeed<Double> {
 //        }
         previousValue = result;
 
-        return result;
+        return new Data(Double.class, result);
     }
 
     @Override
-    public Double getPreviousValue() {
-        return previousValue;
+    public Data getPreviousValue() {
+        return new Data(Double.class, previousValue);
     }
 
     @Override

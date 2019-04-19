@@ -22,11 +22,8 @@ import io.patriot_framework.generator.device.passive.AbstractSingleSensor;
 /**
  * Default Device class. This should be used when creating device, that is not jet implemented.
  * Otherwise user should use respective Device class.
- *
- * @param <E> type of generated data
- * @param <T> type of object with which DataFeed operates
  */
-public class Default<E,T> extends AbstractSingleSensor<E,T> {
+public class Default extends AbstractSingleSensor {
 
     private String unit = null;
 

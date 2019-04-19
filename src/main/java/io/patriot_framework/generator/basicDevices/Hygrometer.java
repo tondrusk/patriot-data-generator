@@ -21,10 +21,8 @@ import io.patriot_framework.generator.device.passive.AbstractSingleSensor;
 
 /**
  * Class should be used when creating Humidity sensor. Generic types of DataFeed and Sensor itself are the same.
- *
- * @param <E> type of DataFeed and Sensor
  */
-public class Hygrometer<E> extends AbstractSingleSensor<E,E> {
+public class Hygrometer extends AbstractSingleSensor {
 
     public Hygrometer(String label) {
         super(label);

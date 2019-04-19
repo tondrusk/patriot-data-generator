@@ -18,11 +18,12 @@ package io.patriot_framework.generator.dataFeed;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.patriot_framework.generator.Data;
 
 /**
  * Feed generates same predefined value on every request.
  */
-public class ConstantDataFeed implements DataFeed<Double> {
+public class ConstantDataFeed implements DataFeed {
 
     private String label;
 
@@ -34,13 +35,13 @@ public class ConstantDataFeed implements DataFeed<Double> {
     }
 
     @Override
-    public Double getNextValue(Object... params) {
-        return timer;
+    public Data getNextValue(Object... params) {
+        return new Data(Double.class, timer);
     }
 
     @Override
-    public Double getPreviousValue() {
-        return timer;
+    public Data getPreviousValue() {
+        return new Data(Double.class, timer);
     }
 
     @Override

@@ -48,4 +48,11 @@ public class Data {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Data{" +
+                "dataClazz=" + dataClazz +
+                ", data=" + data.toString() +
+                '}';
+    }
 }

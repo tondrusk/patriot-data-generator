@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import io.patriot_framework.generator.Data;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -24,7 +25,7 @@ import net.objecthunter.exp4j.ExpressionBuilder;
  * For calculation method uses T_MIN and T_max, which are hours, where ma maximum and minimum temperature occurred within one day.
  * With addition of dayMin and dayMax, minimal and maximal temperatures of the day.
  */
-public class DayTemperatureDataFeed implements DataFeed<Double> {
+public class DayTemperatureDataFeed implements DataFeed {
 
     private String label;
 
@@ -66,7 +67,7 @@ public class DayTemperatureDataFeed implements DataFeed<Double> {
     }
 
     @Override
-    public Double getNextValue(Object... params) {
+    public Data getNextValue(Object... params) {
         double time = (double) params[0];
         double result = 0;
 
@@ -91,12 +92,12 @@ public class DayTemperatureDataFeed implements DataFeed<Double> {
 
         lastValue = result;
 
-        return result;
+        return new Data(Double.class, result);
     }
 
     @Override
-    public Double getPreviousValue() {
-        return lastValue;
+    public Data getPreviousValue() {
+        return new Data(Double.class, lastValue);
     }
 
     @Override

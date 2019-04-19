@@ -32,7 +32,7 @@ public class ActiveDeviceImpl implements ActiveDevice {
     private Timer timer = new Timer();
 
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
-    private DataFeed<Double> timeFeed;
+    private DataFeed timeFeed;
 
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private Device device;
@@ -40,7 +40,7 @@ public class ActiveDeviceImpl implements ActiveDevice {
     public ActiveDeviceImpl() {
     }
 
-    public ActiveDeviceImpl(DataFeed<Double> timeFeed, Device device) {
+    public ActiveDeviceImpl(DataFeed timeFeed, Device device) {
         this.timeFeed = timeFeed;
         this.device = device;
     }
@@ -62,7 +62,7 @@ public class ActiveDeviceImpl implements ActiveDevice {
         return new TimerTask() {
             @Override
             public void run() {
-                double simTime = timeFeed.getNextValue();
+                double simTime = timeFeed.getNextValue().get(Double.class);
                 LOGGER.info("Next clock for device: " + device.getLabel() + " is in seconds: " + simTime);
 
                 device.requestData(simTime);
@@ -83,12 +83,12 @@ public class ActiveDeviceImpl implements ActiveDevice {
     }
 
     @Override
-    public void setTimeFeed(DataFeed<Double> timeFeed) {
+    public void setTimeFeed(DataFeed timeFeed) {
         this.timeFeed = timeFeed;
     }
 
     @Override
-    public DataFeed<Double> getTimeFeed() {
+    public DataFeed getTimeFeed() {
         return timeFeed;
     }
 

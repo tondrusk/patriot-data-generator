@@ -32,7 +32,7 @@ public class TestMain {
         DataProducer temperature = new Thermometer("thermometer", df);
 //        temperature.setNetworkAdapter(na);
 
-        DataFeed<Double> tf = new ConstantDataFeed(10000);
+        DataFeed tf = new ConstantDataFeed(10000);
         ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
         simulation.startSimulation();
 //

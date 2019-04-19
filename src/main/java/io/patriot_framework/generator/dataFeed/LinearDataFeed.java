@@ -18,11 +18,12 @@ package io.patriot_framework.generator.dataFeed;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.patriot_framework.generator.Data;
 
 /**
  * Data stream values from this feed follows linear function.
  */
-public class LinearDataFeed implements DataFeed<Double> {
+public class LinearDataFeed implements DataFeed {
 
     private String label;
 
@@ -59,15 +60,15 @@ public class LinearDataFeed implements DataFeed<Double> {
     }
 
     @Override
-    public Double getNextValue(Object... params) {
+    public Data getNextValue(Object... params) {
         currentTime += period;
 
-        return currentTime;
+        return new Data(Double.class, currentTime);
     }
 
     @Override
-    public Double getPreviousValue() {
-        return currentTime - period;
+    public Data getPreviousValue() {
+        return new Data(Double.class, currentTime - period);
     }
 
     @Override

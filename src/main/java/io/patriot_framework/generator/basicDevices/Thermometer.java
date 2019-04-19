@@ -26,18 +26,18 @@ import io.patriot_framework.generator.device.passive.AbstractSingleSensor;
  *
  * @param <E> type of DataFeed and Sensor
  */
-public class Thermometer<E> extends AbstractSingleSensor<E,E> {
+public class Thermometer extends AbstractSingleSensor {
 
-    private DataConverter<E,E> dc = new DoubleConverter<>();
+//    private DataConverter<E,E> dc = new DoubleConverter<>();
 
     public Thermometer(String label) {
         super(label);
-        setDataConverter(dc);
+//        setDataConverter(dc);
     }
 
     public Thermometer(String label, DataFeed dataFeed) {
         super(label, dataFeed);
-        setDataConverter(dc);
+//        setDataConverter(dc);
     }
 
 }

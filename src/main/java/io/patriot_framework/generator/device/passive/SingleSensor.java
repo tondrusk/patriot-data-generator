@@ -18,13 +18,13 @@ package io.patriot_framework.generator.device.passive;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
 
-public interface SingleSensor<T> extends DataProducer<T> {
+public interface SingleSensor extends DataProducer {
 
     /**
      * Sets DataFeed for Sensor
      *
      * @param dataFeed instance of DataFeed
      */
-    void setDataFeed(DataFeed<T> dataFeed);
+    void setDataFeed(DataFeed dataFeed);
 
 }

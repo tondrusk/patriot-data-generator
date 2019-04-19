@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device;
 
+import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.controll.CoapController;
 import io.patriot_framework.generator.events.DataObservable;
 import io.patriot_framework.generator.network.NetworkAdapter;
@@ -28,10 +29,8 @@ import java.util.List;
  *
  * User should not use this interface for creating device objects. Mainly serves for internal object interaction,
  * but lacks DataFeed manipulation.
- *
- * @param <E> the type of generated data
  */
-public interface Device<E> extends Unit {
+public interface Device extends Unit {
 
     /**
      * Pulls data from data feed. This method serves as handler for data from DataFeed.
@@ -40,11 +39,15 @@ public interface Device<E> extends Unit {
      * @param params for DataFeed computing
      * @return a list of generated values
      */
-    List<E> requestData(Object... params);
+    List<Data> requestData(Object... params);
 
     void startCoapController();
 
     void stopCoapController();
+
+//    void startNetworkAdapter();
+//
+//    void stopNetworkAdapter();
 
     /**
      * Sets Network Adapter for device which enables sending data wi

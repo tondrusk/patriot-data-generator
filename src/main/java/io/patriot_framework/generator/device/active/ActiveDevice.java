@@ -27,7 +27,7 @@ import io.patriot_framework.generator.device.Device;
  * the generated value itself is lost, therefore user is not able to get it as return value.
  * This behavior requires use of DataObservable class and Observer Pattern.
  */
-public interface ActiveDevice<Double> {
+public interface ActiveDevice {
 
     /**
      * Starts simulation process.
@@ -58,13 +58,13 @@ public interface ActiveDevice<Double> {
      *
      * @param timeFeed instance of DataFeed
      */
-    void setTimeFeed(DataFeed<Double> timeFeed);
+    void setTimeFeed(DataFeed timeFeed);
 
     /**
      * Returns DataFeed for TimeSimulation
      *
      * @return instance of DataFeed
      */
-    DataFeed<Double> getTimeFeed();
+    DataFeed getTimeFeed();
 
 }

@@ -17,7 +17,6 @@
 package io.patriot_framework.generator.controll.resources;
 
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.passive.DataProducer;
@@ -26,11 +25,12 @@ import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
 import java.io.IOException;
+import java.util.List;
 
 
-public class DataFeedResource<E> extends CoapResource {
+public class DataFeedResource extends CoapResource {
 
-    private DataProducer<E> sensor;
+    private DataProducer sensor;
 
     private ObjectMapper mapper;
 
@@ -44,9 +44,8 @@ public class DataFeedResource<E> extends CoapResource {
 
     @Override
     public void handleGET(CoapExchange exchange) {
-
-        // respond to the request
-        exchange.respond("aa");
+        List<DataFeed> df = sensor.getDataFeed();
+        exchange.respond(df.toString());
     }
 
     @Override
@@ -56,7 +55,7 @@ public class DataFeedResource<E> extends CoapResource {
 
         DataFeed dataFeed = null;
         try {
-            dataFeed = mapper.readValue(body, new TypeReference<DataFeed>() {});
+            dataFeed = mapper.readValue(body, DataFeed.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

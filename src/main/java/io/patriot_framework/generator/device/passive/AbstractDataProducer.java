@@ -16,33 +16,28 @@
 
 package io.patriot_framework.generator.device.passive;
 
-import io.patriot_framework.generator.converter.DataConverter;
+import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.AbstractDevice;
 import io.patriot_framework.generator.device.active.ActiveDevice;
-import io.patriot_framework.generator.network.NetworkAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Abstract class for device Composition - one unit with multiple DataFeeds
- *
- * @param <E> type of generated data
- * @param <T> type of object with which all DataFeeds operate
  */
-public abstract class AbstractDataProducer<E,T> extends AbstractDevice implements DataProducer<T> {
+public abstract class AbstractDataProducer extends AbstractDevice implements DataProducer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDataProducer.class);
 
     private ActiveDevice ts;
 
-    private DataConverter<E,T> transform;
+//    private DataConverter transform;
 
-    private List<DataFeed<T>> dataFeed;
+    private List<DataFeed> dataFeed;
 
 //    private Class<E> outputType;
 //    private Class<T> inputType;
@@ -56,48 +51,48 @@ public abstract class AbstractDataProducer<E,T> extends AbstractDevice implement
     }
 
     @Override
-    public List<E> requestData(Object... param) {
-        List<E> result = new ArrayList<>();
-        HashMap<String, E> networkData = new HashMap<>();
+    public List<Data> requestData(Object... param) {
+        List<Data> result = new ArrayList<>();
+//        HashMap<String, Data> networkData = new HashMap<>();
 
-        for(DataFeed<T> df : dataFeed) {
-            E newValue = transform.transform(df.getNextValue());
-            networkData.put(df.getLabel(), newValue);
-            result.add(newValue);
+        for(DataFeed df : dataFeed) {
+            Data newData = df.getNextValue();
+//            networkData.put(df.getLabel(), newValue);
+            result.add(newData);
         }
 
-        if(getNetworkAdapter() != null) {
-            sendData(networkData);
-        }
+//        if(getNetworkAdapter() != null) {
+//            sendData(networkData);
+//        }
 
         LOGGER.info(this.toString() + " new data: " + result.toString());
 
         return result;
     }
 
-    private void sendData(HashMap<String, E> data) {
-        String dw = getDataWrapper().wrapData(this, data);
-        NetworkAdapter networkAdapter = getNetworkAdapter();
-        if(networkAdapter != null) {
-            networkAdapter.send(dw);
-        }
-    }
+//    private void sendData(HashMap<String, E> data) {
+//        String dw = getDataWrapper().wrapData(this, data);
+//        NetworkAdapter networkAdapter = getNetworkAdapter();
+//        if(networkAdapter != null) {
+//            networkAdapter.send(dw);
+//        }
+//    }
 
     @Override
-    public void addDataFeed(DataFeed<T> dataFeed) {
+    public void addDataFeed(DataFeed dataFeed) {
         this.dataFeed.add(dataFeed);
     }
 
     @Override
-    public void removeDataFeed(DataFeed<T> dataFeed) {
+    public void removeDataFeed(DataFeed dataFeed) {
         this.dataFeed.remove(dataFeed);
     }
 
     @Override
-    public List<DataFeed<T>> getDataFeed() {
+    public List<DataFeed> getDataFeed() {
         return dataFeed;
     }
 
-    public abstract void setDataConverter(DataConverter<E,T> dataConverter);
+//    public abstract void setDataConverter(DataConverter<E,T> dataConverter);
 
 }

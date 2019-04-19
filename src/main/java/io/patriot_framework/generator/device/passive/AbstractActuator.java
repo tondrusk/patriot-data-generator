@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device.passive;
 
+import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.device.AbstractDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,18 +24,18 @@ import org.slf4j.LoggerFactory;
 import java.util.Collections;
 import java.util.List;
 
-public class AbstractActuator<E> extends AbstractDevice implements Actuator<E> {
+public class AbstractActuator extends AbstractDevice implements Actuator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractActuator.class);
 
-    private E state;
+    private Data state;
 
     public AbstractActuator(String label) {
         super(label);
     }
 
     @Override
-    public List<E> requestData(Object... params) {
+    public List<Data> requestData(Object... params) {
         return Collections.singletonList(state);
     }
 
@@ -46,12 +47,12 @@ public class AbstractActuator<E> extends AbstractDevice implements Actuator<E> {
     }
 
     @Override
-    public E getState() {
+    public Data getState() {
         return state;
     }
 
     @Override
-    public void setState(E state) {
+    public void setState(Data state) {
         this.state = state;
     }
 

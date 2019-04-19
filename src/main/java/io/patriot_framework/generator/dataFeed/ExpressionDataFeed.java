@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import io.patriot_framework.generator.Data;
 import net.objecthunter.exp4j.Expression;
 
 import java.util.Set;
@@ -23,7 +24,7 @@ import java.util.Set;
 /**
  * Feed that uses Expression library to calculate data streems.
  */
-public class ExpressionDataFeed implements DataFeed<Double> {
+public class ExpressionDataFeed implements DataFeed {
 
     private String label;
 
@@ -56,18 +57,18 @@ public class ExpressionDataFeed implements DataFeed<Double> {
     }
 
     @Override
-    public Double getNextValue(Object... params) {
+    public Data getNextValue(Object... params) {
         double time = (double) params[0];
         expression.setVariable(variable, time);
         double result = expression.evaluate();
         previousValue = result;
 
-        return result;
+        return new Data(Double.class, result);
     }
 
     @Override
-    public Double getPreviousValue() {
-        return previousValue;
+    public Data getPreviousValue() {
+        return new Data(Double.class, previousValue);
     }
 
     @Override
