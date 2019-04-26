@@ -35,7 +35,7 @@ public class Data {
         if(dataClazz.equals(clazz)) {
             return clazz.cast(data);
         }
-
+        // TODO IlligalCastExeption
         return null;
     }
 

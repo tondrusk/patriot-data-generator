@@ -16,37 +16,25 @@
 
 package io.patriot_framework.sample;
 
-import io.patriot_framework.generator.basicDevices.Thermometer;
-import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
-import io.patriot_framework.generator.device.active.ActiveDevice;
-import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
-import io.patriot_framework.generator.device.passive.DataProducer;
+import io.patriot_framework.generator.basicActuators.LinearActuator;
+import io.patriot_framework.generator.device.passive.Actuator;
 
 public class TestMain {
 
     public static void main(String[] args) {
-        DataFeed df = new NormalDistributionDataFeed(18, 2);
-//        NetworkAdapter na = new Rest("http://requestbin.fullcontact.com/wv2m0ywv");
-        DataProducer temperature = new Thermometer("thermometer", df);
-//        temperature.setNetworkAdapter(na);
-
-        DataFeed tf = new ConstantDataFeed(10000);
-        ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
-        simulation.startSimulation();
+//        DataFeed df = new NormalDistributionDataFeed(18, 2);
+////        NetworkAdapter na = new Rest("http://requestbin.fullcontact.com/wv2m0ywv");
+//        DataProducer temperature = new Thermometer("thermometer", df);
+////        temperature.setNetworkAdapter(na);
+//        temperature.startCoapController();
 //
-//        CoapDeviceControlServer server = null;
-//        try {
-//            server = new CoapDeviceControlServer();
-//            server.addEndpoints();
-//            server.start();
-//        } catch (SocketException e) {
-//            e.printStackTrace();
-//        }
+//        DataFeed tf = new ConstantDataFeed(10000);
+//        ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
+//        simulation.startSimulation();
 
+        Actuator actuator = new LinearActuator("aa", 15000);
+        actuator.startCoapController();
 
-//        Actuator actuator = new AbstractActuator("aaaa");
 
     }
 

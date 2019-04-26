@@ -14,21 +14,20 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.basicDevices;
+package io.patriot_framework.generator.dataFeed;
 
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.passive.AbstractDataProducer;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-/**
- * This class represents temperature and humidity sensor as Device Composition.
- * Constructor requires two DataFeeds, one for temperature, one for humidity.
- */
-public class DHT11 extends AbstractDataProducer {
+public class DataFeedBean {
 
-    public DHT11(DataFeed temperature, DataFeed humidity) {
-        super("DHT11");
-        addDataFeed(temperature);
-        addDataFeed(humidity);
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
+    private DataFeed dataFeed;
+
+    public DataFeed getDataFeed() {
+        return dataFeed;
     }
 
+    public void setDataFeed(DataFeed dataFeed) {
+        this.dataFeed = dataFeed;
+    }
 }

@@ -16,9 +16,13 @@
 
 package io.patriot_framework.generator.controll.resources;
 
+import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.device.passive.Actuator;
 import org.eclipse.californium.core.CoapResource;
+import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
+
+import java.util.List;
 
 public class ActuatorResource extends CoapResource {
 
@@ -35,6 +39,15 @@ public class ActuatorResource extends CoapResource {
     public void handlePOST(CoapExchange exchange) {
         exchange.accept();
         actuator.controlSignal();
+    }
+
+    @Override
+    public void handleGET(CoapExchange exchange) {
+        exchange.accept();
+        List<Data> state = actuator.requestData();
+        String result = state.get(0).get(String.class);
+
+        exchange.respond(CoAP.ResponseCode.CONTENT,result);
     }
 
 }

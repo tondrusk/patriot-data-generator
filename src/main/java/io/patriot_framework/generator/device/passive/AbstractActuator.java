@@ -17,43 +17,55 @@
 package io.patriot_framework.generator.device.passive;
 
 import io.patriot_framework.generator.Data;
+import io.patriot_framework.generator.controll.ActuatorCoapController;
 import io.patriot_framework.generator.device.AbstractDevice;
+import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
 
-public class AbstractActuator extends AbstractDevice implements Actuator {
+public abstract class AbstractActuator extends AbstractDevice implements Actuator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractActuator.class);
 
-    private Data state;
+    private StopWatch sw = new StopWatch();
+
+    private int max;
+    private int min;
+    private double duration;
+//    private
 
     public AbstractActuator(String label) {
         super(label);
+        setCoapController(new ActuatorCoapController(this));
     }
 
     @Override
     public List<Data> requestData(Object... params) {
-        return Collections.singletonList(state);
+        double progress = sw.getTime();
+        double result = duration / progress;
+
+        return Collections.singletonList(new Data(String.class, response(result)));
     }
 
     @Override
     public void controlSignal() {
-//        state = !state;
-
-        LOGGER.info(this.toString() + " changed its state to: " + state);
+        if (sw.getTime() > duration) {
+            sw.reset();
+        }
+        sw.start();
     }
 
-    @Override
-    public Data getState() {
-        return state;
+    public abstract String response(double result);
+
+    public void setDuration(double duration) {
+        this.duration = duration;
     }
 
-    @Override
-    public void setState(Data state) {
-        this.state = state;
+    public double getDuration() {
+        return duration;
     }
 
 }

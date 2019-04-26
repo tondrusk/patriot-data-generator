@@ -16,10 +16,6 @@
 
 package io.patriot_framework.generator.controll;
 
-import io.patriot_framework.generator.controll.resources.ActuatorResource;
-import io.patriot_framework.generator.controll.resources.DeviceResource;
-import io.patriot_framework.generator.device.passive.Actuator;
-import io.patriot_framework.generator.device.passive.DataProducer;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.network.CoapEndpoint;
 import org.eclipse.californium.core.network.EndpointManager;
@@ -29,8 +25,6 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CoapDeviceControlServer extends CoapServer {
 
@@ -38,11 +32,13 @@ public class CoapDeviceControlServer extends CoapServer {
 
     private static CoapDeviceControlServer singleInstance;
 
-    private Map<String,DataProducer> sensorRegister = new HashMap<>();
-    private Map<String,Actuator> actuatorRegister = new HashMap<>();
+    private boolean isRunning = false;
+
+    private int nodesCount = 0;
 
     private CoapDeviceControlServer() throws SocketException {
-
+        start();
+        addEndpoints();
     }
 
     public static CoapDeviceControlServer getInstance() {
@@ -57,19 +53,30 @@ public class CoapDeviceControlServer extends CoapServer {
         return singleInstance;
     }
 
-    public void registerSensor(DataProducer sensor) {
-        sensorRegister.put(sensor.getLabel(), sensor);
+//    @Override
+//    public CoapServer add(Resource... resources) {
+//        if (!isRunning) {
+//            start();
+//            addEndpoints();
+//        }
+//        nodesCount++;
+//
+//        return super.add(resources);
+//    }
+//
+//    @Override
+//    public boolean remove(Resource resource) {
+//        boolean removed = super.remove(resource);
+//        nodesCount--;
+//
+//        if (isRunning && nodesCount < 1) {
+//            stop();
+//        }
+//
+//        return removed;
+//    }
 
-        add(new DeviceResource(sensor));
-    }
-
-    public void registerActuator(Actuator actuator) {
-        actuatorRegister.put(actuator.getLabel(), actuator);
-
-        add(new ActuatorResource(actuator));
-    }
-
-    public void addEndpoints() {
+    private void addEndpoints() {
         for (InetAddress addr : EndpointManager.getEndpointManager().getNetworkInterfaces()) {
             // only binds to IPv4 addresses and localhost
             if (addr instanceof Inet4Address || addr.isLoopbackAddress()) {

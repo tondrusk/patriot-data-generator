@@ -17,9 +17,9 @@
 package io.patriot_framework.generator.device.passive;
 
 import io.patriot_framework.generator.Data;
+import io.patriot_framework.generator.controll.SensorCoapController;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.AbstractDevice;
-import io.patriot_framework.generator.device.active.ActiveDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,17 +33,13 @@ public abstract class AbstractDataProducer extends AbstractDevice implements Dat
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDataProducer.class);
 
-    private ActiveDevice ts;
-
 //    private DataConverter transform;
 
     private List<DataFeed> dataFeed;
 
-//    private Class<E> outputType;
-//    private Class<T> inputType;
-
     public AbstractDataProducer(String label) {
         super(label);
+        setCoapController(new SensorCoapController(this));
 
 //        if (!inputType.isAssignableFrom(outputType)) {
 //            throw new IllegalArgumentException("DataFeed type is not castable to Sensors type");

@@ -16,15 +16,12 @@
 
 package io.patriot_framework.generator.device.passive;
 
-import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.device.Device;
 
 public interface Actuator extends Device {
 
     void controlSignal();
 
-    Data getState();
 
-    void setState(Data state);
 
 }

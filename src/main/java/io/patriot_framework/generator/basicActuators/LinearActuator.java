@@ -14,21 +14,20 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.basicDevices;
+package io.patriot_framework.generator.basicActuators;
 
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.passive.AbstractDataProducer;
+import io.patriot_framework.generator.device.passive.AbstractActuator;
 
-/**
- * This class represents temperature and humidity sensor as Device Composition.
- * Constructor requires two DataFeeds, one for temperature, one for humidity.
- */
-public class DHT11 extends AbstractDataProducer {
+public class LinearActuator extends AbstractActuator {
 
-    public DHT11(DataFeed temperature, DataFeed humidity) {
-        super("DHT11");
-        addDataFeed(temperature);
-        addDataFeed(humidity);
+    public LinearActuator(String label, double duration) {
+        super(label);
+        setDuration(duration);
+    }
+
+    @Override
+    public String response(double result) {
+        return "AAA " + result;
     }
 
 }

@@ -20,13 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.Data;
-import io.patriot_framework.generator.controll.CoapController;
-import io.patriot_framework.generator.controll.SensorCoapController;
 import io.patriot_framework.generator.converter.DataConverter;
 import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.AbstractDevice;
-import io.patriot_framework.generator.network.NetworkAdapter;
-import org.eclipse.californium.core.CoapServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,11 +30,8 @@ import java.util.List;
 
 /**
  * Abstract class for Sensor - device with single DataFeed.
- *
- * @param <E> type of generated data
- * @param <T> type of object with which DataFeed operates
  */
-public abstract class AbstractSingleSensor extends AbstractDevice implements SingleSensor {
+public abstract class AbstractSingleSensor extends AbstractDataProducer implements SingleSensor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSingleSensor.class);
 
@@ -47,9 +39,6 @@ public abstract class AbstractSingleSensor extends AbstractDevice implements Sin
 
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private DataFeed dataFeed;
-
-//    private Class<E> outputType;
-//    private Class<T> inputType;
 
     @JsonCreator
     public AbstractSingleSensor(@JsonProperty("label") String label) {
@@ -59,12 +48,6 @@ public abstract class AbstractSingleSensor extends AbstractDevice implements Sin
     public AbstractSingleSensor(String label, DataFeed dataFeed) {
         super(label);
         this.dataFeed = dataFeed;
-//        CoapController cc = new SensorCoapController<T>(this);
-//        setCoapController();
-
-//        if (!inputType.isAssignableFrom(outputType)) {
-//            throw new IllegalArgumentException("DataFeed type is not castable to Sensors type");
-//        }
     }
 
     @Override
