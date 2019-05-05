@@ -16,6 +16,11 @@
 
 package io.patriot_framework.generator;
 
+/**
+ * Class provides simple tool to store data in different data types.
+ * To give users freedom in designing Devices and DataFeeds library offers
+ * Data structure to save and safety manipulate with generated data.
+ */
 public class Data {
 
     private Class<?> dataClazz;
@@ -31,14 +36,30 @@ public class Data {
         this.dataClazz = dataClazz;
     }
 
+    /**
+     * Gets data saved within Data instance with desired type. If their type is not castable to provided Class,
+     * method throws IllegalCastException.
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     public <T> T get(Class<T> clazz) {
         if(dataClazz.equals(clazz)) {
             return clazz.cast(data);
         }
-        // TODO IlligalCastExeption
+        // TODO: IllegalCastException
         return null;
     }
 
+    /**
+     * Sets
+     *
+     * @param obj
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     public <T> T set(T obj, Class<T> clazz) {
         if(dataClazz.equals(clazz)) {
             data = obj;

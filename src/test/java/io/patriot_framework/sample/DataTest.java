@@ -34,7 +34,7 @@ public class DataTest {
     }
 
     @Test
-    public void shuldHandleErrorWithWringTypes() {
+    public void shouldHandleErrorWithWringTypes() {
         Data testData = new Data(Double.class, 1234);
         testData.get(String.class);
         assertThrows(ClassCastException.class, () -> testData.get(String.class));

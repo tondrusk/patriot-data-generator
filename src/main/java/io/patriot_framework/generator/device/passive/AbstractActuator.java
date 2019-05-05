@@ -17,9 +17,9 @@
 package io.patriot_framework.generator.device.passive;
 
 import io.patriot_framework.generator.Data;
+import io.patriot_framework.generator.basicActuators.StateMachine;
 import io.patriot_framework.generator.controll.ActuatorCoapController;
 import io.patriot_framework.generator.device.AbstractDevice;
-import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,12 +30,12 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractActuator.class);
 
-    private StopWatch sw = new StopWatch();
+    private StateMachine stateMachine;
 
     private int max;
     private int min;
     private double duration;
-//    private
+    private boolean state;
 
     public AbstractActuator(String label) {
         super(label);
@@ -44,28 +44,39 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
 
     @Override
     public List<Data> requestData(Object... params) {
-        double progress = sw.getTime();
-        double result = duration / progress;
-
-        return Collections.singletonList(new Data(String.class, response(result)));
+        return Collections.singletonList(new Data(String.class, stateMachine.status()));
     }
 
     @Override
     public void controlSignal() {
-        if (sw.getTime() > duration) {
-            sw.reset();
-        }
-        sw.start();
+        stateMachine.transition();
     }
 
-    public abstract String response(double result);
+//    public abstract String evaluate(double result);
 
+    @Override
     public void setDuration(double duration) {
         this.duration = duration;
     }
 
+    @Override
     public double getDuration() {
         return duration;
     }
 
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public StateMachine getStateMachine() {
+        return stateMachine;
+    }
+
+    public void setStateMachine(StateMachine stateMachine) {
+        this.stateMachine = stateMachine;
+    }
 }

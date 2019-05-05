@@ -24,10 +24,6 @@ public class RotaryActuator extends AbstractActuator {
         super(label);
     }
 
-    @Override
-    public String response(double result) {
-        return "AAA " + result;
-    }
 
 
 }

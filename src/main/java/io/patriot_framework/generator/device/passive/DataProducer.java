@@ -26,8 +26,6 @@ import java.util.List;
  * Therefore it needs several different DataFeeds, where values are generated simultaneously.
  *
  * User should use this interface instead of Device.
- *
- * @param <T> type of object with which DataFeeds operates
  */
 public interface DataProducer extends Device {
 

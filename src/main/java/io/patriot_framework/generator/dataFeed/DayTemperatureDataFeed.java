@@ -24,6 +24,8 @@ import net.objecthunter.exp4j.ExpressionBuilder;
  * DataFeed provides estimation of hourly temperature based on Maximum and Minimum temperature, that was measured in one day.
  * For calculation method uses T_MIN and T_max, which are hours, where ma maximum and minimum temperature occurred within one day.
  * With addition of dayMin and dayMax, minimal and maximal temperatures of the day.
+ *
+ * DataFeed is based on algorithm from  https://www.researchgate.net/publication/245383326_New_algorithm_for_generating_hourly_temperature_values_using_daily_maximum_minimum_and_average_values_from_climate_models
  */
 public class DayTemperatureDataFeed implements DataFeed {
 

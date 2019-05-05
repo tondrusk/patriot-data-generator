@@ -23,11 +23,31 @@ public class LinearActuator extends AbstractActuator {
     public LinearActuator(String label, double duration) {
         super(label);
         setDuration(duration);
+        setStateMachine(
+                new StateMachine()
+                        .addState("Retracted")
+                        .addState("Extending", duration)
+                        .addState("Extended")
+                        .addState("Retracting", duration)
+                        .build()
+        );
     }
 
-    @Override
-    public String response(double result) {
-        return "AAA " + result;
-    }
+//    @Override
+//    public String evaluate(double result) {
+//        String ret = null;
+//
+//        if(result == 0.0) {
+//            ret = "Retracted";
+//        } else if(result > 0.0 && result < getDuration() && !isState()) {
+//            ret = "Extending: " + result + "%";
+//        } else if(result > 0.0 && result < getDuration() && isState()) {
+//            ret = "Retracting: " + result + "%";
+//        } else if(result >= getDuration()) {
+//            ret = "Extended";
+//        }
+//
+//        return ret;
+//    }
 
 }

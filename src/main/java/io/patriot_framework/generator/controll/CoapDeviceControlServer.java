@@ -26,15 +26,14 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 
+/**
+ * All Devices should be handled by one CoapServer to be able to guarantee consistent Resource tree.
+ */
 public class CoapDeviceControlServer extends CoapServer {
 
     private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
 
     private static CoapDeviceControlServer singleInstance;
-
-    private boolean isRunning = false;
-
-    private int nodesCount = 0;
 
     private CoapDeviceControlServer() throws SocketException {
         start();
@@ -53,29 +52,11 @@ public class CoapDeviceControlServer extends CoapServer {
         return singleInstance;
     }
 
-//    @Override
-//    public CoapServer add(Resource... resources) {
-//        if (!isRunning) {
-//            start();
-//            addEndpoints();
-//        }
-//        nodesCount++;
-//
-//        return super.add(resources);
-//    }
-//
-//    @Override
-//    public boolean remove(Resource resource) {
-//        boolean removed = super.remove(resource);
-//        nodesCount--;
-//
-//        if (isRunning && nodesCount < 1) {
-//            stop();
-//        }
-//
-//        return removed;
-//    }
-
+    /**
+     * Add individual endpoints listening on default CoAP port on all IPv4 addresses of all network interfaces.
+     *
+     * Note: this method will be changed to expose endpoints required by Patriot framework
+     */
     private void addEndpoints() {
         for (InetAddress addr : EndpointManager.getEndpointManager().getNetworkInterfaces()) {
             // only binds to IPv4 addresses and localhost

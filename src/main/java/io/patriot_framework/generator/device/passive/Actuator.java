@@ -18,10 +18,29 @@ package io.patriot_framework.generator.device.passive;
 
 import io.patriot_framework.generator.device.Device;
 
+/**
+ * Actuator - part of a machine or system that moves something or makes something work.
+ *
+ */
 public interface Actuator extends Device {
 
+    /**
+     *
+     */
     void controlSignal();
 
+    /**
+     *
+     *
+     * @param duration
+     */
+    void setDuration(double duration);
 
+    /**
+     *
+     *
+     * @return
+     */
+    double getDuration();
 
 }
