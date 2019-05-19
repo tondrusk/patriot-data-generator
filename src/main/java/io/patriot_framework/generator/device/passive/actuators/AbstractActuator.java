@@ -14,10 +14,9 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive;
+package io.patriot_framework.generator.device.passive.actuators;
 
 import io.patriot_framework.generator.Data;
-import io.patriot_framework.generator.basicActuators.StateMachine;
 import io.patriot_framework.generator.controll.ActuatorCoapController;
 import io.patriot_framework.generator.device.AbstractDevice;
 import org.slf4j.Logger;
@@ -32,9 +31,6 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
 
     private StateMachine stateMachine;
 
-    private int max;
-    private int min;
-    private double duration;
     private boolean state;
 
     public AbstractActuator(String label) {
@@ -52,30 +48,12 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
         stateMachine.transition();
     }
 
-//    public abstract String evaluate(double result);
-
     @Override
-    public void setDuration(double duration) {
-        this.duration = duration;
-    }
-
-    @Override
-    public double getDuration() {
-        return duration;
-    }
-
-    public boolean isState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
-
     public StateMachine getStateMachine() {
         return stateMachine;
     }
 
+    @Override
     public void setStateMachine(StateMachine stateMachine) {
         this.stateMachine = stateMachine;
     }

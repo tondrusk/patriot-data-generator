@@ -16,19 +16,19 @@
 
 package io.patriot_framework.generator.controll;
 
-import io.patriot_framework.generator.controll.resources.DeviceResource;
-import io.patriot_framework.generator.device.passive.DataProducer;
+import io.patriot_framework.generator.controll.resources.SensorResource;
+import io.patriot_framework.generator.device.passive.sensors.Sensor;
 import org.eclipse.californium.core.CoapResource;
 
 public class SensorCoapController implements CoapController {
 
     private CoapDeviceControlServer server;
 
-    private DataProducer sensor;
+    private Sensor sensor;
 
-    private DeviceResource resource = null;
+    private SensorResource resource = null;
 
-    public SensorCoapController(DataProducer sensor) {
+    public SensorCoapController(Sensor sensor) {
         this.sensor = sensor;
         server = CoapDeviceControlServer.getInstance();
     }
@@ -46,7 +46,7 @@ public class SensorCoapController implements CoapController {
 
     private CoapResource createResource() {
         if(resource == null) {
-            resource = new DeviceResource(sensor);
+            resource = new SensorResource(sensor);
         }
 
         return resource;

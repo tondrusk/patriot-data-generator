@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive;
+package io.patriot_framework.generator.device.passive.sensors;
 
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.controll.SensorCoapController;
@@ -23,72 +23,54 @@ import io.patriot_framework.generator.device.AbstractDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Abstract class for device Composition - one unit with multiple DataFeeds
  */
-public abstract class AbstractDataProducer extends AbstractDevice implements DataProducer {
+public abstract class AbstractSensor extends AbstractDevice implements Sensor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDataProducer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSensor.class);
 
-//    private DataConverter transform;
+    private List<DataFeed> dataFeeds = new ArrayList<>();
 
-    private List<DataFeed> dataFeed;
-
-    public AbstractDataProducer(String label) {
+    public AbstractSensor(String label, DataFeed... dataFeeds) {
         super(label);
+        Arrays.asList(dataFeeds).forEach(this::addDataFeed);
         setCoapController(new SensorCoapController(this));
-
-//        if (!inputType.isAssignableFrom(outputType)) {
-//            throw new IllegalArgumentException("DataFeed type is not castable to Sensors type");
-//        }
     }
 
     @Override
     public List<Data> requestData(Object... param) {
         List<Data> result = new ArrayList<>();
-//        HashMap<String, Data> networkData = new HashMap<>();
 
-        for(DataFeed df : dataFeed) {
+        for(DataFeed df : dataFeeds) {
             Data newData = df.getNextValue();
-//            networkData.put(df.getLabel(), newValue);
+            LOGGER.info(this.toString() + " new data: " + newData.toString());
             result.add(newData);
         }
 
-//        if(getNetworkAdapter() != null) {
-//            sendData(networkData);
-//        }
-
-        LOGGER.info(this.toString() + " new data: " + result.toString());
+        if(getNetworkAdapter() != null) {
+            getNetworkAdapter().send(result);
+        }
+        // pipe ako apiman
 
         return result;
     }
 
-//    private void sendData(HashMap<String, E> data) {
-//        String dw = getDataWrapper().wrapData(this, data);
-//        NetworkAdapter networkAdapter = getNetworkAdapter();
-//        if(networkAdapter != null) {
-//            networkAdapter.send(dw);
-//        }
-//    }
-
     @Override
     public void addDataFeed(DataFeed dataFeed) {
-        this.dataFeed.add(dataFeed);
+        this.dataFeeds.add(dataFeed);
     }
 
     @Override
     public void removeDataFeed(DataFeed dataFeed) {
-        this.dataFeed.remove(dataFeed);
+        this.dataFeeds.remove(dataFeed);
     }
 
     @Override
-    public List<DataFeed> getDataFeed() {
-        return dataFeed;
+    public List<DataFeed> getDataFeeds() {
+        return Collections.unmodifiableList(dataFeeds);
     }
-
-//    public abstract void setDataConverter(DataConverter<E,T> dataConverter);
 
 }

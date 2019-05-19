@@ -14,13 +14,24 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.converter;
+package io.patriot_framework.generator.network.wrappers;
 
-public class DoubleConverter<E> implements DataConverter<E,E> {
+import io.patriot_framework.generator.Data;
+import org.json.JSONObject;
+
+import java.util.List;
+
+public class JSONWrapper implements DataWrapper {
 
     @Override
-    public E transform(E obj) {
-        return obj;
+    public String wrapData(List<Data> data) {
+        JSONObject jsonObject = new JSONObject();
+
+        for (Data d : data) {
+            jsonObject.append("values", d.toString());
+        }
+
+        return jsonObject.toString();
     }
 
 }

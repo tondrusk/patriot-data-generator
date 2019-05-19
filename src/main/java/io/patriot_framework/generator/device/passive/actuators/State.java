@@ -14,16 +14,26 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.basicActuators;
+package io.patriot_framework.generator.device.passive.actuators;
 
-import org.apache.commons.lang3.time.StopWatch;
-
+/**
+ * State nodes for StateMachine. Used for creating loop of states to simulate actions of Actuator.
+ */
 public class State {
 
-    private StopWatch sw = new StopWatch();
-
+    /**
+     * Name of representing state (e.g. Started, Stopped, Extracting...)
+     */
     private String value;
+
+    /**
+     * If state should last set about of time duration should be greater than 0.0
+     */
     private double duration;
+
+    /**
+     * For better readability State holds information, if it last exact time or not.
+     */
     private boolean isTimeDependent;
 
     public State(String value, double duration) {
@@ -37,14 +47,6 @@ public class State {
         this.duration = 0.0;
         this.isTimeDependent = false;
     }
-
-
-    public String getStatus() {
-        return "a";
-    }
-
-
-
 
     public String getValue() {
         return value;

@@ -14,33 +14,21 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive;
+package io.patriot_framework.generator.device.impl.basicDevices;
 
-import io.patriot_framework.generator.device.Device;
+import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.device.passive.sensors.AbstractSensor;
 
 /**
- * Actuator - part of a machine or system that moves something or makes something work.
- *
+ * This class represents temperature and humidity sensor as Device Composition.
+ * Constructor requires two DataFeeds, one for temperature, one for humidity.
  */
-public interface Actuator extends Device {
+public class DHT11 extends AbstractSensor {
 
-    /**
-     *
-     */
-    void controlSignal();
-
-    /**
-     *
-     *
-     * @param duration
-     */
-    void setDuration(double duration);
-
-    /**
-     *
-     *
-     * @return
-     */
-    double getDuration();
+    public DHT11(DataFeed temperature, DataFeed humidity) {
+        super("DHT11");
+        addDataFeed(temperature);
+        addDataFeed(humidity);
+    }
 
 }

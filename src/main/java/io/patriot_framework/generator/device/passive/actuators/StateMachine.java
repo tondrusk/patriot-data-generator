@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.basicActuators;
+package io.patriot_framework.generator.device.passive.actuators;
 
 import org.apache.commons.lang3.time.StopWatch;
 
@@ -23,6 +23,33 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles transitions between states to simulate real usage of actuators.
+ * It creates loop of States, that holds information about its status and time duration that is needed for State to finish its action.
+ * Action is handled with instance StopWatch. Value from stopwatch is compared with duration from State on every interaction
+ * with StateMachine to determinate if State should prevail or should be changed for next.
+ *
+ *                  Extending (duration)
+ *                 /                    \
+ *  Retracted (0.0)                     Extended (0.0)
+ *                 \                    /
+ *                 Retracting (duration)
+ *
+ *  This StateMachine is create as follows:
+ *      new StateMachine()
+ *          .addState("Retracted")
+ *          .addState("Extending", duration)
+ *          .addState("Extended")
+ *          .addState("Retracting", duration)
+ *          .build();
+ *
+ *  StateMachine uses two types of States:
+ *      - without duration or duration equals 0.0:
+ *          StateMachine is waiting for external input to change State to next in line
+ *      - with defined duration:
+ *          State needs to last set amount of time (duration). After time expires State is changed
+ *
+ */
 public class StateMachine {
 
     private StopWatch sw = new StopWatch();
@@ -31,6 +58,12 @@ public class StateMachine {
     private State current = null;
     private int position = 0;
 
+    /**
+     * Returns current status of StateMachine.
+     * At first method validate, if current State is valid. If not, StateMachine will execute steps correct this.
+     *
+     * @return current StateMachine status
+     */
     public String status() {
         checkProgress();
 
@@ -41,13 +74,20 @@ public class StateMachine {
         }
     }
 
+    /**
+     *
+     *
+     * @return
+     */
     public boolean transition() {
         if (!checkProgress()) {
             next();
             sw.start();
+
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     private boolean checkProgress() {
@@ -63,7 +103,7 @@ public class StateMachine {
 
     private void next() {
         position++;
-        if (position > states.size()) {
+        if (position >= states.size() ) {
             position = 0;
         }
         current = states.get(position);

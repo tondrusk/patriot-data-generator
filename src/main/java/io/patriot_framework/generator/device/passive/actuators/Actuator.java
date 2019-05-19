@@ -14,41 +14,34 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device;
+package io.patriot_framework.generator.device.passive.actuators;
 
-import java.util.UUID;
+import io.patriot_framework.generator.device.Device;
 
 /**
- * Methods used for identification of Devices.
+ * Actuator - "part of a machine or system that moves something or makes something work".
+ * This interface provides methods for
  */
-public interface Unit {
+public interface Actuator extends Device {
 
     /**
-     * Returns UUID
+     * Actuator is waiting for impulse to start simulation. After control signal it should change state for set duration of time.
      *
-     * @return instance of UUID
      */
-    UUID getUUID();
+    void controlSignal();
 
     /**
-     * Sets UUID
+     * Returns instance of StateMachine
      *
-     * @param uuid instance of UUID
+     * @return instance of StateMachine
      */
-    void setUUID(UUID uuid);
+    StateMachine getStateMachine();
 
     /**
-     * Returns Label
+     * Sets StateMachine for Actuator
      *
-     * @return label
+     * @param stateMachine
      */
-    String getLabel();
-
-    /**
-     * Sets Label
-     *
-     * @param label
-     */
-    void setLabel(String label);
+    void setStateMachine(StateMachine stateMachine);
 
 }

@@ -18,6 +18,10 @@ package io.patriot_framework.generator.network;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.patriot_framework.generator.Data;
+import io.patriot_framework.generator.network.wrappers.DataWrapper;
+
+import java.util.List;
 
 /**
  * Provides possibility to send data by network protocol to right destination.
@@ -35,8 +39,23 @@ public interface NetworkAdapter {
     /**
      * Sends data which are wrapped by DataWrappers, there fore in String format.
      *
-     * @param object in right format converted into String
+     *
      */
-    void send(String object);
+    void send(List<Data> data);
+
+    /**
+     * Returns DataWrapper that is used by Device
+     *
+     * @return instance of DataWrapper
+     */
+    DataWrapper getDataWrapper();
+
+    /**
+     * Sets DataWrapper for Device, which allows to transform generated data and important
+     * information about its origin to common data structures e.g. JSON, XML, for better manipulation.
+     *
+     * @param dataWrapper instance of DataWrapper
+     */
+    void setDataWrapper(DataWrapper dataWrapper);
 
 }

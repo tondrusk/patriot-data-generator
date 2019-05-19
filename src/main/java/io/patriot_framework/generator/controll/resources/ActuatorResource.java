@@ -17,7 +17,7 @@
 package io.patriot_framework.generator.controll.resources;
 
 import io.patriot_framework.generator.Data;
-import io.patriot_framework.generator.device.passive.Actuator;
+import io.patriot_framework.generator.device.passive.actuators.Actuator;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
@@ -40,7 +40,7 @@ public class ActuatorResource extends CoapResource {
         exchange.accept();
         actuator.controlSignal();
 
-        exchange.respond(CoAP.ResponseCode.VALID);
+        exchange.respond(CoAP.ResponseCode.CHANGED);
     }
 
     @Override

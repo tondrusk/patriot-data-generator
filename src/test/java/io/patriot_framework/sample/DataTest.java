@@ -20,7 +20,6 @@ import io.patriot_framework.generator.Data;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DataTest {
 
@@ -31,13 +30,6 @@ public class DataTest {
         Data testData = new Data(testClass, testValue);
 
         assertEquals(testValue, testData.get(testClass));
-    }
-
-    @Test
-    public void shouldHandleErrorWithWringTypes() {
-        Data testData = new Data(Double.class, 1234);
-        testData.get(String.class);
-        assertThrows(ClassCastException.class, () -> testData.get(String.class));
     }
 
 }

@@ -19,7 +19,6 @@ package io.patriot_framework.generator.device;
 import io.patriot_framework.generator.controll.CoapController;
 import io.patriot_framework.generator.events.DataObservable;
 import io.patriot_framework.generator.network.NetworkAdapter;
-import io.patriot_framework.generator.wrappers.DataWrapper;
 
 import java.util.UUID;
 
@@ -30,8 +29,6 @@ public abstract class AbstractDevice implements Device {
     private String label;
 
     private NetworkAdapter networkAdapter;
-
-    private DataWrapper dataWrapper;
 
     private DataObservable dataObserable;
 
@@ -89,16 +86,6 @@ public abstract class AbstractDevice implements Device {
     @Override
     public NetworkAdapter getNetworkAdapter() {
         return networkAdapter;
-    }
-
-    @Override
-    public DataWrapper getDataWrapper() {
-        return dataWrapper;
-    }
-
-    @Override
-    public void setDataWrapper(DataWrapper dataWrapper) {
-        this.dataWrapper = dataWrapper;
     }
 
     @Override

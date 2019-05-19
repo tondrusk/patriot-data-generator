@@ -14,15 +14,18 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.basicActuators;
+package io.patriot_framework.generator.device.impl.basicActuators;
 
-import io.patriot_framework.generator.device.passive.AbstractActuator;
+import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
+import io.patriot_framework.generator.device.passive.actuators.StateMachine;
 
+/**
+ * Implementation of Actuator which simulates linear movement like hydraulic press.
+ */
 public class LinearActuator extends AbstractActuator {
 
     public LinearActuator(String label, double duration) {
         super(label);
-        setDuration(duration);
         setStateMachine(
                 new StateMachine()
                         .addState("Retracted")
@@ -32,22 +35,5 @@ public class LinearActuator extends AbstractActuator {
                         .build()
         );
     }
-
-//    @Override
-//    public String evaluate(double result) {
-//        String ret = null;
-//
-//        if(result == 0.0) {
-//            ret = "Retracted";
-//        } else if(result > 0.0 && result < getDuration() && !isState()) {
-//            ret = "Extending: " + result + "%";
-//        } else if(result > 0.0 && result < getDuration() && isState()) {
-//            ret = "Retracting: " + result + "%";
-//        } else if(result >= getDuration()) {
-//            ret = "Extended";
-//        }
-//
-//        return ret;
-//    }
 
 }

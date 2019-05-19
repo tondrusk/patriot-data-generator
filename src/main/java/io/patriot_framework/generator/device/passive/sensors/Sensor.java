@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive;
+package io.patriot_framework.generator.device.passive.sensors;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.Device;
@@ -22,12 +22,10 @@ import io.patriot_framework.generator.device.Device;
 import java.util.List;
 
 /**
- * Interface enables multiple DataFeeds for single device, but preserves single identification parameters.
+ * Interface enables multiple DataFeeds, but preserves single identification parameters for Device.
  * Therefore it needs several different DataFeeds, where values are generated simultaneously.
- *
- * User should use this interface instead of Device.
  */
-public interface DataProducer extends Device {
+public interface Sensor extends Device {
 
     /**
      * Adds DataFeed to Composition
@@ -48,6 +46,6 @@ public interface DataProducer extends Device {
      *
      * @return list of DataFeeds
      */
-    List<DataFeed> getDataFeed();
+    List<DataFeed> getDataFeeds();
 
 }

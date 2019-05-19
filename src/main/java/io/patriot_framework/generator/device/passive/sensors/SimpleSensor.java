@@ -14,17 +14,34 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive;
+package io.patriot_framework.generator.device.passive.sensors;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
 
-public interface SingleSensor extends DataProducer {
+/**
+ * Briefly modifies behaviour of Sensor. SingleSensor can manipulate with only one DataFeed.
+ * It is used to simulate sensors with only one source of date (e.g. thermometer, gyroscope...).
+ * DataFeed manipulating methods restrict user to single DataFeed.
+ */
+public interface SimpleSensor extends Sensor {
 
     /**
-     * Sets DataFeed for Sensor
+     * Sets DataFeed for SimpleSensor
      *
      * @param dataFeed instance of DataFeed
      */
     void setDataFeed(DataFeed dataFeed);
+
+    /**
+     * Returns single instance of DataFeed for SimpleSensor
+     *
+     * @return instance of DataFeed
+     */
+    DataFeed getDataFeed();
+
+    /**
+     * Removes
+     */
+    void removeDataFeed();
 
 }

@@ -16,15 +16,15 @@
 
 package io.patriot_framework.generator.controll.resources;
 
-import io.patriot_framework.generator.device.passive.DataProducer;
+import io.patriot_framework.generator.device.passive.sensors.Sensor;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
-public class DeviceResource extends CoapResource {
+public class SensorResource extends CoapResource {
 
-    private DataProducer sensor;
+    private Sensor sensor;
 
-    public DeviceResource(DataProducer sensor) {
+    public SensorResource(Sensor sensor) {
         super(sensor.getLabel());
         this.sensor = sensor;
 
@@ -40,8 +40,4 @@ public class DeviceResource extends CoapResource {
         exchange.respond("Hello World!");
     }
 
-    @Override
-    public void handlePOST(CoapExchange exchange) {
-
-    }
 }

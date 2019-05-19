@@ -46,13 +46,13 @@ public class ActiveDeviceImpl implements ActiveDevice {
     }
 
     @Override
-    public void startSimulation() {
+    public void start() {
         timer.schedule(task(), 0);
         LOGGER.info("Device: " + device.getLabel() + " started active simulation");
     }
 
     @Override
-    public void stopSimulation() {
+    public void stop() {
         timer.cancel();
         timer.purge();
         LOGGER.info("Device: " + device.getLabel() + " stopped active simulation");
@@ -66,6 +66,8 @@ public class ActiveDeviceImpl implements ActiveDevice {
                 LOGGER.info("Next clock for device: " + device.getLabel() + " is in seconds: " + simTime);
 
                 device.requestData(simTime);
+
+                //
 
                 timer.schedule(task(), Math.round(simTime));
             }

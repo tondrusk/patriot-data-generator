@@ -14,16 +14,21 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.basicActuators;
+package io.patriot_framework.generator.device.impl.basicDevices;
 
-import io.patriot_framework.generator.device.passive.AbstractActuator;
+import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.device.passive.sensors.AbstractSimpleSensor;
 
-public class RotaryActuator extends AbstractActuator {
+/**
+ * Default Device class. This should be used when creating device, that is not jet implemented.
+ * Otherwise user should use respective Device class.
+ */
+public class  Default extends AbstractSimpleSensor {
 
-    public RotaryActuator(String label) {
-        super(label);
+    private String unit = null;
+
+    public Default(String label, DataFeed dataFeed) {
+        super(label, dataFeed);
     }
-
-
 
 }

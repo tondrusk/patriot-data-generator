@@ -20,7 +20,7 @@ import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.Device;
 
 /**
- * This interface provides possibility to startSimulation Device in time.
+ * This interface provides possibility to simulate Device in time.
  * Time intervals of data polling are determined from DataFeed.
  *
  * As Time Simulations requests data from Device with series of continuous tasks,
@@ -32,12 +32,12 @@ public interface ActiveDevice {
     /**
      * Starts simulation process.
      */
-    void startSimulation();
+    void start();
 
     /**
      * Stops simulation.
      */
-    void stopSimulation();
+    void stop();
 
     /**
      * Sets Device for TimeSimulation

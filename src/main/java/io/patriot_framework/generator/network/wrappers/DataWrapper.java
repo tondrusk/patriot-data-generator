@@ -14,25 +14,25 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.basicDevices;
+package io.patriot_framework.generator.network.wrappers;
 
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.passive.AbstractSingleSensor;
+import io.patriot_framework.generator.Data;
+
+import java.util.List;
 
 /**
- * Default Device class. This should be used when creating device, that is not jet implemented.
- * Otherwise user should use respective Device class.
+ * Interface provides method for wrapping all important data in to properly documented format,
+ * design mainly for data transfer. Format should contain generated data and all necessary information,
+ * to identify their origin.
  */
-public class Default extends AbstractSingleSensor {
+public interface DataWrapper {
 
-    private String unit = null;
-
-    public Default(String label) {
-        super(label);
-    }
-
-    public Default(String label, DataFeed dataFeed) {
-        super(label, dataFeed);
-    }
+    /**
+     * Wraps data into specific format
+     *
+     * @param data generated from device
+     * @return String representation of data format
+     */
+    String wrapData(List<Data> data);
 
 }

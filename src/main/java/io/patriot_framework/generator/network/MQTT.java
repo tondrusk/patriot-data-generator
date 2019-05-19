@@ -16,5 +16,53 @@
 
 package io.patriot_framework.generator.network;
 
-public class MQTT {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.patriot_framework.generator.Data;
+import io.patriot_framework.generator.network.wrappers.DataWrapper;
+import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
+import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import java.util.List;
+import java.util.UUID;
+
+public class MQTT implements NetworkAdapter {
+
+    private String publisherId = UUID.randomUUID().toString();
+
+    private IMqttAsyncClient client;
+
+    public MQTT(@JsonProperty("serverURI") String serverURI) {
+        connect(serverURI);
+    }
+
+    private void connect(String serverURI) {
+        try {
+            client = new MqttAsyncClient(serverURI, publisherId);
+
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setAutomaticReconnect(true);
+            options.setCleanSession(true);
+            options.setConnectionTimeout(10);
+            client.connect(options);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void send(List<Data> data) {
+
+    }
+
+    @Override
+    public void setDataWrapper(DataWrapper dataWrapper) {
+
+    }
+
+    @Override
+    public DataWrapper getDataWrapper() {
+        return null;
+    }
 }

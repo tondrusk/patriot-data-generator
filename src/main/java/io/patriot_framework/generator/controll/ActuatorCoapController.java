@@ -17,7 +17,7 @@
 package io.patriot_framework.generator.controll;
 
 import io.patriot_framework.generator.controll.resources.ActuatorResource;
-import io.patriot_framework.generator.device.passive.Actuator;
+import io.patriot_framework.generator.device.passive.actuators.Actuator;
 import org.eclipse.californium.core.CoapResource;
 
 public class ActuatorCoapController implements CoapController {
