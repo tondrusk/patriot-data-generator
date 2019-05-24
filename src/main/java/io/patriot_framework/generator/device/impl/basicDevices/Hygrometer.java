@@ -24,6 +24,9 @@ import io.patriot_framework.generator.device.passive.sensors.AbstractSimpleSenso
  */
 public class Hygrometer extends AbstractSimpleSensor {
 
+    public Hygrometer() {
+    }
+
     public Hygrometer(String label, DataFeed dataFeed) {
         super(label, dataFeed);
     }

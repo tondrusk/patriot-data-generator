@@ -34,6 +34,9 @@ public abstract class AbstractDevice implements Device {
 
     private CoapController coapController;
 
+    public AbstractDevice() {
+    }
+
     public AbstractDevice(String label) {
         this.label = label;
     }

@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.device.passive.sensors;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.controll.SensorCoapController;
 import io.patriot_framework.generator.dataFeed.DataFeed;
@@ -23,7 +25,10 @@ import io.patriot_framework.generator.device.AbstractDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Abstract class for device Composition - one unit with multiple DataFeeds
@@ -32,7 +37,11 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSensor.class);
 
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private List<DataFeed> dataFeeds = new ArrayList<>();
+
+    public AbstractSensor() {
+    }
 
     public AbstractSensor(String label, DataFeed... dataFeeds) {
         super(label);
@@ -53,12 +62,14 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
         if(getNetworkAdapter() != null) {
             getNetworkAdapter().send(result);
         }
-        // pipe ako apiman
+        // TODO: Pipeline
 
         return result;
     }
 
     @Override
+    @JsonSetter("dataFeeds")
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     public void addDataFeed(DataFeed dataFeed) {
         this.dataFeeds.add(dataFeed);
     }
