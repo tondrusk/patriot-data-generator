@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.Data;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -63,7 +65,8 @@ public class DayTemperatureDataFeed implements DataFeed {
 
     private double lastValue;
 
-    public DayTemperatureDataFeed(float dayMin, float dayMax) {
+    @JsonCreator
+    public DayTemperatureDataFeed(@JsonProperty("dayMin") float dayMin, @JsonProperty("dayMax") float dayMax) {
         this.dayMin = dayMin;
         this.dayMax = dayMax;
     }

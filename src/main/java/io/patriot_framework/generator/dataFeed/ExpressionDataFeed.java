@@ -34,10 +34,6 @@ public class ExpressionDataFeed implements DataFeed {
 
     private double previousValue;
 
-    public ExpressionDataFeed(String expression) {
-
-    }
-
     public ExpressionDataFeed(Expression expression) {
         this.expression = expression;
         validate();
