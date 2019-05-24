@@ -23,7 +23,6 @@ public class RotaryActuator extends AbstractActuator {
 
     public RotaryActuator(String label, double duration) {
         super(label);
-        setDuration(duration);
         setStateMachine(
                 new StateMachine()
                         .addState("Sopped")
