@@ -40,7 +40,7 @@ public interface Actuator extends Device {
     /**
      * Sets StateMachine for Actuator
      *
-     * @param stateMachine
+     * @param stateMachine machine internally used by actuator
      */
     void setStateMachine(StateMachine stateMachine);
 

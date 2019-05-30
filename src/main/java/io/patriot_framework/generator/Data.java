@@ -23,15 +23,30 @@ package io.patriot_framework.generator;
  */
 public class Data {
 
+    /**
+     * Class representing data
+     */
     private Class<?> dataClazz;
 
+    /**
+     * Actual object containing data
+     */
     private Object data;
 
+    /**
+     * Constructor
+     * @param dataClazz class of stored object
+     * @param data stored data
+     */
     public Data(Class<?> dataClazz, Object data) {
         this.dataClazz = dataClazz;
         this.data = data;
     }
 
+    /**
+     * Constructor
+     * @param dataClazz class of data stored in object
+     */
     public Data(Class<?> dataClazz) {
         this.dataClazz = dataClazz;
     }
@@ -40,25 +55,24 @@ public class Data {
      * Gets data saved within Data instance with desired type. If their type is not castable to provided Class,
      * method throws IllegalCastException.
      *
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param clazz class used to retype the object to
+     * @param <T> type of class to be used
+     * @return retyped stored value to new class
      */
     public <T> T get(Class<T> clazz) {
         if(dataClazz.equals(clazz)) {
             return clazz.cast(data);
         }
-        // TODO: IllegalCastException
         return null;
     }
 
     /**
-     * Sets
+     * Setter
      *
-     * @param obj
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param obj object to be set
+     * @param clazz class of object to be set
+     * @param <T> type of class
+     * @return retyped object, which was set to target class
      */
     public <T> T set(T obj, Class<T> clazz) {
         if(dataClazz.equals(clazz)) {

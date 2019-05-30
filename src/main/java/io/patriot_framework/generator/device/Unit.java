@@ -47,7 +47,7 @@ public interface Unit {
     /**
      * Sets Label
      *
-     * @param label
+     * @param label to be set
      */
     void setLabel(String label);
 

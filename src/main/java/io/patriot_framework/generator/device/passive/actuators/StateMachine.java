@@ -74,11 +74,6 @@ public class StateMachine {
         }
     }
 
-    /**
-     *
-     *
-     * @return
-     */
     public boolean transition() {
         if (!checkProgress()) {
             next();

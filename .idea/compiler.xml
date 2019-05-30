@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="data-generator" target="1.7" />
-      <module name="generator" target="9" />
+      <module name="generator" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

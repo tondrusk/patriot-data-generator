@@ -39,7 +39,7 @@ public interface NetworkAdapter {
     /**
      * Sends data which are wrapped by DataWrappers, there fore in String format.
      *
-     *
+     * @param data data to be send
      */
     void send(List<Data> data);
 
