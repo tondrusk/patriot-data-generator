@@ -14,22 +14,24 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.sample;
+package io.patriot_framework;
 
-import io.patriot_framework.generator.Data;
-import org.junit.jupiter.api.Test;
+import io.patriot_framework.builders.DeviceYamlBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.IOException;
 
-public class DataTest {
+public class Runner {
 
-    @Test
-    public void dataShouldStoreTypeValue() {
-        double testValue = 1234.4321;
-        Class<?> testClass = Double.class;
-        Data testData = new Data(testClass, testValue);
+    public static void main(String args[]) {
+        DeviceYamlBuilder builder = new DeviceYamlBuilder();
 
-        assertEquals(testValue, testData.get(testClass));
+        try {
+            builder.loadDevices().startActiveDevices();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("aaa");
     }
 
 }
