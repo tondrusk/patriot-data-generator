@@ -44,4 +44,6 @@ public interface Actuator extends Device {
      */
     void setStateMachine(StateMachine stateMachine);
 
+    //TODO: getState()
+
 }

@@ -21,8 +21,8 @@
 
    <parent>
       <artifactId>generator</artifactId>
-      <groupId>io.patriot_framework</groupId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>io.patriot-framework</groupId>
+      <version>2.0.0-SNAPSHOT</version>
    </parent>
    <modelVersion>4.0.0</modelVersion>
 

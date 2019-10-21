@@ -127,11 +127,4 @@ public class StateMachine {
         return bd.doubleValue();
     }
 
-    public State getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(State current) {
-        this.current = current;
-    }
 }

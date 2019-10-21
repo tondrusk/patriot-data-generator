@@ -16,33 +16,44 @@
 
 package io.patriot_framework.sample;
 
-import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
-import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.dataFeed.NormalDistributionDataFeed;
-import io.patriot_framework.generator.device.active.ActiveDevice;
-import io.patriot_framework.generator.device.active.ActiveDeviceImpl;
-import io.patriot_framework.generator.device.impl.basicDevices.Thermometer;
-import io.patriot_framework.generator.device.passive.sensors.SimpleSensor;
-import io.patriot_framework.generator.network.NetworkAdapter;
-import io.patriot_framework.generator.network.Rest;
-import io.patriot_framework.generator.network.wrappers.JSONWrapper;
+import io.patriot_framework.generator.device.impl.basicActuators.LinearActuator;
+import io.patriot_framework.generator.device.passive.actuators.Actuator;
 
 public class TestMain {
 
     public static void main(String[] args) {
-        DataFeed df = new NormalDistributionDataFeed(18, 2);
-        NetworkAdapter na = new Rest("http://requestbin.fullcontact.com/vlr0agvl", new JSONWrapper());
-        SimpleSensor temperature = new Thermometer("thermometer", df);
-        temperature.setNetworkAdapter(na);
-//        temperature.startCoapController();
-//
-        DataFeed tf = new ConstantDataFeed(10000);
-        ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
-        simulation.start();
+//        DataFeed df = new NormalDistributionDataFeed(18, 2);
+//        NetworkAdapter na = new Rest("http://requestbin.fullcontact.com/vlr0agvl", new JSONWrapper());
+//        SimpleSensor temperature = new Thermometer("thermometer", df);
+//        temperature.setNetworkAdapter(na);
+////        temperature.startCoapController();
+////
+//        DataFeed tf = new ConstantDataFeed(10000);
+//        ActiveDevice simulation = new ActiveDeviceImpl(tf, temperature);
+//        simulation.start();
 
-//        Actuator actuator = new LinearActuator("aa", 15000);
-//        actuator.startCoapController();
+        Actuator actuator = new LinearActuator("Testaaaaa", 1000);
+        actuator.controlSignal();
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(actuator.getStateMachine().status());
+
+        actuator.controlSignal();
+
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println(actuator.getStateMachine().status());
 
     }
 
