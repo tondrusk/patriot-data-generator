@@ -20,12 +20,11 @@
 
    <groupId>io.patriot-framework</groupId>
    <version>2.0.0-SNAPSHOT</version>
-
-   <artifactId>data-generator</artifactId>
+   <artifactId>generator</artifactId>
 
    <name>Device generator</name>
-   <description>
-   </description>
+   <description>Library which is part of PatrIoT Framework responsible for device emulation and data generation.</description>
+   <url>https://patriot-framework.io/</url>
    <scm>
       <connection>scm:git:git@github.com:PatrIoT-Framework/patriot-data-generator.git</connection>
       <developerConnection>scm:git:git@github.com:PatrIoT-Framework/patriot-data-generator.git</developerConnection>
@@ -156,18 +155,6 @@
          <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>${maven-surefire-plugin.version}</version>
-            <dependencies>
-               <dependency>
-                  <groupId>org.junit.platform</groupId>
-                  <artifactId>junit-platform-surefire-provider</artifactId>
-                  <version>${org.junit.platform.version}</version>
-               </dependency>
-               <dependency>
-                  <groupId>org.junit.jupiter</groupId>
-                  <artifactId>junit-jupiter-engine</artifactId>
-                  <version>${org.junit.jupiter.version}</version>
-               </dependency>
-            </dependencies>
          </plugin>
          <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
@@ -197,12 +184,6 @@
    </build>
 
    <dependencies>
-      <dependency>
-         <groupId>org.junit.jupiter</groupId>
-         <artifactId>junit-jupiter-api</artifactId>
-         <version>${org.junit.jupiter.version}</version>
-         <scope>test</scope>
-      </dependency>
       <!-- https://mvnrepository.com/artifact/ca.umontreal.iro.simul/ssj -->
       <dependency>
          <groupId>ca.umontreal.iro.simul</groupId>
@@ -251,11 +232,6 @@
          <version>2.0.SP1</version>
       </dependency>
       <dependency>
-         <groupId>org.eclipse.paho</groupId>
-         <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-         <version>1.2.0</version>
-      </dependency>
-      <dependency>
          <groupId>org.dom4j</groupId>
          <artifactId>dom4j</artifactId>
          <version>2.1.1</version>
@@ -298,7 +274,7 @@
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-web</artifactId>
-         <version>LATEST</version>
+         <version>2.2.0.RELEASE</version>
       </dependency>
 
    </dependencies>
@@ -340,8 +316,16 @@
                   </executions>
                </plugin>
                <plugin>
-                  <groupId>org.springframework.boot</groupId>
-                  <artifactId>spring-boot-maven-plugin</artifactId>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-source-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                           <goal>jar</goal>
+                        </goals>
+                     </execution>
+                  </executions>
                </plugin>
             </plugins>
          </build>
