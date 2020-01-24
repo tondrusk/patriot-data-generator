@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.controll.resources;
+package io.patriot_framework.generator.controll.server.resources.actuator;
 
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;

@@ -19,7 +19,7 @@ package io.patriot_framework.generator.device.passive.sensors;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.Data;
-import io.patriot_framework.generator.controll.SensorCoapController;
+import io.patriot_framework.generator.controll.server.SensorCoapController;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.AbstractDevice;
 import org.slf4j.Logger;
@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+
  * Abstract class for device Composition - one unit with multiple DataFeeds
  */
 public abstract class AbstractSensor extends AbstractDevice implements Sensor {
@@ -51,6 +52,8 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
 
     @Override
     public List<Data> requestData(Object... param) {
+        if (isEnabled()) return null;
+
         List<Data> result = new ArrayList<>();
 
         for(DataFeed df : dataFeeds) {
@@ -62,7 +65,8 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
         if(getNetworkAdapter() != null) {
             getNetworkAdapter().send(result);
         }
-        // TODO: Pipeline
+
+        // TODO: Pipeline, all data modifiers should be replaced by pipeline implementation
 
         return result;
     }

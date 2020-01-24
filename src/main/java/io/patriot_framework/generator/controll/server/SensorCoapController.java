@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2020 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,22 +14,26 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.controll;
+package io.patriot_framework.generator.controll.server;
 
-import io.patriot_framework.generator.controll.resources.ActuatorResource;
-import io.patriot_framework.generator.device.passive.actuators.Actuator;
+import io.patriot_framework.generator.controll.server.resources.device.SensorResource;
+import io.patriot_framework.generator.device.passive.sensors.Sensor;
 import org.eclipse.californium.core.CoapResource;
+import org.eclipse.californium.core.server.resources.Resource;
 
-public class ActuatorCoapController implements CoapController {
+/**
+ * Coap Controller used by {@link Sensor}s
+ */
+public class SensorCoapController implements CoapController {
 
     private CoapDeviceControlServer server;
 
-    private Actuator actuator;
+    private Sensor sensor;
 
-    private ActuatorResource resource = null;
+    private SensorResource resource;
 
-    public ActuatorCoapController(Actuator actuator) {
-        this.actuator = actuator;
+    public SensorCoapController(Sensor sensor) {
+        this.sensor = sensor;
         server = CoapDeviceControlServer.getInstance();
     }
 
@@ -44,13 +48,27 @@ public class ActuatorCoapController implements CoapController {
         resource = null;
     }
 
-    private CoapResource createResource() {
+    @Override
+    public Resource getResources() {
+        return null;
+    }
+
+    @Override
+    public CoapResource createResource() {
         if(resource == null) {
-            resource = new ActuatorResource(actuator);
+            resource = new SensorResource(sensor);
         }
 
         return resource;
     }
 
+    @Override
+    public CoapDeviceControlServer getServer() {
+        return server;
+    }
 
+    @Override
+    public void setServer(CoapDeviceControlServer server) {
+        this.server = server;
+    }
 }

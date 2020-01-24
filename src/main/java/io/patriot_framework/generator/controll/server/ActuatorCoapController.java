@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2020 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,22 +14,26 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.controll;
+package io.patriot_framework.generator.controll.server;
 
-import io.patriot_framework.generator.controll.resources.SensorResource;
-import io.patriot_framework.generator.device.passive.sensors.Sensor;
+import io.patriot_framework.generator.controll.server.resources.actuator.ActuatorResource;
+import io.patriot_framework.generator.device.passive.actuators.Actuator;
 import org.eclipse.californium.core.CoapResource;
+import org.eclipse.californium.core.server.resources.Resource;
 
-public class SensorCoapController implements CoapController {
+/**
+ * Coap Controller used by {@link Actuator}s
+ */
+public class ActuatorCoapController implements CoapController {
 
     private CoapDeviceControlServer server;
 
-    private Sensor sensor;
+    private Actuator actuator;
 
-    private SensorResource resource = null;
+    private ActuatorResource resource = null;
 
-    public SensorCoapController(Sensor sensor) {
-        this.sensor = sensor;
+    public ActuatorCoapController(Actuator actuator) {
+        this.actuator = actuator;
         server = CoapDeviceControlServer.getInstance();
     }
 
@@ -44,12 +48,29 @@ public class SensorCoapController implements CoapController {
         resource = null;
     }
 
-    private CoapResource createResource() {
+    @Override
+    public CoapDeviceControlServer getServer() {
+        return null;
+    }
+
+    @Override
+    public void setServer(CoapDeviceControlServer server) {
+
+    }
+
+    @Override
+    public CoapResource createResource() {
         if(resource == null) {
-            resource = new SensorResource(sensor);
+            resource = new ActuatorResource(actuator);
         }
 
         return resource;
     }
+
+    @Override
+    public Resource getResources() {
+        return server.getRoot();
+    }
+
 
 }

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.controll.resources;
+package io.patriot_framework.generator.controll.server.resources.device;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,13 +28,21 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import java.io.IOException;
 import java.util.List;
 
-
+/**
+ * Children resource of {@link SensorResource}. It handles all requests
+ * aimed for {@link DataFeed} control.
+ */
 public class DataFeedResource extends CoapResource {
 
     private Sensor sensor;
 
     private ObjectMapper mapper;
 
+    /**
+     * Creates new resource with name: dataFeed
+     *
+     * @param sensor instance of Sensor
+     */
     public DataFeedResource(Sensor sensor) {
         super("dataFeed");
         this.sensor = sensor;
@@ -43,12 +51,23 @@ public class DataFeedResource extends CoapResource {
         mapper = new ObjectMapper(factory);
     }
 
+    /**
+     * Method returns information about DataFeed
+     *
+     * @param exchange the CoapExchange for the simple API
+     */
     @Override
     public void handleGET(CoapExchange exchange) {
         List<DataFeed> df = sensor.getDataFeeds();
         exchange.respond(df.toString());
     }
 
+    /**
+     * Method should get new DataFeed in JSON format and add it to the list of DataFeeds
+     * for particular sensor.
+     *
+     * @param exchange the CoapExchange for the simple API
+     */
     @Override
     public void handlePOST(CoapExchange exchange) {
         exchange.accept();
@@ -60,7 +79,6 @@ public class DataFeedResource extends CoapResource {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ;
 
         sensor.addDataFeed(dataFeed.getDataFeed());
 

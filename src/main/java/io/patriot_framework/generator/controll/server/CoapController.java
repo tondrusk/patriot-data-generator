@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2020 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,7 +14,10 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.controll;
+package io.patriot_framework.generator.controll.server;
+
+import org.eclipse.californium.core.CoapResource;
+import org.eclipse.californium.core.server.resources.Resource;
 
 /**
  * The Constrained Application Protocol (CoAP) is a specialized web
@@ -41,5 +44,13 @@ public interface CoapController {
      * Removes resource endpoints from CoapServer to deny any connection with Device via CoAP.
      */
     void removeDevice();
+
+    CoapResource createResource();
+
+    Resource getResources();
+
+    CoapDeviceControlServer getServer();
+
+    void setServer(CoapDeviceControlServer server);
 
 }

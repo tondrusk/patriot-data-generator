@@ -17,7 +17,7 @@
 package io.patriot_framework.generator.device;
 
 import io.patriot_framework.generator.Data;
-import io.patriot_framework.generator.controll.CoapController;
+import io.patriot_framework.generator.controll.server.CoapController;
 import io.patriot_framework.generator.events.DataObservable;
 import io.patriot_framework.generator.network.NetworkAdapter;
 
@@ -45,13 +45,13 @@ public interface Device extends Unit {
      * endpoints and register them to CoaP Server.
      * Each distinct Device (e.g. Sensor, Actuator ... ) should define Resource tree.
      */
-    void startCoapController();
+    void registerToCoapServer();
 
     /**
      * Remove all {@link org.eclipse.californium.core.server.resources.Resource} endpoints for Device from CoaP Server,
      * in order to deny CoaP communication with instance of Device.
      */
-    void stopCoapController();
+    void removeFromCoapServer();
 
     /**
      * Sets Network Adapter for device which enables sending data wi
@@ -84,7 +84,7 @@ public interface Device extends Unit {
     /**
      * Returns CoapController for Device
      *
-     * @return instacne of CoapController
+     * @return instance of CoapController
      */
     CoapController getCoapController();
 
@@ -94,5 +94,9 @@ public interface Device extends Unit {
      * @param coapController instance of CoapController
      */
     void setCoapController(CoapController coapController);
+
+    boolean isEnabled();
+
+    void setEnabled(boolean enabled);
 
 }

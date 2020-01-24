@@ -16,7 +16,7 @@
 
 package io.patriot_framework.generator.device;
 
-import io.patriot_framework.generator.controll.CoapController;
+import io.patriot_framework.generator.controll.server.CoapController;
 import io.patriot_framework.generator.events.DataObservable;
 import io.patriot_framework.generator.network.NetworkAdapter;
 
@@ -34,6 +34,8 @@ public abstract class AbstractDevice implements Device {
 
     private CoapController coapController;
 
+    private boolean enabled;
+
     public AbstractDevice() {
     }
 
@@ -42,12 +44,12 @@ public abstract class AbstractDevice implements Device {
     }
 
     @Override
-    public void startCoapController() {
+    public void registerToCoapServer() {
         coapController.registerDevice();
     }
 
     @Override
-    public void stopCoapController() {
+    public void removeFromCoapServer() {
         coapController.removeDevice();
     }
 
@@ -99,6 +101,16 @@ public abstract class AbstractDevice implements Device {
     @Override
     public void setCoapController(CoapController coapController) {
         this.coapController = coapController;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

@@ -17,7 +17,7 @@
 package io.patriot_framework.generator.device.passive.actuators;
 
 import io.patriot_framework.generator.Data;
-import io.patriot_framework.generator.controll.ActuatorCoapController;
+import io.patriot_framework.generator.controll.server.ActuatorCoapController;
 import io.patriot_framework.generator.device.AbstractDevice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +33,8 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
 
     private boolean state;
 
+    private boolean isEnabled = true;
+
     public AbstractActuator(String label) {
         super(label);
         setCoapController(new ActuatorCoapController(this));
@@ -40,12 +42,19 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
 
     @Override
     public List<Data> requestData(Object... params) {
+        if (!isEnabled) return null;
+
         return Collections.singletonList(new Data(String.class, stateMachine.status()));
     }
 
     @Override
     public void controlSignal() {
         stateMachine.transition();
+    }
+
+    @Override
+    public void registerToCoapServer() {
+        getCoapController().registerDevice();
     }
 
     @Override
@@ -57,4 +66,5 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
     public void setStateMachine(StateMachine stateMachine) {
         this.stateMachine = stateMachine;
     }
+
 }

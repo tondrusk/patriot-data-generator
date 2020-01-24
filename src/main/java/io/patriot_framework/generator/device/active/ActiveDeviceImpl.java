@@ -67,8 +67,6 @@ public class ActiveDeviceImpl implements ActiveDevice {
 
                 device.requestData(simTime);
 
-                //
-
                 timer.schedule(task(), Math.round(simTime));
             }
         };
@@ -93,5 +91,5 @@ public class ActiveDeviceImpl implements ActiveDevice {
     public DataFeed getTimeFeed() {
         return timeFeed;
     }
-
+    
 }
