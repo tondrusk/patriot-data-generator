@@ -23,13 +23,34 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+/**
+ * Class responsible for main client functionality. With help of CoaP client user should
+ * have easy access to the main functionality of Devices. Standalone, this class
+ * has no way of knowing what are available Devices with running CoaP endpoints.
+ * This class matches functionality with right Device endpoint
+ * (e.g. toggleDevice() with POST method and /deviceLabel resource).
+ * Communication and Device discovery is handled solely by {@link CoapControlClient}.
+ *
+ * For example see: {@link CoapControlClient#getDevice(String)}
+ */
 public class ClientResourceHandler {
 
+    //TODO: Create reasonable layer of abstraction for Resource Handler Classes
+
+    /**
+     * Label of Device which endpoints are discovered
+     */
+    private String deviceLabel;
+
+    /**
+     * Set of visible device endpoints
+     */
     private Set<String> deviceEndpoints;
 
+    /**
+     * Coap Control Client
+     */
     private CoapControlClient ccc;
-
-    private String deviceLabel;
 
     public ClientResourceHandler(CoapControlClient ccc, Set<String> deviceEndpoints, String deviceLabel) {
         this.deviceEndpoints = deviceEndpoints;
@@ -37,6 +58,13 @@ public class ClientResourceHandler {
         this.deviceLabel = deviceLabel;
     }
 
+    /**
+     * With help of {@link SensorResource#PATTERN} choose right deviceEndpoints and make Post request
+     * to toggle Sensor on/off.
+     *
+     * @throws ConnectorException if an issue specific to the connector occurred
+     * @throws IOException if any other issue (not specific to the connector) occurred
+     */
     public void toggleDevice() throws ConnectorException, IOException {
         Pattern pattern = Pattern.compile(String.format(SensorResource.PATTERN, deviceLabel));
 

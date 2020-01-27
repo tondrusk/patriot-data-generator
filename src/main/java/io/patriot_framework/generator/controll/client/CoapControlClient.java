@@ -17,9 +17,9 @@
 package io.patriot_framework.generator.controll.client;
 
 import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.WebLink;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
-import org.eclipse.californium.core.network.config.NetworkConfig;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
 import java.io.IOException;
@@ -29,18 +29,24 @@ import java.util.stream.Collectors;
 
 /**
  * CoaP Control Client for Data Generator Tool, using {@link CoapClient} from Californium CoaP library.
- * This class should be
- *
- * This class is used
+ * This class should be used with cooperation with Resource Handler classes
+ * as described in {@link #getDevice(String label)}.
  *
  * Note: Consider extending CoapClient instead of utilization of it.
  */
 public class CoapControlClient {
 
+    /**
+     * The destination URI
+     */
     private String uri;
-    private static final String PROTOCOL = "coap://";
-    private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
 
+//    private static final String PROTOCOL = "coap://";
+//    private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
+
+    /**
+     * Class build on top of {@link CoapClient} functionality
+     */
     private CoapClient client = new CoapClient();
 
     public CoapControlClient(String uri) {
@@ -54,31 +60,47 @@ public class CoapControlClient {
      * Get request using {@link CoapClient#get()}. This method provides
      * additional URI management.
      *
-     * @param resource
+     * @param resource name of the resource
+     * @return the CoAP response
      * @throws ConnectorException if an issue specific to the connector occurred
      * @throws IOException if any other issue (not specific to the connector) occurred
      */
-    public void get(String resource) throws ConnectorException, IOException {
+    public CoapResponse get(String resource) throws ConnectorException, IOException {
         client.setURI(getUri() + resource);
-        client.get();
+        return client.get();
     }
 
     /**
+     * Post request using {@link CoapClient#post(String payload, int format)}.
+     * This method provides additional URI management.
      *
-     * @param resource Post request using {@link CoapClient#post(String payload, int format)}
-     * @param payload
+     * @param resource name of the resource
+     * @param payload the payload
+     * @return the CoAP response
      * @throws ConnectorException if an issue specific to the connector occurred
      * @throws IOException if any other issue (not specific to the connector) occurred
      */
-    public void post(String resource, String payload) throws ConnectorException, IOException {
+    public CoapResponse post(String resource, String payload) throws ConnectorException, IOException {
         client.setURI(getUri() + resource);
-        client.post(payload, MediaTypeRegistry.TEXT_PLAIN);
+        return client.post(payload, MediaTypeRegistry.TEXT_PLAIN);
     }
 
     /**
+     * Gets all resources/endpoints for specified label of an Device.
+     * To achieve user friendly workflow, we implemented client-server communication with
+     * Chain of Responsibility Design Pattern. Therefore this method returns {@link ClientResourceHandler},
+     * which is responsible for more accurate functionality.
      *
-     * @param label
-     * @return
+     * Example:
+     * CoapControlClient ccc = new CoapControlClient("url");
+     * ccc.getDevice("deviceLabel").toggleDevice();
+     *
+     * This example will get all device resources with label: "deviceLabel" and toggleDevice()
+     * will choose right endpoint to turn the device on/off.
+     *
+     *
+     * @param label the label of Device
+     * @return an instance of ClientResourceHandler
      * @throws ConnectorException if an issue specific to the connector occurred
      * @throws IOException if any other issue (not specific to the connector) occurred
      */
