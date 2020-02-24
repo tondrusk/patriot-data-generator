@@ -16,6 +16,9 @@
 
 package io.patriot_framework.generator.device.passive.actuators;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * State nodes for StateMachine. Used for creating loop of states to simulate actions of Actuator.
  */
@@ -24,36 +27,43 @@ public class State {
     /**
      * Name of representing state (e.g. Started, Stopped, Extracting...)
      */
-    private String value;
+    private String description;
 
     /**
      * If state should last set about of time duration should be greater than 0.0
      */
     private double duration;
 
-    /**
-     * For better readability State holds information, if it last exact time or not.
-     */
-    private boolean isTimeDependent;
+    private Map<Events, State> nextStates = new HashMap<>();
 
-    public State(String value, double duration) {
-        this.value = value;
+    public State(String description, double duration) {
+        this.description = description;
         this.duration = duration;
-        this.isTimeDependent = true;
     }
 
-    public State(String value) {
-        this.value = value;
-        this.duration = 0.0;
-        this.isTimeDependent = false;
+    public State(String description) {
+        this.description = description;
+        this.duration = -1;
     }
 
-    public String getValue() {
-        return value;
+    public Map<Events, State> getNextState() {
+        return nextStates;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void addNextState(Events event, State state) {
+        this.nextStates.put(event, state);
+    }
+
+    public void setNextStates(Map<Events, State> destinations) {
+        this.nextStates = destinations;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getDuration() {
@@ -64,18 +74,10 @@ public class State {
         this.duration = duration;
     }
 
-    public boolean isTimeDependent() {
-        return isTimeDependent;
-    }
-
-    public void setTimeDependent(boolean timeDependent) {
-        this.isTimeDependent = timeDependent;
-    }
-
     @Override
     public String toString() {
         return "State{" +
-                "value='" + value + '\'' +
+                "description='" + description + '\'' +
                 ", duration=" + duration +
                 '}';
     }

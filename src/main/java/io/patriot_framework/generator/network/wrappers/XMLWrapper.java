@@ -45,7 +45,7 @@ public class XMLWrapper implements DataWrapper {
 //        Element root = document.addElement("root");
 //        root.addAttribute("name", device.getLabel());
 //        for (Map.Entry me : data.entrySet()) {
-//            root.addAttribute(me.getKey().toString(), me.getValue().toString());
+//            root.addAttribute(me.getKey().toString(), me.getDescription().toString());
 //        }
 //
 //        return document.asXML();
