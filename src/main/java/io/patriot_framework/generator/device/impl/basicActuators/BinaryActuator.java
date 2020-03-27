@@ -17,17 +17,16 @@
 package io.patriot_framework.generator.device.impl.basicActuators;
 
 import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
-import io.patriot_framework.generator.device.passive.actuators.StateMachine;
 
 public class BinaryActuator extends AbstractActuator {
 
     public BinaryActuator(String label) {
         super(label);
-        setStateMachine(
-                new StateMachine()
-                        .addState("Retracted")
-                        .addState("Extending")
-                        .build()
-        );
+//        setStateMachine(
+//                new StateMachine()
+//                        .addState("Retracted")
+//                        .addState("Extending")
+//                        .build()
+//        );
     }
 }

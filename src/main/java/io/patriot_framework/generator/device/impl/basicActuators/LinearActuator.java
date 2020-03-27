@@ -17,7 +17,6 @@
 package io.patriot_framework.generator.device.impl.basicActuators;
 
 import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
-import io.patriot_framework.generator.device.passive.actuators.StateMachine;
 
 /**
  * Implementation of Actuator which simulates linear movement like hydraulic press.
@@ -26,14 +25,14 @@ public class LinearActuator extends AbstractActuator {
 
     public LinearActuator(String label, double duration) {
         super(label);
-        setStateMachine(
-                new StateMachine()
-                        .addState("Retracted")
-                        .addState("Extending", duration)
-                        .addState("Extended")
-                        .addState("Retracting", duration)
-                        .build()
-        );
+//        setStateMachine(
+//                new StateMachine()
+//                        .addState("Retracted")
+//                        .addState("Extending", duration)
+//                        .addState("Extended")
+//                        .addState("Retracting", duration)
+//                        .build()
+//        );
     }
 
 }

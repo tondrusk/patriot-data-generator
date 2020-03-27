@@ -44,12 +44,12 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
     public List<Data> requestData(Object... params) {
         if (!isEnabled) return null;
 
-        return Collections.singletonList(new Data(String.class, stateMachine.status()));
+        return Collections.singletonList(new Data(String.class, "TEST"));
     }
 
     @Override
-    public void controlSignal() {
-        stateMachine.transition();
+    public void controlSignal(String event) {
+        stateMachine.transition(event);
     }
 
     @Override

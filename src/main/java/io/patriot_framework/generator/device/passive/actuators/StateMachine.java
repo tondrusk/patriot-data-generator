@@ -16,8 +16,6 @@
 
 package io.patriot_framework.generator.device.passive.actuators;
 
-import org.apache.commons.lang3.time.StopWatch;
-
 import java.util.*;
 
 import static io.patriot_framework.generator.utils.CustomCollectors.toSingleton;
@@ -49,60 +47,67 @@ import static io.patriot_framework.generator.utils.CustomCollectors.toSingleton;
  *          State needs to last set amount of time (duration). After time expires State is changed
  *
  */
-public class StateMachine {
+public final class StateMachine {
 
     private List<State> states = new ArrayList<>();
 
     private State currentState;
 
-    private StopWatch sw = new StopWatch();
+    private Transition th = new PassiveTransitions();
 
     public StateMachine(List<State> states) {
+        currentState = states.get(0);
         this.states = states;
     }
 
-    public void trigger() {
-
+    public void transition(String event) {
+        currentState = th.transition(event, currentState);
     }
 
-    public void trigger(Events event) {
-
+    public void transition(String event, int progress) {
+        currentState = th.transition(event, currentState, progress);
     }
 
     public static class Builder implements Buildable<StateMachine> {
 
-        private final Map<State, Map<Events, String>> stateTransitions = new LinkedHashMap<>();
+        private final Map<State, Map<String, String>> stateTransitions = new LinkedHashMap<>();
 
         private State currentState;
 
-        public Builder from(String description) {
-            currentState = new State(description);
+        public Builder from(String name) {
+            currentState = new State(name);
             stateTransitions.put(currentState, null);
             return this;
         }
 
-        public Builder from(String description, double duration) {
-            currentState = new State(description, duration);
+        public Builder from(String name, double duration) {
+            currentState = new ProgressionState(name, duration);
+            assignHaltState(currentState);
             stateTransitions.put(currentState, null);
             return this;
         }
 
-        public Builder to(String description) {
-            stateTransitions.put(currentState, Map.of(Events.DEFAULT, description));
+        public Builder to(String name) {
+            stateTransitions.put(currentState, Map.of(Transition.EPSILON, name));
             return this;
         }
 
-        public Builder to(String description, Events event) {
-            stateTransitions.put(currentState, Map.of(event, description));
+        public Builder to(String name, String event) {
+            stateTransitions.put(currentState, Map.of(event, name));
             return this;
         }
 
+        private void assignHaltState(State state) {
+            State halt = new State("Halt");
+            state.addNextState(Transition.HALT, halt);
+            halt.addNextState(Transition.CONTINUE, state);
+        }
 
-        private void processState(State state, Map<Events, String> transitions) {
-            Map<Events, State> result = new HashMap<>();
+        private void processState(State state, Map<String, String> transitions) {
+            Map<String, State> result = new HashMap<>();
 
             transitions.forEach((key, value) -> result.put(key, stateTransitions.keySet().stream()
-                    .filter(s -> s.getDescription().equals(value))
+                    .filter(s -> s.getName().equals(value))
                     .collect(toSingleton())));
 
             state.setNextStates(result);
@@ -116,80 +121,5 @@ public class StateMachine {
         }
 
     }
-
-
-
-//
-//    private State current = null;
-//    private int position = 0;
-//
-//    /**
-//     * Returns current status of StateMachine.
-//     * At first method validate, if current State is valid. If not, StateMachine will execute steps correct this.
-//     *
-//     * @return current StateMachine status
-//     */
-//    public String status() {
-//        checkProgress();
-//
-//        if (sw.isStarted()) {
-//            return current.getDescription() + ": " + progress() + "%";
-//        } else {
-//            return current.getDescription();
-//        }
-//    }
-//
-//    public boolean transition() {
-//        if (!checkProgress()) {
-//            next();
-//            sw.start();
-//
-//            return true;
-//        }
-//
-//        return false;
-//    }
-//
-//    private boolean checkProgress() {
-//        if (sw.getTime() >= current.getDuration() && current.isTimeDependent()) {
-//            sw.reset();
-//            next();
-//
-//            return true;
-//        }
-//
-//        return false;
-//    }
-//
-//    private void next() {
-//        position++;
-//        if (position >= stateTransitions.size() ) {
-//            position = 0;
-//        }
-//        current = stateTransitions.get(position);
-//    }
-//
-//    public StateMachine addState(String stateName) {
-//        stateTransitions.add(new State(stateName));
-//        return this;
-//    }
-//
-//    public StateMachine addState(String stateName, double stateDuration) {
-//        stateTransitions.add(new State(stateName, stateDuration));
-//        return this;
-//    }
-//
-//    public StateMachine build() {
-//        current = stateTransitions.get(0);
-//        return this;
-//    }
-//
-//    private double progress() {
-//        double result = sw.getTime() / current.getDuration() * 100;
-//
-//        BigDecimal bd = new BigDecimal(result);
-//        bd = bd.setScale(2, RoundingMode.HALF_UP);
-//        return bd.doubleValue();
-//    }
 
 }

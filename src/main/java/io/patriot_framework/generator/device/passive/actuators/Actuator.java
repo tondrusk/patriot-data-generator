@@ -28,7 +28,7 @@ public interface Actuator extends Device {
      * Actuator is waiting for impulse to start simulation. After control signal it should change state for set duration of time.
      *
      */
-    void controlSignal();
+    void controlSignal(String event);
 
     /**
      * Returns instance of StateMachine

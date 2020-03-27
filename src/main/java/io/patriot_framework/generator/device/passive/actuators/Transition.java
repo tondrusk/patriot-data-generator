@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2020 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,22 +14,23 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.impl.basicActuators;
+package io.patriot_framework.generator.device.passive.actuators;
 
-import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
+public interface Transition {
 
-public class RotaryActuator extends AbstractActuator {
+    String EPSILON = "epsilon";
+    String UP = "up";
+    String DOWN = "down";
 
-    public RotaryActuator(String label, double duration) {
-        super(label);
-//        setStateMachine(
-//                new StateMachine()
-//                        .addState("Sopped")
-//                        .addState("Rotating", duration)
-//                        .build()
-//        );
-    }
+    String HALT = "halt";
+    String CONTINUE = "continue";
 
+    State transition(String event, State current);
 
+    State transition(String event, State current, int completion);
+
+//    State halt(State current);
+//
+//    State resume(String event, State current);
 
 }

@@ -16,8 +16,16 @@
 
 package io.patriot_framework.generator.device.passive.actuators;
 
-public enum Events {
-    DEFAULT,
+public class ActiveTransitions implements Transition {
 
-    EPSILON
+
+    @Override
+    public State transition(String event, State current) {
+        return null;
+    }
+
+    @Override
+    public State transition(String event, State current, int completion) {
+        return null;
+    }
 }

@@ -27,58 +27,71 @@ public class State {
     /**
      * Name of representing state (e.g. Started, Stopped, Extracting...)
      */
-    private String description;
+    private String name;
 
     /**
      * If state should last set about of time duration should be greater than 0.0
      */
-    private double duration;
 
-    private Map<Events, State> nextStates = new HashMap<>();
+    private Map<String, State> nextStates = new HashMap<>();
 
-    public State(String description, double duration) {
-        this.description = description;
-        this.duration = duration;
-    }
+    private String previousEvent;
+    private State previousState;
+
+//    private AbstractMap.SimpleEntry<String, State> previousState;
 
     public State(String description) {
-        this.description = description;
-        this.duration = -1;
+        this.name = description;
     }
 
-    public Map<Events, State> getNextState() {
-        return nextStates;
+    public State getNextState(String even) {
+        return nextStates.get(even);
     }
 
-    public void addNextState(Events event, State state) {
+    public void addNextState(String event, State state) {
         this.nextStates.put(event, state);
     }
 
-    public void setNextStates(Map<Events, State> destinations) {
+    public void setNextStates(Map<String, State> destinations) {
         this.nextStates = destinations;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPreviousEvent() {
+        return previousEvent;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPreviousEvent(String previousEvent) {
+        this.previousEvent = previousEvent;
     }
 
-    public double getDuration() {
-        return duration;
+    public State getPreviousState() {
+        return previousState;
     }
 
-    public void setDuration(double duration) {
-        this.duration = duration;
+    public void setPreviousState(State previousState) {
+        this.previousState = previousState;
+    }
+
+    //    public AbstractMap.SimpleEntry<String, State> getPreviousState() {
+//        return previousState;
+//    }
+//
+//    public void setPreviousState(AbstractMap.SimpleEntry<String, State> previousState) {
+//        this.previousState = previousState;
+//    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "State{" +
-                "description='" + description + '\'' +
-                ", duration=" + duration +
+                "name='" + name + '\'' +
                 '}';
     }
 }

@@ -38,7 +38,7 @@ public class ActuatorResource extends CoapResource {
     @Override
     public void handlePOST(CoapExchange exchange) {
         exchange.accept();
-        actuator.controlSignal();
+        actuator.controlSignal(exchange.getRequestText());
 
         exchange.respond(CoAP.ResponseCode.CHANGED);
     }
