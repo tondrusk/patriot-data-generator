@@ -25,9 +25,10 @@ public class CustomCollectors {
         return Collectors.collectingAndThen(
                 Collectors.toList(),
                 list -> {
-                    if (list.size() != 1) {
-                        throw new IllegalStateException();
-                    }
+//                    if (list.size() > 1) {
+//                        throw new IllegalStateException();
+//                    }
+                    if (list.size() == 0) return null;
                     return list.get(0);
                 }
         );

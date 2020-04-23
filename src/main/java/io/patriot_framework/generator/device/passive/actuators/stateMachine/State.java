@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2020 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive.actuators;
+package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,23 +29,50 @@ public class State {
      */
     private String name;
 
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
+    }
+
+    private Condition condition;
+
+    private int data;
+
     /**
      * If state should last set about of time duration should be greater than 0.0
      */
 
     private Map<String, State> nextStates = new HashMap<>();
 
-    private String previousEvent;
-    private State previousState;
-
-//    private AbstractMap.SimpleEntry<String, State> previousState;
-
     public State(String description) {
         this.name = description;
     }
 
     public State getNextState(String even) {
-        return nextStates.get(even);
+        State next = nextStates.get(even);
+
+        if (condition != null) {
+            String tmp = condition.con(data);
+
+            next = nextStates.entrySet()
+                      .stream()
+                      .filter(entry -> tmp.equals(entry.getValue().getName()))
+                      .map(Map.Entry::getValue)
+                      .findFirst().get();
+
+        }
+        return next;
     }
 
     public void addNextState(String event, State state) {
@@ -55,30 +82,6 @@ public class State {
     public void setNextStates(Map<String, State> destinations) {
         this.nextStates = destinations;
     }
-
-    public String getPreviousEvent() {
-        return previousEvent;
-    }
-
-    public void setPreviousEvent(String previousEvent) {
-        this.previousEvent = previousEvent;
-    }
-
-    public State getPreviousState() {
-        return previousState;
-    }
-
-    public void setPreviousState(State previousState) {
-        this.previousState = previousState;
-    }
-
-    //    public AbstractMap.SimpleEntry<String, State> getPreviousState() {
-//        return previousState;
-//    }
-//
-//    public void setPreviousState(AbstractMap.SimpleEntry<String, State> previousState) {
-//        this.previousState = previousState;
-//    }
 
     public String getName() {
         return name;

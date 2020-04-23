@@ -14,13 +14,16 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive.actuators;
+package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
 public class ProgressionState extends State {
 
+    private double a = 0;
+
     private double duration;
 
-    private double progress = -1;
+    private double z;
+
 
     public ProgressionState(String description, double duration) {
         super(description);
@@ -34,14 +37,6 @@ public class ProgressionState extends State {
 
     public void setDuration(double duration) {
         this.duration = duration;
-    }
-
-    public double getProgress() {
-        return progress;
-    }
-
-    public void setProgress(double progress) {
-        this.progress = progress;
     }
 
 }

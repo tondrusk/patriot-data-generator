@@ -17,6 +17,7 @@
 package io.patriot_framework.generator.device.passive.actuators;
 
 import io.patriot_framework.generator.device.Device;
+import io.patriot_framework.generator.device.passive.actuators.stateMachine.StateMachine;
 
 /**
  * Actuator - "part of a machine or system that moves something or makes something work".

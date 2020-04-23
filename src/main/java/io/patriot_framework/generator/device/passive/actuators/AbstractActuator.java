@@ -19,6 +19,7 @@ package io.patriot_framework.generator.device.passive.actuators;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.controll.server.ActuatorCoapController;
 import io.patriot_framework.generator.device.AbstractDevice;
+import io.patriot_framework.generator.device.passive.actuators.stateMachine.StateMachine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

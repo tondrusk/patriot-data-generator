@@ -14,7 +14,11 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive.actuators;
+package io.patriot_framework.generator.device.passive.actuators.stateMachine;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public interface Transition {
 
@@ -25,9 +29,15 @@ public interface Transition {
     String HALT = "halt";
     String CONTINUE = "continue";
 
-    State transition(String event, State current);
+    String CONDITION = "condition";
 
-    State transition(String event, State current, int completion);
+    Future<State> transition(String event) throws ExecutionException, InterruptedException;
+
+    Future<State> transition(String event, int completion);
+
+    CompletableFuture<State> getCurrentState();
+
+
 
 //    State halt(State current);
 //

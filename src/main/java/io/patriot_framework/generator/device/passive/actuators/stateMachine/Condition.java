@@ -14,18 +14,8 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive.actuators;
+package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
-public class ActiveTransitions implements Transition {
-
-
-    @Override
-    public State transition(String event, State current) {
-        return null;
-    }
-
-    @Override
-    public State transition(String event, State current, int completion) {
-        return null;
-    }
+public interface Condition {
+    String con(int data);
 }
