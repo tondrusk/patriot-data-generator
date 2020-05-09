@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device.passive.sensors;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.Device;
 
@@ -25,6 +26,9 @@ import java.util.List;
  * Interface enables multiple DataFeeds, but preserves single identification parameters for Device.
  * Therefore it needs several different DataFeeds, where values are generated simultaneously.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
+        property = "className")
 public interface Sensor extends Device {
 
     /**

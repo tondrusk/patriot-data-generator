@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.network.wrappers;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.Data;
 
 import java.util.List;
@@ -25,6 +27,14 @@ import java.util.List;
  * design mainly for data transfer. Format should contain generated data and all necessary information,
  * to identify their origin.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = JSONWrapper.class, name = "json"),
+        @JsonSubTypes.Type(value = XMLWrapper.class, name = "xml")
+})
 public interface DataWrapper {
 
     /**

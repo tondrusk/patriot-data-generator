@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device.passive.actuators;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.device.Device;
 import io.patriot_framework.generator.device.passive.actuators.stateMachine.StateMachine;
 
@@ -23,6 +24,9 @@ import io.patriot_framework.generator.device.passive.actuators.stateMachine.Stat
  * Actuator - "part of a machine or system that moves something or makes something work".
  * This interface provides methods for
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
+        property = "className")
 public interface Actuator extends Device {
 
     /**

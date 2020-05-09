@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device.active;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.Device;
 
@@ -27,6 +28,7 @@ import io.patriot_framework.generator.device.Device;
  * the generated value itself is lost, therefore user is not able to get it as return value.
  * This behavior requires use of DataObservable class and Observer Pattern.
  */
+@JsonDeserialize(as = AbstractActiveDevice.class)
 public interface ActiveDevice {
 
     /**

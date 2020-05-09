@@ -25,9 +25,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ActiveDeviceImpl implements ActiveDevice {
+public class AbstractActiveDevice implements ActiveDevice {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ActiveDeviceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractActiveDevice.class);
 
     private Timer timer = new Timer();
 
@@ -37,10 +37,10 @@ public class ActiveDeviceImpl implements ActiveDevice {
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private Device device;
 
-    public ActiveDeviceImpl() {
+    public AbstractActiveDevice() {
     }
 
-    public ActiveDeviceImpl(DataFeed timeFeed, Device device) {
+    public AbstractActiveDevice(DataFeed timeFeed, Device device) {
         this.timeFeed = timeFeed;
         this.device = device;
     }
