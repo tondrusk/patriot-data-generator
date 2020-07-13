@@ -18,10 +18,11 @@ package io.patriot_framework.generator.dataFeed;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import umontreal.ssj.rng.RandomStreamBase;
 
 /**
- * SSJ uses RandomStreams to generate uniform variates (real numbers) over the interval (0,1).
- * Seed is array of 6 integers, that provides initial state for RandomStreams. It is starting point for computing.
+ * SSJ uses {@link RandomStreamBase} to generate uniform variates (real numbers) over the interval (0,1).
+ * Seed is array of 6 integers, that provides initial state for some of RandomStreams. It is starting point for computing.
  * As initial seed for RandomStreams SSJ library uses vector [0..5]. This ensures,
  * that repetition of number generation returns same values. For test diversity we need tool that will provide different,
  * but repeatable results.

@@ -16,16 +16,19 @@
 
 package io.patriot_framework.generator.device.impl.basicDevices;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.passive.sensors.AbstractSimpleSensor;
 
 /**
- * Class should be used when creating Thermometer sensor. Generic types of DataFeed and Sensor itself are the same.
+ * Predefined class should be used when creating Thermometer sensor.
  */
 public class Thermometer extends AbstractSimpleSensor {
 
-
-    public Thermometer(String label, DataFeed dataFeed) {
-        super(label, dataFeed);
+    @JsonCreator
+    public Thermometer(@JsonProperty("dataFeed") DataFeed dataFeed) {
+        super("thermometer", dataFeed);
     }
+
 }

@@ -17,7 +17,12 @@
 package io.patriot_framework.generator.dataFeed;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.patriot_framework.generator.controll.server.resources.sensor.DataFeedResource;
 
+/**
+ * Class for DataFeed Serialization when dealing with changes of specific DataFeed.
+ * Mostly used by CoAPController - {@link DataFeedResource}
+ */
 public class DataFeedBean {
 
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")

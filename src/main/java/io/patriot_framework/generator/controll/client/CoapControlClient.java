@@ -41,9 +41,6 @@ public class CoapControlClient {
      */
     private String uri;
 
-//    private static final String PROTOCOL = "coap://";
-//    private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
-
     /**
      * Class build on top of {@link CoapClient} functionality
      */
@@ -53,8 +50,6 @@ public class CoapControlClient {
         this.uri = uri;
         client.setURI(uri);
     }
-
-    //TODO: normalize URI, to prevent cases like: localhost:5683//{label}
 
     /**
      * Get request using {@link CoapClient#get()}. This method provides
@@ -95,8 +90,8 @@ public class CoapControlClient {
      * CoapControlClient ccc = new CoapControlClient("url");
      * ccc.getDevice("deviceLabel").toggleDevice();
      *
-     * This example will get all device resources with label: "deviceLabel" and toggleDevice()
-     * will choose right endpoint to turn the device on/off.
+     * This example will get all sensor resources with label: "deviceLabel" and toggleDevice()
+     * will choose right endpoint to turn the sensor on/off.
      *
      *
      * @param label the label of Device

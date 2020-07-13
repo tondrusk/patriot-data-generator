@@ -26,7 +26,7 @@ import org.eclipse.californium.core.server.resources.Resource;
  */
 public class ActuatorCoapController implements CoapController {
 
-    private CoapDeviceControlServer server;
+    private CoapControlServer server;
 
     private Actuator actuator;
 
@@ -34,7 +34,7 @@ public class ActuatorCoapController implements CoapController {
 
     public ActuatorCoapController(Actuator actuator) {
         this.actuator = actuator;
-        server = CoapDeviceControlServer.getInstance();
+        server = CoapControlServer.getInstance();
     }
 
     @Override
@@ -49,12 +49,12 @@ public class ActuatorCoapController implements CoapController {
     }
 
     @Override
-    public CoapDeviceControlServer getServer() {
+    public CoapControlServer getServer() {
         return null;
     }
 
     @Override
-    public void setServer(CoapDeviceControlServer server) {
+    public void setServer(CoapControlServer server) {
 
     }
 

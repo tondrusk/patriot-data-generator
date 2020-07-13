@@ -21,27 +21,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.Data;
 
 /**
- * Feed generates same predefined value on every request.
+ * DataFeed generates same predefined value on every request.
  */
 public class ConstantDataFeed implements DataFeed {
 
     private String label;
 
-    private double timer;
+    private double constant;
 
     @JsonCreator
-    public ConstantDataFeed(@JsonProperty("timer") double timer) {
-        this.timer = timer;
+    public ConstantDataFeed(@JsonProperty("constant") double constant) {
+        this.constant = constant;
     }
 
     @Override
     public Data getNextValue(Object... params) {
-        return new Data(Double.class, timer);
+        return new Data(Double.class, constant);
     }
 
     @Override
     public Data getPreviousValue() {
-        return new Data(Double.class, timer);
+        return new Data(Double.class, constant);
     }
 
     @Override

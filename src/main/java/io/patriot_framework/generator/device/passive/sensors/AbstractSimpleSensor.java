@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Abstract class for Sensor - device with single DataFeed.
+ * Abstract class for Sensor - sensor with single DataFeed.
  */
 public abstract class AbstractSimpleSensor extends AbstractSensor implements SimpleSensor {
 

@@ -31,8 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
-
- * Abstract class for device Composition - one unit with multiple DataFeeds
+ * Abstract class for sensor Composition - one unit with multiple DataFeeds
  */
 public abstract class AbstractSensor extends AbstractDevice implements Sensor {
 
@@ -57,7 +56,7 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
         List<Data> result = new ArrayList<>();
 
         for(DataFeed df : dataFeeds) {
-            Data newData = df.getNextValue();
+            Data newData = df.getNextValue(param);
             LOGGER.info(this.toString() + " new data: " + newData.toString());
             result.add(newData);
         }
@@ -65,8 +64,6 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
         if(getNetworkAdapter() != null) {
             getNetworkAdapter().send(result);
         }
-
-        // TODO: Pipeline, all data modifiers should be replaced by pipeline implementation
 
         return result;
     }

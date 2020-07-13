@@ -16,20 +16,26 @@
 
 package io.patriot_framework.generator.device.impl.basicActuators;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
+import io.patriot_framework.generator.device.passive.actuators.stateMachine.StateMachine;
 
+/**
+ * Actuator implementation with predefined {@link StateMachine}, to simulate rotations.
+ * After event "rotate" StateMachine will return to initial state.
+ */
 public class RotaryActuator extends AbstractActuator {
 
-    public RotaryActuator(String label, double duration) {
+    @JsonCreator
+    public RotaryActuator(@JsonProperty("label") String label, @JsonProperty("duration") double duration) {
         super(label);
-//        setStateMachine(
-//                new StateMachine()
-//                        .addState("Sopped")
-//                        .addState("Rotating", duration)
-//                        .build()
-//        );
+         setStateMachine(
+                new StateMachine.Builder()
+                        .from("Stationary")
+                            .to("Stationary", "rotate", "Rotating", duration)
+                        .build()
+        );
     }
-
-
 
 }

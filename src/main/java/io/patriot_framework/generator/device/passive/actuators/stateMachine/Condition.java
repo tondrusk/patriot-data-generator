@@ -16,6 +16,15 @@
 
 package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
+/**
+ * Functional interface that is used in {@link StateMachine.Builder} to specify custom
+ * conditions. Defined condition is taken in to account during transition process.
+ * Method con(int data) is appended to previously defined {@link State}.
+ *
+ *      .from("STATE")
+ *          .con(new Condition() {...})
+ */
+@FunctionalInterface
 public interface Condition {
     String con(int data);
 }

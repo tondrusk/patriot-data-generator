@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2020 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -19,48 +19,38 @@ package io.patriot_framework.generator.dataFeed;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.Data;
-import umontreal.ssj.probdist.NormalDist;
-import umontreal.ssj.randvar.NormalGen;
-import umontreal.ssj.rng.MRG32k3a;
-import umontreal.ssj.rng.RandomStream;
+import umontreal.ssj.probdist.ContinuousDistribution;
+import umontreal.ssj.probdist.ExponentialDist;
 
 /**
- * DataFeed based on Normal Distribution from SSJ library.
+ * DataFeed based on {@link ContinuousDistribution}.
  */
-public class NormalDistributionDataFeed implements DataFeed {
+public class ExponentialDistDataFeed implements DataFeed {
 
     private String label;
 
-    private NormalGen normalGen;
-
-    private NormalDist normalDist;
+    private ContinuousDistribution dist;
 
     private double previousValue;
 
     @JsonCreator
-    public NormalDistributionDataFeed(@JsonProperty("mu") double mu, @JsonProperty("sigma") double sigma) {
-        RandomStream rs = new MRG32k3a();
-        this.normalGen = new NormalGen(rs, mu, sigma);
-        this.normalDist = new NormalDist(mu, sigma);
+    public ExponentialDistDataFeed(@JsonProperty("lambda") double lambda) {
+        this.dist = new ExponentialDist(lambda);
     }
 
     /**
-     * Generates next value for Normal Distribution.
-     * If method is called with 0 params, then it generates random variate from normal distribution.
-     * If method is called with 1 or more arguments, distribution function evaluated at x = param[0]
+     * Generates next value for Exponential Distribution.
      *
-     * @param params first param represents x value at which the distribution function is evaluated
-     * @return next evaluated value
+     * @param params value at which the distribution function is evaluated
+     * @return
      */
     @Override
     public Data getNextValue(Object... params) {
-        Double result = null;
+        if (params.length < 1)
+            throw new IllegalArgumentException("At least one parameter is required");
 
-//        if(params.length == 0) {
-            result = normalGen.nextDouble();
-//        } else {
-//            result = normalDist.cdf((Double) params[0]);
-//        }
+        Double result;
+        result = dist.cdf((Double) params[0]);
         previousValue = result;
 
         return new Data(Double.class, result);
@@ -73,7 +63,7 @@ public class NormalDistributionDataFeed implements DataFeed {
 
     @Override
     public void setLabel(String label) {
-
+        this.label = label;
     }
 
     @Override

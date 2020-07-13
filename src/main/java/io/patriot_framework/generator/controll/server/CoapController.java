@@ -49,8 +49,8 @@ public interface CoapController {
 
     Resource getResources();
 
-    CoapDeviceControlServer getServer();
+    CoapControlServer getServer();
 
-    void setServer(CoapDeviceControlServer server);
+    void setServer(CoapControlServer server);
 
 }

@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.device.impl.basicDevices;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.passive.sensors.AbstractSensor;
 
@@ -25,7 +27,8 @@ import io.patriot_framework.generator.device.passive.sensors.AbstractSensor;
  */
 public class DHT11 extends AbstractSensor {
 
-    public DHT11(DataFeed temperature, DataFeed humidity) {
+    @JsonCreator
+    public DHT11(@JsonProperty("dataFeed") DataFeed temperature, @JsonProperty("dataFeed") DataFeed humidity) {
         super("DHT11");
         addDataFeed(temperature);
         addDataFeed(humidity);

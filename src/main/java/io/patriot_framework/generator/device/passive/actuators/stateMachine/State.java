@@ -29,6 +29,44 @@ public class State {
      */
     private String name;
 
+    /**
+     * Map representing [event, next State] pairs
+     */
+    private Map<String, State> nextStates = new HashMap<>();
+
+    /**
+     * Condition associated with state that is valuated during transition
+     */
+    private Condition condition;
+
+    /**
+     * Simple variable that holds arbitrary information
+     * Note: this is subject of change in the future to more volatile representation
+     */
+    private int data;
+
+    private String description;
+
+    public State(String description) {
+        this.name = description;
+    }
+
+    public State getNextState(String even) {
+        State next = nextStates.get(even);
+
+        if (condition != null) {
+            String tmp = condition.con(data);
+
+            next = nextStates.values()
+                      .stream()
+                      .filter(state -> tmp.equals(state.getName()))
+                      .findFirst()
+                      .get();
+        }
+
+        return next;
+    }
+
     public Condition getCondition() {
         return condition;
     }
@@ -45,36 +83,6 @@ public class State {
         this.data = data;
     }
 
-    private Condition condition;
-
-    private int data;
-
-    /**
-     * If state should last set about of time duration should be greater than 0.0
-     */
-
-    private Map<String, State> nextStates = new HashMap<>();
-
-    public State(String description) {
-        this.name = description;
-    }
-
-    public State getNextState(String even) {
-        State next = nextStates.get(even);
-
-        if (condition != null) {
-            String tmp = condition.con(data);
-
-            next = nextStates.entrySet()
-                      .stream()
-                      .filter(entry -> tmp.equals(entry.getValue().getName()))
-                      .map(Map.Entry::getValue)
-                      .findFirst().get();
-
-        }
-        return next;
-    }
-
     public void addNextState(String event, State state) {
         this.nextStates.put(event, state);
     }
@@ -89,6 +97,14 @@ public class State {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

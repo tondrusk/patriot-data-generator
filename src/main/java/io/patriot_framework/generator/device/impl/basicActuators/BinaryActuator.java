@@ -16,17 +16,28 @@
 
 package io.patriot_framework.generator.device.impl.basicActuators;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
+import io.patriot_framework.generator.device.passive.actuators.stateMachine.StateMachine;
 
+/**
+ * Actuator implementation with predefined {@link StateMachine}, to simulate
+ * binary actions, like On/Off switch. Transition events are generated automatically
+ * as it is always only one transition from every state.
+ */
 public class BinaryActuator extends AbstractActuator {
 
-    public BinaryActuator(String label) {
+    @JsonCreator
+    public BinaryActuator(@JsonProperty("label") String label) {
         super(label);
-//        setStateMachine(
-//                new StateMachine()
-//                        .addState("Retracted")
-//                        .addState("Extending")
-//                        .build()
-//        );
+        setStateMachine(
+                new StateMachine.Builder()
+                        .from("Off")
+                            .to("On")
+                        .from("On")
+                            .to("Off")
+                        .build()
+        );
     }
 }

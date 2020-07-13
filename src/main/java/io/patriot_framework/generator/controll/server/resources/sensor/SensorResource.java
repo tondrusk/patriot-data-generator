@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.controll.server.resources.device;
+package io.patriot_framework.generator.controll.server.resources.sensor;
 
 import io.patriot_framework.generator.device.passive.sensors.Sensor;
 import org.eclipse.californium.core.CoapResource;
@@ -28,7 +28,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 public class SensorResource extends CoapResource {
 
     /**
-     * Instance of an sensor for which is resource created for
+     * Instance of an Sensor for which is resource created for
      */
     private Sensor sensor;
 
@@ -46,7 +46,7 @@ public class SensorResource extends CoapResource {
      * @param sensor instance of Sensor
      */
     public SensorResource(Sensor sensor) {
-        super(sensor.getLabel());
+        super("sensor/" + sensor.getLabel());
         this.sensor = sensor;
 
         getAttributes().setTitle("Device resources");

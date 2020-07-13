@@ -20,66 +20,64 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
- * This class handles transitions between stateTransitions to simulate real usage of actuators.
- * It creates loop of States, that holds information about its status and time duration that is needed for State to finish its action.
- * Action is handled with instance StopWatch. Value from stopwatch is compared with duration from State on every interaction
- * with StateMachine to determinate if State should prevail or should be changed for next.
+ * This class handles {@link Transition}-s between {@link State}-s to Actuator to simulate specific scenarios.
+ * It logical structure of States, that holds information about its status and time duration that is needed for State to finish its action.
+ * {@link Transition} directs all necessary transitions, while {@link State} hold all necessary information.
+ *
+ * To create correctly configured instance of StateMachine, builder pattern was implemented.
+ * Example:
+ *
  * <p>
- * Extending (duration)
- * /                    \
- * Retracted (0.0)                     Extended (0.0)
- * \                    /
- * Retracting (duration)
+ *                  Off
+ *          /                    \
+ * Stopping (duration)        Starting (duration)
+ *          \                    /
+ *                  On
  * <p>
- * This StateMachine is create as follows:
- * new StateMachine()
- * .addState("Retracted")
- * .addState("Extending", duration)
- * .addState("Extended")
- * .addState("Retracting", duration)
- * .build();
+ *
+ *  new StateMachine.Builder()
+ *                  .from("Off")
+ *                      .to("On")
+ *                  .from("On")
+ *                      .to("Off")
+ *                  .build()
  * <p>
- * StateMachine uses two types of States:
- * - without duration or duration equals 0.0:
- * StateMachine is waiting for external input to change State to next in line
- * - with defined duration:
- * State needs to last set amount of time (duration). After time expires State is changed
+ *
  */
 public final class StateMachine {
 
-    //som v stave A, je cas B vytvorit interface co dalej spravit Condition?
-
-    private List<State> states = new ArrayList<>();
+    private List<State> states;
 
     private Transition th;
 
     public StateMachine(List<State> states) {
-        th = new ActiveTransitions(states.get(0));
+        th = new ActiveTransition(states.get(0));
         this.states = states;
     }
 
+    /**
+     * Method that triggers actions in a form of transitions
+     *
+     * @param event input event for StateMachine
+     */
     public void transition(String event) {
-        try {
-            th.transition(event);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        th.transition(event);
     }
 
-    public String getCurrent() {
-        try {
-            return th.getCurrentState().get().getName();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+    /**
+     * Requests StateMachine to return current State
+     *
+     * @return the name of current State
+     * @throws ExecutionException if the transition threw an exception
+     * @throws InterruptedException if the current tread was interrupted while waiting for transition
+     */
+    public String getCurrent() throws ExecutionException, InterruptedException {
+        Future<State> current = th.getFutureState();
 
-        return "NADA";
+        return current.isDone() ? current.get().getName() : null;
     }
 
     public void setDataForState(String state, int data) {
@@ -89,14 +87,6 @@ public final class StateMachine {
                 .get()
                 .setData(data);
     }
-
-//    public void transition(String event, int progress) {
-//        currentState = th.transition(event, currentState, progress);
-//    }
-
-//    public String status() {
-//
-//    }
 
     public static class Builder implements Buildable<StateMachine> {
 
@@ -111,19 +101,16 @@ public final class StateMachine {
 
         public Builder from(String name) {
             currentState = new State(name);
-//            stateTransitions.put(currentState, null);
             return this;
         }
 
         public Builder from(String name, double duration) {
             currentState = new ProgressionState(name, duration);
-//            assignHaltState(currentState);
-//            stateTransitions.put(currentState, null);
             return this;
         }
 
         public Builder to(String name) {
-           addTransition(currentState, RandomStringUtils.random(7, true, true), name);
+            addTransition(currentState, RandomStringUtils.random(7, true, true), name);
             return this;
         }
 
@@ -154,12 +141,6 @@ public final class StateMachine {
             }
         }
 
-//        private void assignHaltState(State state) {
-//            State halt = new State("Halt");
-//            state.addNextState(Transition.HALT, halt);
-//            halt.addNextState(Transition.CONTINUE, state);
-//        }
-
         /**
          * For
          *
@@ -175,7 +156,6 @@ public final class StateMachine {
                         .filter(s -> s.getName().equals(value))
                         .findAny()
                         .orElse(new State(value))));
-
             }
 
 

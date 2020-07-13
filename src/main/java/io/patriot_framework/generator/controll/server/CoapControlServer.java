@@ -35,11 +35,11 @@ import java.net.InetSocketAddress;
  * instance contains counter (registeredDevices) for registered resources.
  * If server has no active resources registered it stops, otherwise it should be up and running.
  */
-public class CoapDeviceControlServer extends CoapServer {
+public class CoapControlServer extends CoapServer {
 
     private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
 
-    private static CoapDeviceControlServer singleInstance;
+    private static CoapControlServer singleInstance;
 
     /**
      * Contains number of registered resources. This variable is used to determinate
@@ -47,13 +47,13 @@ public class CoapDeviceControlServer extends CoapServer {
      */
     private int registeredDevices = 0;
 
-    private CoapDeviceControlServer() {
+    private CoapControlServer() {
         addEndpoints();
     }
 
-    public static CoapDeviceControlServer getInstance() {
+    public static CoapControlServer getInstance() {
         if (singleInstance == null) {
-            singleInstance = new CoapDeviceControlServer();
+            singleInstance = new CoapControlServer();
         }
 
         return singleInstance;

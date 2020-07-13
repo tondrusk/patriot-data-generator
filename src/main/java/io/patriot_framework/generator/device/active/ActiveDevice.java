@@ -16,57 +16,80 @@
 
 package io.patriot_framework.generator.device.active;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.Device;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- * This interface provides possibility to simulate Device in time.
- * Time intervals of data polling are determined from DataFeed.
- *
- * As Time Simulations requests data from Device with series of continuous tasks,
- * the generated value itself is lost, therefore user is not able to get it as return value.
- * This behavior requires use of DataObservable class and Observer Pattern.
- */
-@JsonDeserialize(as = AbstractActiveDevice.class)
-public interface ActiveDevice {
+import java.util.Timer;
+import java.util.TimerTask;
 
-    /**
-     * Starts simulation process.
-     */
-    void start();
+public class ActiveDevice implements Active {
 
-    /**
-     * Stops simulation.
-     */
-    void stop();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActiveDevice.class);
 
-    /**
-     * Sets Device for TimeSimulation
-     *
-     * @param device instance of Device
-     */
-    void setDevice(Device device);
+    private Timer timer = new Timer();
 
-    /**
-     * Gets Device for TimeSimulation
-     *
-     * @return instance of Device
-     */
-    Device getDevice();
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
+    private DataFeed timeFeed;
 
-    /**
-     * Sets DataFeed for TimeSimulation
-     *
-     * @param timeFeed instance of DataFeed
-     */
-    void setTimeFeed(DataFeed timeFeed);
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
+    private Device device;
 
-    /**
-     * Returns DataFeed for TimeSimulation
-     *
-     * @return instance of DataFeed
-     */
-    DataFeed getTimeFeed();
+    @JsonCreator
+    public ActiveDevice(@JsonProperty("device") Device device, @JsonProperty("timeFeed")  DataFeed timeFeed) {
+        this.timeFeed = timeFeed;
+        this.device = device;
+    }
 
+    @Override
+    public void start() {
+        timer.schedule(task(), 0);
+        LOGGER.info("Device: " + device.getLabel() + " started active simulation");
+    }
+
+    @Override
+    public void stop() {
+        timer.cancel();
+        timer.purge();
+        LOGGER.info("Device: " + device.getLabel() + " stopped active simulation");
+    }
+
+    private TimerTask task() {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                double simTime = timeFeed.getNextValue().get(Double.class);
+                LOGGER.info("Next data request for sensor: " + device.getLabel() + " is in seconds: " + simTime);
+
+                device.requestData(simTime);
+
+                timer.schedule(task(), Math.round(simTime));
+            }
+        };
+    }
+
+    @Override
+    public void setDevice(Device device) {
+        this.device = device;
+    }
+
+    @Override
+    public Device getDevice() {
+        return device;
+    }
+
+    @Override
+    public void setTimeFeed(DataFeed timeFeed) {
+        this.timeFeed = timeFeed;
+    }
+
+    @Override
+    public DataFeed getTimeFeed() {
+        return timeFeed;
+    }
+    
 }

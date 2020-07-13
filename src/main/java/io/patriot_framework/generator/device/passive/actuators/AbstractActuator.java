@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public abstract class AbstractActuator extends AbstractDevice implements Actuator {
 
@@ -32,9 +33,10 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
 
     private StateMachine stateMachine;
 
-    private boolean state;
-
     private boolean isEnabled = true;
+
+    public AbstractActuator() {
+    }
 
     public AbstractActuator(String label) {
         super(label);
@@ -44,8 +46,15 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
     @Override
     public List<Data> requestData(Object... params) {
         if (!isEnabled) return null;
+        String state = "";
 
-        return Collections.singletonList(new Data(String.class, "TEST"));
+        try {
+            state = stateMachine.getCurrent();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return Collections.singletonList(new Data(String.class, state));
     }
 
     @Override
@@ -53,6 +62,7 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
         stateMachine.transition(event);
     }
 
+    //toto zmenit do device??
     @Override
     public void registerToCoapServer() {
         getCoapController().registerDevice();

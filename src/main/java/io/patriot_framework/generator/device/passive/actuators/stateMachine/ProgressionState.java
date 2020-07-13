@@ -16,20 +16,18 @@
 
 package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
+/**
+ * Representation of {@link State}, which requires certain amount of time to pass
+ * before transition to next state cas occur.
+ */
 public class ProgressionState extends State {
 
-    private double a = 0;
-
     private double duration;
-
-    private double z;
-
 
     public ProgressionState(String description, double duration) {
         super(description);
         this.duration = duration;
     }
-
 
     public double getDuration() {
         return duration;

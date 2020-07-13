@@ -32,18 +32,18 @@ public class XMLWrapper implements DataWrapper {
     }
 
 //    @Override
-//    public String wrapData(Device device, E data) {
+//    public String wrapData(Device sensor, E data) {
 //        Element root = document.addElement("root");
-//        root.addAttribute("name", device.getLabel())
+//        root.addAttribute("name", sensor.getLabel())
 //            .addAttribute("data", data.toString());
 //
 //        return document.asXML();
 //    }
 //
 //    @Override
-//    public String wrapData(Device device, HashMap<String, E> data) {
+//    public String wrapData(Device sensor, HashMap<String, E> data) {
 //        Element root = document.addElement("root");
-//        root.addAttribute("name", device.getLabel());
+//        root.addAttribute("name", sensor.getLabel());
 //        for (Map.Entry me : data.entrySet()) {
 //            root.addAttribute(me.getKey().toString(), me.getName().toString());
 //        }

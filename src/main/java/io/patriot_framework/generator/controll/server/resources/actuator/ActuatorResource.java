@@ -24,9 +24,21 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 
 import java.util.List;
 
+/**
+ * Root CoaP Resource for {@link Actuator} . Main responsibility is to create endpoint: /{#actuator.getLabel}.
+ * This resource is used as a root element of the resource tree of Actuator.
+ */
 public class ActuatorResource extends CoapResource {
 
+    /**
+     * Instance of an Actuator for which is resource created for
+     */
     private Actuator actuator;
+
+    /**
+     * Pattern to match usb-uri. "%s" should be mapped to the label of {@link Actuator}
+     */
+    public static final String PATTERN = "/%s$";
 
     public ActuatorResource(Actuator actuator) {
         super(actuator.getLabel());

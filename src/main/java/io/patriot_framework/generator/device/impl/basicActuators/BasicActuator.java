@@ -14,24 +14,19 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.utils;
+package io.patriot_framework.generator.device.impl.basicActuators;
 
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
+import io.patriot_framework.generator.device.passive.actuators.stateMachine.StateMachine;
 
-public class CustomCollectors {
+/**
+ * Basic implementation of actuator without any configuration.
+ * {@link StateMachine} should be created in order to use it properly.
+ */
+public class BasicActuator extends AbstractActuator {
 
-    public static <T> Collector<T, ?, T> toSingleton() {
-        return Collectors.collectingAndThen(
-                Collectors.toList(),
-                list -> {
-//                    if (list.size() > 1) {
-//                        throw new IllegalStateException();
-//                    }
-                    if (list.size() == 0) return null;
-                    return list.get(0);
-                }
-        );
+    public BasicActuator(String label) {
+        super(label);
     }
 
 }

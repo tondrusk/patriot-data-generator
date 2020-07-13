@@ -35,12 +35,13 @@ import java.util.List;
         @JsonSubTypes.Type(value = JSONWrapper.class, name = "json"),
         @JsonSubTypes.Type(value = XMLWrapper.class, name = "xml")
 })
+@FunctionalInterface
 public interface DataWrapper {
 
     /**
      * Wraps data into specific format
      *
-     * @param data generated from device
+     * @param data generated from sensor
      * @return String representation of data format
      */
     String wrapData(List<Data> data);

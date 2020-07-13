@@ -16,46 +16,42 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.Data;
-import net.objecthunter.exp4j.Expression;
-
-import java.util.Set;
+import umontreal.ssj.randvar.NormalGen;
+import umontreal.ssj.rng.MRG32k3a;
+import umontreal.ssj.rng.RandomStream;
 
 /**
- * Feed that uses Expression library to calculate data streems.
+ * DataFeed based on {@link NormalGen}.
  */
-public class ExpressionDataFeed implements DataFeed {
+public class NormalDistVariateDataFeed implements DataFeed {
 
     private String label;
 
-    private Expression expression;
-
-    private String variable;
+    private NormalGen normalGen;
 
     private double previousValue;
 
-    public ExpressionDataFeed(Expression expression) {
-        this.expression = expression;
-        validate();
+    @JsonCreator
+    public NormalDistVariateDataFeed(@JsonProperty("mu") double mu, @JsonProperty("sigma") double sigma) {
+        RandomStream rs = new MRG32k3a();
+        this.normalGen = new NormalGen(rs, mu, sigma);
     }
 
-    private void validate() {
-        if(expression.validate().isValid()) {
-            Set<String> variables = expression.getVariableNames();
-            if(variables.size() != 1)
-                throw new IllegalArgumentException("Expression contains more than one variable");
-
-            variable = (String) variables.toArray()[0];
-        } else {
-            throw new IllegalArgumentException("Expression is not valid");
-        }
-    }
-
+    /**
+     * Generates next value for Normal Distribution Variant.
+     * {@link NormalGen} does not require any parameter for its calculations.
+     * To change generated data stream use method {@link MRG32k3a#setPackageSeed(long[])}
+     *
+     * @param params should be empty
+     * @return next evaluated value
+     */
     @Override
     public Data getNextValue(Object... params) {
-        double time = (double) params[0];
-        expression.setVariable(variable, time);
-        double result = expression.evaluate();
+        Double result;
+        result = normalGen.nextDouble();
         previousValue = result;
 
         return new Data(Double.class, result);
@@ -75,4 +71,5 @@ public class ExpressionDataFeed implements DataFeed {
     public String getLabel() {
         return label;
     }
+
 }

@@ -16,24 +16,27 @@
 
 package io.patriot_framework.generator.device.impl.basicActuators;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
-import io.patriot_framework.generator.device.passive.actuators.Actuator;
+import io.patriot_framework.generator.device.passive.actuators.stateMachine.StateMachine;
 
 /**
  * Implementation of Actuator which simulates linear movement like hydraulic press.
  */
-public class LinearActuator extends AbstractActuator implements Actuator {
+public class LinearActuator extends AbstractActuator {
 
-    public LinearActuator(String label, double duration) {
+    @JsonCreator
+    public LinearActuator(@JsonProperty("label") String label, @JsonProperty("duration") double duration) {
         super(label);
-//        setStateMachine(
-//                new StateMachine()
-//                        .addState("Retracted")
-//                        .addState("Extending", duration)
-//                        .addState("Extended")
-//                        .addState("Retracting", duration)
-//                        .build()
-//        );
+        setStateMachine(
+                new StateMachine.Builder()
+                        .from("Retracted")
+                            .to("Extended", "extend", "extending", duration)
+                        .from("Extended")
+                            .to("Retracted", "retract", "retracting", duration)
+                        .build()
+        );
     }
 
 }

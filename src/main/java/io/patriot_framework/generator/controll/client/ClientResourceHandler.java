@@ -16,7 +16,7 @@
 
 package io.patriot_framework.generator.controll.client;
 
-import io.patriot_framework.generator.controll.server.resources.device.SensorResource;
+import io.patriot_framework.generator.controll.server.resources.sensor.SensorResource;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
 import java.io.IOException;
@@ -35,15 +35,13 @@ import java.util.regex.Pattern;
  */
 public class ClientResourceHandler {
 
-    //TODO: Create reasonable layer of abstraction for Resource Handler Classes
-
     /**
      * Label of Device which endpoints are discovered
      */
     private String deviceLabel;
 
     /**
-     * Set of visible device endpoints
+     * Set of visible sensor endpoints
      */
     private Set<String> deviceEndpoints;
 
@@ -73,8 +71,6 @@ public class ClientResourceHandler {
                 .filter(pattern.asPredicate())
                 .findFirst()
                 .orElse(null);
-
-        //TODO: throw exception if null
 
         ccc.post(toggleEndpoint, null);
     }
