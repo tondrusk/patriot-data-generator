@@ -67,7 +67,8 @@ public class DayTemperatureDataFeed implements DataFeed {
     private double lastValue;
 
     @JsonCreator
-    public DayTemperatureDataFeed(@JsonProperty("dayMin") float dayMin, @JsonProperty("dayMax") float dayMax) {
+    public DayTemperatureDataFeed(@JsonProperty("dayMin") float dayMin,
+                                  @JsonProperty("dayMax") float dayMax) {
         this.dayMin = dayMin;
         this.dayMax = dayMax;
     }

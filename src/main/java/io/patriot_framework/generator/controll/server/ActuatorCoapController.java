@@ -17,12 +17,12 @@
 package io.patriot_framework.generator.controll.server;
 
 import io.patriot_framework.generator.controll.server.resources.actuator.ActuatorResource;
+import io.patriot_framework.generator.controll.server.resources.actuator.ActuatorRootResource;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;
-import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.server.resources.Resource;
 
 /**
- * Coap Controller used by {@link Actuator}s
+ * Coap Controller used by {@link Actuator}s to add correct resources to the CoAP resource tree.
  */
 public class ActuatorCoapController implements CoapController {
 
@@ -30,46 +30,27 @@ public class ActuatorCoapController implements CoapController {
 
     private Actuator actuator;
 
-    private ActuatorResource resource = null;
+    private ActuatorResource actuatorResource;
 
     public ActuatorCoapController(Actuator actuator) {
         this.actuator = actuator;
         server = CoapControlServer.getInstance();
+        actuatorResource = new ActuatorResource(actuator);
     }
 
     @Override
     public void registerDevice() {
-        server.add(createResource());
+        server.add(actuatorResource, ActuatorRootResource.NAME);
     }
 
     @Override
     public void removeDevice() {
-        server.remove(resource);
-        resource = null;
-    }
-
-    @Override
-    public CoapControlServer getServer() {
-        return null;
-    }
-
-    @Override
-    public void setServer(CoapControlServer server) {
-
-    }
-
-    @Override
-    public CoapResource createResource() {
-        if(resource == null) {
-            resource = new ActuatorResource(actuator);
-        }
-
-        return resource;
+        server.remove(actuatorResource);
     }
 
     @Override
     public Resource getResources() {
-        return server.getRoot();
+        return actuatorResource;
     }
 
 

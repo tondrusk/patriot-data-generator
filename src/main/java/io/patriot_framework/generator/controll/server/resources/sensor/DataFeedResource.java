@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Children resource of {@link SensorResource}. It handles all requests
+ * Children resource of {@link SensorRootResource}. It handles all requests
  * aimed for {@link DataFeed} control.
  */
 public class DataFeedResource extends CoapResource {

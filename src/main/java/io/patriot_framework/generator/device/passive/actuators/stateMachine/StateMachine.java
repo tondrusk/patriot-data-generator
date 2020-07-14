@@ -142,10 +142,12 @@ public final class StateMachine {
         }
 
         /**
-         * For
+         * For every {@link State} find and assign correct transitions. Building process creates
+         * raw image of the whole StateMachine where transition function consists of two Strings
+         * (Event, State). This method is tasked to assign correct instance of State based on this String value.
          *
-         * @param state
-         * @param transitions
+         * @param state State that is being processed in this method
+         * @param transitions Map (Event, State) that has to be converted on correct State instances
          */
         private void processState(State state, Map<String, String> transitions) {
             Map<String, State> result = new HashMap<>();

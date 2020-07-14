@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2020 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,22 +20,21 @@ import io.patriot_framework.generator.device.passive.sensors.Sensor;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-
 /**
- * Root CoaP Resource for {@link Sensor} . Main responsibility is to create endpoint: /{#sensor.getLabel}.
- * This resource is used as a root element of the resource tree of Sensor.
+ * Resource handling basic functionality for specific {@link Sensor}.
+ * Its name is created from label of particular Sensor.
  */
 public class SensorResource extends CoapResource {
+
+    /**
+     * Pattern to match usb-uri. "%s" should be mapped to the label of {@link Sensor}
+     */
+    public static final String PATTERN = "/sensor/%s$";
 
     /**
      * Instance of an Sensor for which is resource created for
      */
     private Sensor sensor;
-
-    /**
-     * Pattern to match usb-uri. "%s" should be mapped to the label of {@link Sensor}
-     */
-    public static final String PATTERN = "/%s$";
 
     /**
      * Constructor passes label from sensor to the parent {@link CoapResource}, which creates
@@ -46,7 +45,7 @@ public class SensorResource extends CoapResource {
      * @param sensor instance of Sensor
      */
     public SensorResource(Sensor sensor) {
-        super("sensor/" + sensor.getLabel());
+        super(sensor.getLabel());
         this.sensor = sensor;
 
         getAttributes().setTitle("Device resources");
@@ -56,14 +55,14 @@ public class SensorResource extends CoapResource {
 
     /**
      * Simple Get method which can be used for vitality check of resource.
-     *
+     * <p>
      * Note: this should be changed in future to return basic information about sensor.
      *
      * @param exchange the CoapExchange for the simple API
      */
     @Override
     public void handleGET(CoapExchange exchange) {
-        exchange.respond("Hello World!");
+        exchange.respond(sensor.toString());
     }
 
     /**
@@ -81,5 +80,4 @@ public class SensorResource extends CoapResource {
 
         exchange.respond(CoAP.ResponseCode.CHANGED);
     }
-
 }

@@ -35,7 +35,8 @@ public class NormalDistVariateDataFeed implements DataFeed {
     private double previousValue;
 
     @JsonCreator
-    public NormalDistVariateDataFeed(@JsonProperty("mu") double mu, @JsonProperty("sigma") double sigma) {
+    public NormalDistVariateDataFeed(@JsonProperty("mu") double mu,
+                                     @JsonProperty("sigma") double sigma) {
         RandomStream rs = new MRG32k3a();
         this.normalGen = new NormalGen(rs, mu, sigma);
     }

@@ -63,8 +63,9 @@ public interface Transition {
     Future<State> transition(String event);
 
     /**
+     * Returns instance of CompletableFuture. This defines current state of StateMAchine
      *
-     * @return
+     * @return CompletableFuture with reference to State
      */
     CompletableFuture<State> getFutureState();
 

@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.controll.server;
 
+import io.patriot_framework.generator.controll.server.resources.actuator.ActuatorRootResource;
+import io.patriot_framework.generator.controll.server.resources.sensor.SensorRootResource;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.network.CoapEndpoint;
 import org.eclipse.californium.core.network.EndpointManager;
@@ -49,6 +51,7 @@ public class CoapControlServer extends CoapServer {
 
     private CoapControlServer() {
         addEndpoints();
+        super.add(new SensorRootResource(), new ActuatorRootResource());
     }
 
     public static CoapControlServer getInstance() {
@@ -62,12 +65,11 @@ public class CoapControlServer extends CoapServer {
     /**
      * Adds {@link Resource}s to the resource tree.
      *
-     * @param resources one or more {@link Resource}s
+     * @param resource one or more {@link Resource}s
      * @return CoapServer instance
      */
-    @Override
-    public CoapServer add(Resource... resources) {
-        super.add(resources);
+    public CoapServer add(Resource resource, String deviceRoot) {
+        super.getRoot().getChild(deviceRoot).add(resource);
         registeredDevices++;
         toggleServer();
 

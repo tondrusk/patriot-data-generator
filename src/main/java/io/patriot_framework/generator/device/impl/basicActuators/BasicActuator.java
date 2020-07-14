@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device.impl.basicActuators;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.device.passive.actuators.AbstractActuator;
 import io.patriot_framework.generator.device.passive.actuators.stateMachine.StateMachine;
 
@@ -25,7 +26,7 @@ import io.patriot_framework.generator.device.passive.actuators.stateMachine.Stat
  */
 public class BasicActuator extends AbstractActuator {
 
-    public BasicActuator(String label) {
+    public BasicActuator(@JsonProperty("label") String label) {
         super(label);
     }
 

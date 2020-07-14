@@ -27,7 +27,8 @@ import io.patriot_framework.generator.device.passive.actuators.stateMachine.Stat
 public class LinearActuator extends AbstractActuator {
 
     @JsonCreator
-    public LinearActuator(@JsonProperty("label") String label, @JsonProperty("duration") double duration) {
+    public LinearActuator(@JsonProperty("label") String label,
+                          @JsonProperty("duration") double duration) {
         super(label);
         setStateMachine(
                 new StateMachine.Builder()

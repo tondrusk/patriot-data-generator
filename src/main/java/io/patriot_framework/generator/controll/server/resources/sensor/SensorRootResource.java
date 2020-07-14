@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Patriot project
+ * Copyright 2019 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,17 +14,20 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.passive.actuators.stateMachine;
+package io.patriot_framework.generator.controll.server.resources.sensor;
+
+import io.patriot_framework.generator.device.passive.sensors.Sensor;
+import org.eclipse.californium.core.CoapResource;
 
 /**
- * Functional interface that is used in {@link StateMachine.Builder} to specify custom
- * conditions. Defined condition is taken in to account during transition process.
- * Method con(int data) is appended to previously defined {@link State}.
- *
- *      .from("STATE")
- *          .condition(new Condition() {...})
+ * Root CoaP Resource for {@link Sensor} . Main responsibility is to create endpoint: /{#sensor.getLabel}.
+ * This resource is used as a root element of the resource tree of Sensor.
  */
-@FunctionalInterface
-public interface Condition {
-    String con(int data);
+public class SensorRootResource extends CoapResource {
+
+    public static final String NAME = "sensor";
+
+    public SensorRootResource() {
+        super(NAME);
+    }
 }

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.impl.basicDevices;
+package io.patriot_framework.generator.device.impl.basicSensors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,13 +22,14 @@ import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.passive.sensors.AbstractSimpleSensor;
 
 /**
- * Predefined class should be used when creating Thermometer sensor.
+ * Predefined class should be used when creating Humidity sensor.
  */
-public class Thermometer extends AbstractSimpleSensor {
+public class Hygrometer extends AbstractSimpleSensor {
 
     @JsonCreator
-    public Thermometer(@JsonProperty("dataFeed") DataFeed dataFeed) {
-        super("thermometer", dataFeed);
+    public Hygrometer(@JsonProperty("label") String label,
+                      @JsonProperty("dataFeed") DataFeed dataFeed) {
+        super(label, dataFeed);
     }
 
 }

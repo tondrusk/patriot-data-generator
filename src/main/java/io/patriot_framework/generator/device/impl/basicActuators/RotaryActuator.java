@@ -28,7 +28,8 @@ import io.patriot_framework.generator.device.passive.actuators.stateMachine.Stat
 public class RotaryActuator extends AbstractActuator {
 
     @JsonCreator
-    public RotaryActuator(@JsonProperty("label") String label, @JsonProperty("duration") double duration) {
+    public RotaryActuator(@JsonProperty("label") String label,
+                          @JsonProperty("duration") double duration) {
         super(label);
          setStateMachine(
                 new StateMachine.Builder()

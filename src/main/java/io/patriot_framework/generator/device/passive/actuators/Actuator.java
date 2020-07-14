@@ -22,7 +22,7 @@ import io.patriot_framework.generator.device.passive.actuators.stateMachine.Stat
 
 /**
  * Actuator - "part of a machine or system that moves something or makes something work".
- * This interface provides methods for
+ * This interface provides methods for for manipulation of such Device.
  */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,

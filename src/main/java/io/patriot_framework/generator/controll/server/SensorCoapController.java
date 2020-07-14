@@ -17,8 +17,8 @@
 package io.patriot_framework.generator.controll.server;
 
 import io.patriot_framework.generator.controll.server.resources.sensor.SensorResource;
+import io.patriot_framework.generator.controll.server.resources.sensor.SensorRootResource;
 import io.patriot_framework.generator.device.passive.sensors.Sensor;
-import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.server.resources.Resource;
 
 /**
@@ -30,45 +30,27 @@ public class SensorCoapController implements CoapController {
 
     private Sensor sensor;
 
-    private SensorResource resource;
+    private SensorResource sensorResource;
 
     public SensorCoapController(Sensor sensor) {
         this.sensor = sensor;
         server = CoapControlServer.getInstance();
+        sensorResource = new SensorResource(sensor);
     }
 
     @Override
     public void registerDevice() {
-        server.add(createResource());
+        server.add(sensorResource, SensorRootResource.NAME);
     }
 
     @Override
     public void removeDevice() {
-        server.remove(resource);
-        resource = null;
+        server.remove(sensorResource);
     }
 
     @Override
     public Resource getResources() {
-        return null;
+        return sensorResource;
     }
 
-    @Override
-    public CoapResource createResource() {
-        if(resource == null) {
-            resource = new SensorResource(sensor);
-        }
-
-        return resource;
-    }
-
-    @Override
-    public CoapControlServer getServer() {
-        return server;
-    }
-
-    @Override
-    public void setServer(CoapControlServer server) {
-        this.server = server;
-    }
 }

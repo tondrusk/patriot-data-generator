@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.impl.basicDevices;
+package io.patriot_framework.generator.device.impl.basicSensors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,13 +22,13 @@ import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.passive.sensors.AbstractSimpleSensor;
 
 /**
- * Default Device class. This should be used when creating sensor, that is not jet implemented.
- * Otherwise user should use respective Device class.
+ * Predefined class should be used when creating Thermometer sensor.
  */
-public class Default extends AbstractSimpleSensor {
+public class Thermometer extends AbstractSimpleSensor {
 
     @JsonCreator
-    public Default(@JsonProperty("label") String label, @JsonProperty("label") DataFeed dataFeed) {
+    public Thermometer(@JsonProperty("label") String label,
+                       @JsonProperty("dataFeed") DataFeed dataFeed) {
         super(label, dataFeed);
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Patriot project
+ * Copyright 2020 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package io.patriot_framework.generator.controll.server.resources.actuator;
 
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.device.passive.actuators.Actuator;
+import io.patriot_framework.generator.device.passive.actuators.stateMachine.State;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
@@ -25,20 +26,20 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import java.util.List;
 
 /**
- * Root CoaP Resource for {@link Actuator} . Main responsibility is to create endpoint: /{#actuator.getLabel}.
- * This resource is used as a root element of the resource tree of Actuator.
+ * Resource handling basic functionality for specific {@link Actuator}.
+ * Its name is created from label of particular Actuator.
  */
 public class ActuatorResource extends CoapResource {
+
+    /**
+     * Pattern to match usb-uri. "%s" should be mapped to the label of {@link Actuator}
+     */
+    public static final String PATTERN = "/actuator/%s$";
 
     /**
      * Instance of an Actuator for which is resource created for
      */
     private Actuator actuator;
-
-    /**
-     * Pattern to match usb-uri. "%s" should be mapped to the label of {@link Actuator}
-     */
-    public static final String PATTERN = "/%s$";
 
     public ActuatorResource(Actuator actuator) {
         super(actuator.getLabel());
@@ -47,6 +48,11 @@ public class ActuatorResource extends CoapResource {
         getAttributes().setTitle("Actuator resources");
     }
 
+    /**
+     * Method used for turning the Actuator ON/OFF
+     *
+     * @param exchange the CoapExchange for the simple API
+     */
     @Override
     public void handlePOST(CoapExchange exchange) {
         exchange.accept();
@@ -55,13 +61,17 @@ public class ActuatorResource extends CoapResource {
         exchange.respond(CoAP.ResponseCode.CHANGED);
     }
 
+    /**
+     * Method used for returning the actual {@link State} of the Actuator
+     *
+     * @param exchange the CoapExchange for the simple API
+     */
     @Override
     public void handleGET(CoapExchange exchange) {
         exchange.accept();
         List<Data> state = actuator.requestData();
         String result = state.get(0).get(String.class);
 
-        exchange.respond(CoAP.ResponseCode.CONTENT,result);
+        exchange.respond(CoAP.ResponseCode.CONTENT, result);
     }
-
 }

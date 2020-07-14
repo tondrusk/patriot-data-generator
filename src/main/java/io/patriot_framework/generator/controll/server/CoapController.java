@@ -16,7 +16,6 @@
 
 package io.patriot_framework.generator.controll.server;
 
-import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.server.resources.Resource;
 
 /**
@@ -45,12 +44,11 @@ public interface CoapController {
      */
     void removeDevice();
 
-    CoapResource createResource();
-
+    /**
+     * Get resources for Device
+     *
+     * @return resources assigned fot Device
+     */
     Resource getResources();
-
-    CoapControlServer getServer();
-
-    void setServer(CoapControlServer server);
 
 }
