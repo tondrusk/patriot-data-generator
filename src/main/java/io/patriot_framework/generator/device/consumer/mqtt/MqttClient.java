@@ -14,7 +14,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.List;
 import java.util.UUID;
 
-public class MqttClient extends AbstractDevice implements Consumer {
+public class MqttClient extends AbstractDevice implements Consumer, AutoCloseable {
     private UUID uuid = UUID.randomUUID();
     private MqttAsyncClient mqttClient;
     private String broker;
@@ -72,10 +72,5 @@ public class MqttClient extends AbstractDevice implements Consumer {
     @Override
     public List<Data> requestData(Object... params) {
         throw new NotImplementedException();
-    }
-
-    @Override
-    public UUID getUUID() {
-        return uuid;
     }
 }
