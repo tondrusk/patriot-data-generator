@@ -18,7 +18,7 @@ import java.nio.channels.UnresolvedAddressException;
 import java.util.List;
 import java.util.UUID;
 
-public class Server extends AbstractDevice implements Consumer {
+public class Server extends AbstractDevice implements Consumer, AutoCloseable {
     private final UUID uuid = UUID.randomUUID();
     private final String serverHost;
     private final int serverPort;
@@ -80,10 +80,5 @@ public class Server extends AbstractDevice implements Consumer {
     @Override
     public List<Data> requestData(Object... params) {
        throw new NotImplementedException();
-    }
-
-    @Override
-    public UUID getUUID() {
-        return uuid;
     }
 }
