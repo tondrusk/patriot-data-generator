@@ -9,6 +9,7 @@ import io.patriot_framework.generator.device.consumer.exceptions.ConsumerExcepti
 public interface Consumer extends Device {
     /**
      * Run the consumer.
+     *
      * @throws ConsumerException exception
      */
     void run() throws ConsumerException;
