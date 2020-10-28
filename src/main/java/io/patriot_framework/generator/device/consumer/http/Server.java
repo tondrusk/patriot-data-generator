@@ -79,6 +79,6 @@ public class Server extends AbstractDevice implements Consumer, AutoCloseable {
 
     @Override
     public List<Data> requestData(Object... params) {
-       throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 }
