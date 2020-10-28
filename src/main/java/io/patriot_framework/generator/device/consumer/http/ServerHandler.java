@@ -10,7 +10,6 @@ import io.patriot_framework.generator.device.consumer.Storage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -62,12 +61,6 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
         }
 
         storage.write(data);
-
-        LOGGER.info("Method: " + (data.getMeta()).getRequestMethod());
-        LOGGER.info("Endpoint: " + (data.getMeta()).getEndpoint());
-        LOGGER.info("Protocol version: " + (data.getMeta()).getProtocolVersion());
-        LOGGER.info("Request body: " + new String(data.getPayload(), StandardCharsets.UTF_8));
-        LOGGER.info("Storage size: " + storage.size() + "\n");
     }
 
     private void writeResponse(ChannelHandlerContext ctx) {
