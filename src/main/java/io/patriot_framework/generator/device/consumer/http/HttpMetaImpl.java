@@ -1,12 +1,12 @@
 package io.patriot_framework.generator.device.consumer.http;
 
-import java.time.LocalDateTime;
+import io.patriot_framework.generator.device.consumer.AbstractConsumerMeta;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public final class HttpMetaImpl implements HttpMeta {
-    private UUID uuid;
+public final class HttpMetaImpl extends AbstractConsumerMeta implements HttpMeta {
     private String host;
     private int port;
 
@@ -16,12 +16,10 @@ public final class HttpMetaImpl implements HttpMeta {
     private Map<String, String> headers;
     private Map<String, List<String>> queryParams;
 
-    private LocalDateTime timestamp = LocalDateTime.now();
-
     public HttpMetaImpl(UUID uuid, String host, int port,
                         String requestMethod, String endpoint, String protocolVersion,
                         Map<String, String> headers, Map<String, List<String>> queryParams) {
-        this.uuid = uuid;
+        super(uuid);
         this.host = host;
         this.port = port;
 
@@ -33,11 +31,6 @@ public final class HttpMetaImpl implements HttpMeta {
     }
 
     @Override
-    public UUID getUUID() {
-        return uuid;
-    }
-
-    @Override
     public String getHost() {
         return host;
     }
@@ -45,11 +38,6 @@ public final class HttpMetaImpl implements HttpMeta {
     @Override
     public int getPort() {
         return port;
-    }
-
-    @Override
-    public LocalDateTime getTimestamp() {
-        return timestamp;
     }
 
     @Override
