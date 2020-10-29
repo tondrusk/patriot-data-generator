@@ -1,7 +1,5 @@
 package io.patriot_framework.generator.device.consumer;
 
-import io.patriot_framework.generator.Data;
-
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -9,7 +7,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Storage which stores data in ConcurrentLinkedQueue for thread-safety.
  */
 public class Storage {
-    private final ConcurrentLinkedQueue<Data> dataList = new ConcurrentLinkedQueue<>();
+    private final ConcurrentLinkedQueue<ConsumerData> dataList = new ConcurrentLinkedQueue<>();
 
     /**
      * Append input data to the ConcurrentLinkedQueue.
@@ -20,13 +18,13 @@ public class Storage {
         if (message == null) {
             return;
         }
-        dataList.offer(new Data(ConsumerData.class, message));
+        dataList.offer(message);
     }
 
     /**
      * @return first element of the ConcurrentLinkedQueue
      */
-    public Data get() {
+    public ConsumerData get() {
         return dataList.poll();
     }
 
@@ -34,10 +32,10 @@ public class Storage {
      * @param n number of elements to be returned
      * @return first n elements of the ConcurrentLinkedQueue
      */
-    public ArrayList<Data> get(int n) {
-        ArrayList<Data> res = new ArrayList<>();
+    public ArrayList<ConsumerData> get(int n) {
+        ArrayList<ConsumerData> res = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            Data element = get();
+            ConsumerData element = get();
             if (element == null) {
                 break;
             }
