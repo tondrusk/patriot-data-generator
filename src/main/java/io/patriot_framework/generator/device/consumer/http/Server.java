@@ -19,7 +19,7 @@ import java.net.InetSocketAddress;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.List;
 
-public class Server extends AbstractDevice implements Consumer, AutoCloseable {
+public class Server extends AbstractDevice implements Consumer {
     private final String serverHost;
     private final int serverPort;
     private final Storage storage;
