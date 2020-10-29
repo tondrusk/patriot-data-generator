@@ -12,10 +12,8 @@ import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
-import java.util.UUID;
 
 public class MqttClient extends AbstractDevice implements Consumer, AutoCloseable {
-    private UUID uuid = UUID.randomUUID();
     private MqttAsyncClient mqttClient;
     private String broker;
     private String clientId;
@@ -43,7 +41,7 @@ public class MqttClient extends AbstractDevice implements Consumer, AutoCloseabl
 
             LOGGER.info("MQTT client connected to " + broker);
 
-            mqttClient.setCallback(new Callback(uuid, storage));
+            mqttClient.setCallback(new Callback(getUUID(), storage));
             mqttClient.subscribe(topic, qos);
 
             LOGGER.info("MQTT client subscribed to " + topic + " with QoS " + qos);
