@@ -13,7 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
-public class MqttClient extends AbstractDevice implements Consumer, AutoCloseable {
+public class MqttClient extends AbstractDevice implements Consumer {
     private MqttAsyncClient mqttClient;
     private String broker;
     private String clientId;
