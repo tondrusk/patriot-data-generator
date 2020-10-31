@@ -56,4 +56,3 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("handler", new ServerHandler(uuid, storage));
     }
 }
-

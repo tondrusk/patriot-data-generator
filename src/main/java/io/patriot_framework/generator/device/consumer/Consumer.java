@@ -14,8 +14,8 @@ public interface Consumer extends Device {
      */
     void run() throws ConsumerException;
 
-    /**close the consumer.
-     *
+    /**
+     * Close the consumer.
      */
     void close();
 }
