@@ -33,7 +33,7 @@ class HttpDataTest extends HttpTestBase {
 
     @BeforeEach
     void runServer() throws ConsumerException, IOException {
-        super.runServer();
+        super.runServer(false);
 
         createHttpClientWithPayload("payload", port);
         httpClient.execute(httpPost);

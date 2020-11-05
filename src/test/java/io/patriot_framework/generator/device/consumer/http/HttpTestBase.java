@@ -43,9 +43,9 @@ public abstract class HttpTestBase {
     }
 
     // TODO ? @mijaros -> @BeforeAll
-    void runServer() throws ConsumerException, IOException {
+    void runServer(boolean ssl) throws ConsumerException, IOException {
         storage = new Storage();
-        server = new Server("localhost", port, false, storage);
+        server = new Server("localhost", port, ssl, storage);
         server.run();
     }
 

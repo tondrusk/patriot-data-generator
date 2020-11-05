@@ -18,25 +18,43 @@ package io.patriot_framework.generator.device.consumer.exceptions;
 
 import io.patriot_framework.generator.device.consumer.Storage;
 import io.patriot_framework.generator.device.consumer.http.Server;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
+import java.net.BindException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ServerExceptionTest {
+    Server server;
+
+    @AfterEach
+    void closeServer(){
+
+    }
 
     @Test
     void throwsConsumerException() {
-        Server server = new Server("hostlocal", 8080, false, new Storage());
+        server = new Server("hostlocal", 8080, false, new Storage());
 
         assertThrows(ConsumerException.class, server::run);
     }
 
     @Test
     void invalidHostname() {
-        Server server = new Server("hostlocal", 8080, false, new Storage());
+        server = new Server("hostlocal", 8080, false, new Storage());
 
         ConsumerException exception = assertThrows(ConsumerException.class, server::run);
         assertEquals("invalid hostname", exception.getMessage());
+    }
+
+    @Test
+    void occupiedPort() throws ConsumerException {
+        server = new Server("localhost", 8080, false, new Storage());
+        server.run();
+
+        BindException exception = assertThrows(BindException.class, server::run);
+        assertEquals("Address already in use", exception.getMessage());
     }
 }
