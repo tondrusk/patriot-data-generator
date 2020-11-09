@@ -33,7 +33,7 @@ class HttpDataTest extends HttpTestBase {
 
     @BeforeEach
     void runServer() throws ConsumerException, IOException {
-        super.runServer();
+        super.runServer(false);
 
         createHttpClientWithPayload("payload", port);
         httpClient.execute(httpPost);
@@ -47,41 +47,16 @@ class HttpDataTest extends HttpTestBase {
     }
 
     @Test
-    void getUUID() {
-        assertEquals(server.getUUID(), httpData.getMeta().getUUID());
-    }
-
-    @Test
-    void getTimestamp() {
-        LocalDateTime timestamp = httpData.getMeta().getTimestamp();
-
-        assertTrue(timestamp.compareTo(LocalDateTime.now().minusSeconds(3)) >= 0);
-    }
-
-    @Test
     void getPayload() {
-        assertArrayEquals("payload".getBytes(), httpData.getPayload());
-    }
-
-    @Test
-    void getRequestMethod() {
-        assertEquals("POST", httpData.getMeta().getRequestMethod());
-    }
-
-    @Test
-    void getEndpoint() {
-        assertEquals("/endpoint", httpData.getMeta().getEndpoint());
-    }
-
-    @Test
-    void getProtocolVersion() {
-        assertEquals("HTTP/1.1", httpData.getMeta().getProtocolVersion());
-    }
-
-    @Test
-    void getHeaders() {
+        LocalDateTime timestamp = httpData.getMeta().getTimestamp();
         Map<String, String> headers = httpData.getMeta().getHeaders();
 
+        assertTrue(timestamp.compareTo(LocalDateTime.now().minusSeconds(3)) >= 0);
+        assertArrayEquals("payload".getBytes(), httpData.getPayload());
+        assertEquals("POST", httpData.getMeta().getRequestMethod());
+        assertEquals("/endpoint", httpData.getMeta().getEndpoint());
+        assertEquals("HTTP/1.1", httpData.getMeta().getProtocolVersion());
+        assertEquals(server.getUUID(), httpData.getMeta().getUUID());
         assertEquals("text/plain", headers.get("Content-type"));
     }
 

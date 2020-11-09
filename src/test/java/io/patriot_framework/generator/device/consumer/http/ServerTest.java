@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,12 +36,22 @@ class ServerTest extends HttpTestBase{
 
     @BeforeEach
     void runServer() throws ConsumerException, IOException {
-        super.runServer();
+        super.runServer(false);
     }
 
     @AfterEach
     void closeServer() {
         super.closeServer();
+    }
+
+    @Test
+    void statusCode200(){
+        given().when().get("http://localhost:8080").then().statusCode(200);
+    }
+
+    @Test
+    public void responseTime() {
+        given().when().get("http://localhost:8080").then().time(lessThan(1000L));
     }
 
     @Test
