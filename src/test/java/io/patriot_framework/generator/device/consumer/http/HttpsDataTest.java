@@ -17,23 +17,16 @@
 package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static io.restassured.RestAssured.given;
 
-public class HttpsDataTest extends HttpTestBase{
-    @BeforeEach
-    void runServer() throws ConsumerException, IOException {
-        super.runServer(true);
-    }
+public class HttpsDataTest extends HttpTestBase {
 
-    @AfterEach
-    void closeServer() {
-        super.closeServer();
+    @BeforeEach
+    void runServer() throws ConsumerException {
+        super.runServer(true);
     }
 
     @Test

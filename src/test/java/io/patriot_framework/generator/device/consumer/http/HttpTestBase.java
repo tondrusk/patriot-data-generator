@@ -22,8 +22,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.junit.jupiter.api.AfterEach;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public abstract class HttpTestBase {
@@ -42,14 +42,13 @@ public abstract class HttpTestBase {
         httpPost.setEntity(new StringEntity(payload));
     }
 
-    // TODO ? @mijaros -> @BeforeAll
-    void runServer(boolean ssl) throws ConsumerException, IOException {
+    void runServer(boolean ssl) throws ConsumerException {
         storage = new Storage();
         server = new Server("localhost", port, ssl, storage);
         server.run();
     }
 
-    // TODO ? @mijaros -> @AfterAll
+    @AfterEach
     void closeServer() {
         server.close();
     }
