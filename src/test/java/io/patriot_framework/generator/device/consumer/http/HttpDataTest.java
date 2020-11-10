@@ -32,7 +32,7 @@ class HttpDataTest extends HttpTestBase {
     void checkHttpData() throws ConsumerException, IOException {
         super.runServer(false);
 
-        createHttpClientWithPayload("payload", port);
+        createHttpClientWithPayload("payload", port, "text/plain");
         httpClient.execute(httpPost);
 
         HttpData data = (HttpData) storage.get();
