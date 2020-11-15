@@ -29,11 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ServerExceptionTest {
     Server server;
 
-    @AfterEach
-    void closeServer(){
-
-    }
-
     @Test
     void throwsConsumerException() {
         server = new Server("hostlocal", 8080, false, new Storage());

@@ -16,41 +16,37 @@
 
 package io.patriot_framework.generator.device.consumer.mqtt;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-
-import javax.jms.*;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MqttPublisher {
+    private MqttAsyncClient mqttClient;
+    private String broker;
     private String clientId;
-    private Connection connection;
-    private Session session;
-    private MessageProducer messageProducer;
+    public static final Logger LOGGER = LoggerFactory.getLogger(MqttPublisher.class);
 
-    public void create(String clientId, String topicName) throws JMSException {
+    public MqttPublisher(String broker, String clientId) {
+        this.broker = broker;
         this.clientId = clientId;
-
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:8555");
-
-        connection = connectionFactory.createConnection();
-        connection.setClientID(clientId);
-        System.out.println("Created connection factory");
-
-        session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        System.out.println("Created session");
-
-        Topic topic = session.createTopic(topicName);
-
-        messageProducer = session.createProducer(topic);
-        System.out.println("Created topic");
     }
 
-    public void closeConnection() throws JMSException {
-        connection.close();
-    }
+    public void publish(String topic, String message) throws MqttException {
+        System.out.println(broker + clientId);
+        mqttClient = new MqttAsyncClient(broker, clientId);
 
-    public void publish(String message) throws JMSException {
-        TextMessage textMessage = session.createTextMessage(message);
-        messageProducer.send(textMessage);
-        System.out.println("Sent message");
+        LOGGER.info("Mqtt publisher connecting");
+        IMqttToken token = mqttClient.connect();
+        token.waitForCompletion();
+
+        LOGGER.info("Publishing");
+        mqttClient.publish(topic, new MqttMessage(message.getBytes()));
+        if(mqttClient.isConnected()) {
+            mqttClient.disconnect();
+        }
+        LOGGER.info("End of publishing");
     }
 }
