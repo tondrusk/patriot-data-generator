@@ -17,39 +17,40 @@
 package io.patriot_framework.generator.device.consumer.mqtt;
 
 import io.patriot_framework.generator.device.consumer.Storage;
+import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-public class MqttBaseTest {
-    Storage storage = new Storage();
-    MqttClient subscriber;
+public class MqttTestBase {
+    String brokerURI = "tcp://localhost:8883";
     MqttBroker broker;
-    MqttPublisher publisher;
+    Storage storage = new Storage();
+    MqttConsumer subscriber;
+    MqttClient publisher;
 
-    void startMqttClient() {
+    void startSubscriber(String topic) {
         storage = new Storage();
-        subscriber = new MqttClient("tcp://localhost:8883", "front-door", "patriot", 1, storage);
+        subscriber = new MqttConsumer(brokerURI, topic, "patriot-subscriber", 2, storage);
         subscriber.run();
+    }
+
+    void summonPublisher(String topic, String message) throws MqttException {
+        publisher = new MqttClient(brokerURI, "patriot-publisher");
+        publisher.connect();
+        publisher.publish(topic, new MqttMessage(message.getBytes()));
+        publisher.disconnect();
     }
 
     @BeforeEach
     void createBroker() throws Exception {
         broker = new MqttBroker();
-        broker.startMQTTBroker();
+        broker.startMqttBroker();
     }
 
     @AfterEach
     void close() {
-        subscriber.close();
-        broker.stopMQTTBroker();
+        broker.stopMqttBroker();
     }
-
-//    @Test
-//    void runTest() throws MqttException {
-//        startMqttClient();
-//        publisher = new MqttPublisher("tcp://localhost:8883", "tester");
-//        publisher.publish("front-door", "opened");
-//    }
 }

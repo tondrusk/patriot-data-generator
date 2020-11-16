@@ -13,7 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
-public class MqttClient extends AbstractDevice implements Consumer {
+public class MqttConsumer extends AbstractDevice implements Consumer {
     private MqttAsyncClient mqttClient;
     private String broker;
     private String clientId;
@@ -21,9 +21,9 @@ public class MqttClient extends AbstractDevice implements Consumer {
     private int qos;
     private Storage storage;
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(MqttClient.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(MqttConsumer.class);
 
-    public MqttClient(String broker, String topic, String clientId, int qos, Storage storage) {
+    public MqttConsumer(String broker, String topic, String clientId, int qos, Storage storage) {
         this.broker = broker;
         this.clientId = clientId;
         this.qos = qos;
