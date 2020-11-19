@@ -14,11 +14,10 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.consumer.exceptions;
+package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.Storage;
-import io.patriot_framework.generator.device.consumer.http.Server;
-import org.junit.jupiter.api.AfterEach;
+import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.junit.jupiter.api.Test;
 
 import java.net.BindException;
@@ -26,30 +25,38 @@ import java.net.BindException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ServerExceptionTest {
-    Server server;
+class ServerExceptionTest extends HttpTestBase {
 
     @Test
     void throwsConsumerException() {
-        server = new Server("hostlocal", 8080, false, new Storage());
+        server = new Server("hostlocal", port, false, storage);
 
         assertThrows(ConsumerException.class, server::run);
     }
 
     @Test
     void invalidHostname() {
-        server = new Server("hostlocal", 8080, false, new Storage());
+        server = new Server("hostlocal", port, false, storage);
 
         ConsumerException exception = assertThrows(ConsumerException.class, server::run);
         assertEquals("invalid hostname", exception.getMessage());
     }
 
     @Test
-    void occupiedPort() throws ConsumerException {
-        server = new Server("localhost", 8080, false, new Storage());
-        server.run();
+    void alreadyRunning() throws ConsumerException {
+        runServer(false);
 
-        BindException exception = assertThrows(BindException.class, server::run);
+        ConsumerException exception = assertThrows(ConsumerException.class, server::run);
+        assertEquals("Server is already running", exception.getMessage());
+    }
+
+    @Test
+    void occupiedPort() throws ConsumerException {
+        runServer(false);
+
+        Server anotherServer = new Server("localhost", 8080, false, new Storage());
+
+        BindException exception = assertThrows(BindException.class, anotherServer::run);
         assertEquals("Address already in use", exception.getMessage());
     }
 }
