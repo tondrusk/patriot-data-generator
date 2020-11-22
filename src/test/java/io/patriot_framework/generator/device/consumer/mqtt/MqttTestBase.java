@@ -36,6 +36,12 @@ public class MqttTestBase {
         subscriber.run();
     }
 
+    void startSubscriber(String broker, String topic) {
+        storage = new Storage();
+        subscriber = new MqttConsumer(broker, topic, "patriot-subscriber", 2, storage);
+        subscriber.run();
+    }
+
     void summonPublisher(String topic, String message) throws MqttException {
         publisher = new MqttClient(brokerURI, "patriot-publisher");
         publisher.connect();
@@ -52,5 +58,10 @@ public class MqttTestBase {
     @AfterEach
     void close() {
         broker.stopMqttBroker();
+    }
+
+    @AfterEach
+    void closeSubscriber() {
+        subscriber.close();
     }
 }
