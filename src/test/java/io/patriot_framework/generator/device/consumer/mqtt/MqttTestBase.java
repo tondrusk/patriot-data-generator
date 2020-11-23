@@ -17,6 +17,7 @@
 package io.patriot_framework.generator.device.consumer.mqtt;
 
 import io.patriot_framework.generator.device.consumer.Storage;
+import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -30,13 +31,13 @@ public class MqttTestBase {
     MqttConsumer subscriber;
     MqttClient publisher;
 
-    void startSubscriber(String topic) {
+    void startSubscriber(String topic) throws ConsumerException {
         storage = new Storage();
         subscriber = new MqttConsumer(brokerURI, topic, "patriot-subscriber", 2, storage);
         subscriber.run();
     }
 
-    void startSubscriber(String broker, String topic) {
+    void startSubscriber(String broker, String topic) throws ConsumerException {
         storage = new Storage();
         subscriber = new MqttConsumer(broker, topic, "patriot-subscriber", 2, storage);
         subscriber.run();
@@ -49,6 +50,13 @@ public class MqttTestBase {
         publisher.disconnect();
     }
 
+    void summonPublisher(String topic, byte[] message) throws MqttException {
+        publisher = new MqttClient(brokerURI, "patriot-publisher");
+        publisher.connect();
+        publisher.publish(topic, new MqttMessage(message));
+        publisher.disconnect();
+    }
+
     @BeforeEach
     void createBroker() throws Exception {
         broker = new MqttBroker();
@@ -58,10 +66,6 @@ public class MqttTestBase {
     @AfterEach
     void close() {
         broker.stopMqttBroker();
-    }
-
-    @AfterEach
-    void closeSubscriber() {
         subscriber.close();
     }
 }
