@@ -137,7 +137,14 @@ public final class StateMachine {
                 stateTransitions.get(currentState)
                         .put(event, nextState);
             } else {
-                stateTransitions.put(currentState, new HashMap<>(Map.of(event, nextState)));
+                stateTransitions.put(
+                        currentState,
+                        new HashMap<String, String>() {{
+                            put(event, nextState);
+                        }}
+                );
+//                stateTransitions.put(currentState, new HashMap<>(Map.of(event, nextState)));
+//                Use when switched to java version 9+
             }
         }
 
