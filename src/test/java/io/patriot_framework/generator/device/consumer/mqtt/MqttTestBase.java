@@ -25,6 +25,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public class MqttTestBase {
+
     String brokerURI = "tcp://localhost:8883";
     MqttBroker broker;
     Storage storage = new Storage();

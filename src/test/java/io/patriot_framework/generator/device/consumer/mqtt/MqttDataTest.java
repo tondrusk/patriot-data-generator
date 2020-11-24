@@ -21,7 +21,6 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,15 +33,19 @@ public class MqttDataTest extends MqttTestBase {
 
         MqttData data = (MqttData) storage.get();
         MqttMeta meta = data.getMeta();
-        LocalDateTime timestamp = meta.getTimestamp();
 
+        assertEquals(subscriber.getUUID(), meta.getUUID());
+
+        LocalDateTime timestamp = meta.getTimestamp();
         assertTrue(timestamp.compareTo(LocalDateTime.now().minusSeconds(3)) >= 0);
 
-        assertArrayEquals("test message".getBytes(), data.getPayload());
         assertEquals("front-door", meta.getTopic());
         assertEquals(1, meta.getQos());
+
         assertFalse(meta.isDuplicate());
         assertFalse(meta.isRetained());
+
+        assertArrayEquals("test message".getBytes(), data.getPayload());
     }
 
     @Test
@@ -62,11 +65,11 @@ public class MqttDataTest extends MqttTestBase {
     @Test
     void bigPayload() throws MqttException, ConsumerException {
         byte[] message = new byte[500000];
-
         java.util.Arrays.fill(message, (byte) 's');
 
         startSubscriber("big-messages");
         summonPublisher("big-messages", message);
+
         assertArrayEquals(message, storage.get().getPayload());
     }
 }

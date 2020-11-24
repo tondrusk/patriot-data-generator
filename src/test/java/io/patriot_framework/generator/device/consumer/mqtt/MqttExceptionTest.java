@@ -17,20 +17,14 @@
 package io.patriot_framework.generator.device.consumer.mqtt;
 
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.junit.jupiter.api.Test;
-import java.net.UnknownHostException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MqttExceptionTest extends MqttTestBase {
 
     @Test
     void unknownHost() {
-//        MqttConsumer client = new MqttConsumer("tcp://hostlocal:8883", "front-door", "patriot-subscriber", 1 ,storage);
-//        assertThrows(MqttException.class, client::run);
-
         assertThrows(ConsumerException.class, () -> startSubscriber("tcp://hostlocal:8883", "front-door"));
     }
 }

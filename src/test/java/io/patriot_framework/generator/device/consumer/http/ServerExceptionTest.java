@@ -39,7 +39,7 @@ class ServerExceptionTest extends HttpTestBase {
         server = new Server("hostlocal", port, false, storage);
 
         ConsumerException exception = assertThrows(ConsumerException.class, server::run);
-        assertEquals("invalid hostname", exception.getMessage());
+        assertEquals("Invalid hostname", exception.getMessage());
     }
 
     @Test

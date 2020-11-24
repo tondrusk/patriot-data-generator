@@ -49,7 +49,7 @@ class ServerTest extends HttpTestBase {
     }
 
     @Test
-    void checkFIFO() throws IOException {
+    void FIFO() throws IOException {
         for (int i = 1; i <= 3; i++) {
             createHttpClientWithPayload("payload-" + i, port, "text/plain");
             httpClient.execute(httpPost);
@@ -59,7 +59,7 @@ class ServerTest extends HttpTestBase {
     }
 
     @Test
-    void checkStorage() throws IOException {
+    void storageContents() throws IOException {
         for (int i = 1; i <= 5; i++) {
             createHttpClientWithPayload("payload-" + i, port, "text/plain");
             httpClient.execute(httpPost);
