@@ -80,18 +80,31 @@ public class ActiveTransition implements Transition {
         if (processed instanceof ProgressionState) {
             long delay = (long) ((ProgressionState) processed).getDuration();
 
-            Executor delayed = CompletableFuture.delayedExecutor(delay, TimeUnit.MILLISECONDS);
+//            Executor delayed = CompletableFuture.delayedExecutor(delay, TimeUnit.MILLISECONDS);
+//            Use this executor in Java version 9+
+            Executor afterTenSecs = delayedExecutor(delay);
 
             futureState = futureState.thenApplyAsync(s -> {
                 State toReturn = s.getNextState(event);
                 LOGGER.info("Transitioned in to " + toReturn);
 
                 return toReturn;
-            }, delayed);
+            }, afterTenSecs);
 
         }
 
         return futureState;
+    }
+
+//    Remove this when using Java version 9+
+    private static final ScheduledExecutorService SCHEDULER = new ScheduledThreadPoolExecutor(0);
+
+    private static Executor delayedExecutor(long delay) {
+        return delayedExecutor(delay, TimeUnit.MILLISECONDS, ForkJoinPool.commonPool());
+    }
+
+    private static Executor delayedExecutor(long delay, TimeUnit unit, Executor executor) {
+        return r -> SCHEDULER.schedule(() -> executor.execute(r), delay, unit);
     }
 
     @Override
