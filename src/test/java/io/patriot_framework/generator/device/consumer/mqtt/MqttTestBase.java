@@ -24,7 +24,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-public class MqttTestBase {
+public abstract class MqttTestBase {
 
     String brokerURI = "tcp://localhost:8883";
     MqttBroker broker;
@@ -44,18 +44,17 @@ public class MqttTestBase {
         subscriber.run();
     }
 
-    void summonPublisher(String topic, String message) throws MqttException {
+    void summonPublisher() throws MqttException {
         publisher = new MqttClient(brokerURI, "patriot-publisher");
         publisher.connect();
-        publisher.publish(topic, new MqttMessage(message.getBytes()));
-        publisher.disconnect();
     }
 
-    void summonPublisher(String topic, byte[] message) throws MqttException {
-        publisher = new MqttClient(brokerURI, "patriot-publisher");
-        publisher.connect();
+    void publish(String topic, String message) throws MqttException {
+        publisher.publish(topic, new MqttMessage(message.getBytes()));
+    }
+
+    void publish(String topic, byte[] message) throws MqttException {
         publisher.publish(topic, new MqttMessage(message));
-        publisher.disconnect();
     }
 
     @BeforeEach
@@ -65,8 +64,11 @@ public class MqttTestBase {
     }
 
     @AfterEach
-    void close() {
-        broker.stopMqttBroker();
+    void close() throws MqttException {
+        if (publisher != null) {
+            publisher.disconnect();
+        }
         subscriber.close();
+        broker.stopMqttBroker();
     }
 }

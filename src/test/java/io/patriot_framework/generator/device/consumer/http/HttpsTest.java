@@ -14,22 +14,23 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.consumer.mqtt;
+package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
-import org.eclipse.paho.client.mqttv3.MqttException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static io.restassured.RestAssured.given;
 
-class MqttConsumerTest extends MqttTestBase {
+public class HttpsTest extends HttpTestBase {
+
+    @BeforeEach
+    void runServer() throws ConsumerException {
+        super.runServer(true);
+    }
 
     @Test
-    void simpleMessage() throws MqttException, ConsumerException {
-        startSubscriber("front-door");
-        summonPublisher();
-        publish("front-door", "patriot");
-
-        assertArrayEquals("patriot".getBytes(), storage.get().getPayload());
+    void statusCode200(){
+        given().relaxedHTTPSValidation("TLS").when().post("https://localhost:8080").then().statusCode(200);
     }
 }
