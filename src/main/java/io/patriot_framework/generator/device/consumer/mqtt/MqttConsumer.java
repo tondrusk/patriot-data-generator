@@ -4,6 +4,7 @@ import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.device.AbstractDevice;
 import io.patriot_framework.generator.device.consumer.Consumer;
 import io.patriot_framework.generator.device.consumer.Storage;
+import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 public class MqttConsumer extends AbstractDevice implements Consumer {
@@ -31,7 +33,7 @@ public class MqttConsumer extends AbstractDevice implements Consumer {
         this.topic = topic;
     }
 
-    public void run() {
+    public void run() throws ConsumerException {
         try {
             LOGGER.info("Trying to connect MQTT client to " + broker);
             mqttClient = new MqttAsyncClient(broker, clientId);
@@ -48,7 +50,7 @@ public class MqttConsumer extends AbstractDevice implements Consumer {
         } catch (MqttException e) {
             LOGGER.error("Initialization of MQTT client failed: " + e);
             LOGGER.debug("Cause of MQTT error: " + e.getCause() + "\nBroker URI: {} \nTopic: {} \nClient ID: {} \nQoS: {}", broker, topic, clientId, qos);
-            e.printStackTrace();
+            throw new ConsumerException("MqttException", e);
         }
     }
 
