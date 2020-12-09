@@ -30,16 +30,16 @@ public class MqttBroker {
     public Server mqttBroker;
     public static final Logger LOGGER = LoggerFactory.getLogger(MqttBroker.class);
 
-    public void startMQTTBroker() throws IOException {
+    public void startMqttBroker() throws IOException {
         IResourceLoader classpathLoader = new ClasspathResourceLoader();
         final IConfig classPathConfig = new ResourceLoaderConfig(classpathLoader);
 
         mqttBroker = new Server();
         mqttBroker.startServer(classPathConfig);
-        LOGGER.info("Moquette mqtt broker started on port: " + mqttBroker.getPort());
+        LOGGER.info(String.format("Started MQTT broker on port %d", mqttBroker.getPort()));
     }
 
-    public void stopMQTTBroker() {
+    public void stopMqttBroker() {
         mqttBroker.stopServer();
     }
 }
