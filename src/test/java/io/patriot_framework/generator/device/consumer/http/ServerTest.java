@@ -18,7 +18,6 @@ package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.ConsumerData;
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,16 +31,11 @@ import static org.hamcrest.Matchers.lessThan;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ServerTest extends HttpTestBase{
+class ServerTest extends HttpTestBase {
 
     @BeforeEach
     void runServer() throws ConsumerException, IOException {
         super.runServer();
-    }
-
-    @AfterEach
-    void closeServer() {
-        super.closeServer();
     }
 
     @Test

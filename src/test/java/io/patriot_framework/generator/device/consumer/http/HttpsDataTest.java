@@ -17,7 +17,6 @@
 package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,16 +24,12 @@ import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
 
-public class HttpsDataTest extends HttpTestBase{
+public class HttpsDataTest extends HttpTestBase {
+
     @BeforeEach
     void runServer() throws ConsumerException, IOException {
         SSLInit sslInit = new SSLInitImpl();
         super.runServer(sslInit);
-    }
-
-    @AfterEach
-    void closeServer() {
-        super.closeServer();
     }
 
     @Test

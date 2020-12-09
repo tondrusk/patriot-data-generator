@@ -22,6 +22,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.junit.jupiter.api.AfterEach;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -56,6 +57,7 @@ public abstract class HttpTestBase {
     }
 
     // TODO ? @mijaros -> @AfterAll
+    @AfterEach
     void closeServer() {
         server.stop();
     }
