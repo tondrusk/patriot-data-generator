@@ -17,44 +17,39 @@
 package io.patriot_framework.generator.device.consumer.mqtt;
 
 import io.patriot_framework.generator.device.consumer.Storage;
-import org.apache.activemq.broker.BrokerService;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.jms.JMSException;
-
 public class MqttBaseTest {
     Storage storage = new Storage();
-    MqttClient client;
-    BrokerService broker;
-
-    @BeforeEach
-    void createBroker() throws Exception {
-        this.broker = new BrokerService();
-        broker.addConnector("tcp://localhost:8555");
-        broker.start();
-    }
+    MqttClient subscriber;
+    MqttBroker broker;
+    MqttPublisher publisher;
 
     void startMqttClient() {
         storage = new Storage();
-        client = new MqttClient("tcp://localhost:8555", "front-door", "patriot", 1, storage);
-        client.run();
+        subscriber = new MqttClient("tcp://localhost:8883", "front-door", "patriot", 1, storage);
+        subscriber.run();
+    }
+
+    @BeforeEach
+    void createBroker() throws Exception {
+        broker = new MqttBroker();
+        broker.startMQTTBroker();
     }
 
     @AfterEach
-    void close() throws Exception {
-        client.close();
-        broker.stop();
+    void close() {
+        subscriber.close();
+        broker.stopMQTTBroker();
     }
 
-    @Test
-    void runTest() throws JMSException {
-        MqttPublisher publisher = new MqttPublisher();
-        System.out.println("Preparing to publish");
-        publisher.create("Patriot-Publisher", "front-door");
-        publisher.publish("Opened");
-        publisher.closeConnection();
-        startMqttClient();
-    }
+//    @Test
+//    void runTest() throws MqttException {
+//        startMqttClient();
+//        publisher = new MqttPublisher("tcp://localhost:8883", "tester");
+//        publisher.publish("front-door", "opened");
+//    }
 }
