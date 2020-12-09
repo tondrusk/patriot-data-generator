@@ -19,22 +19,16 @@ package io.patriot_framework.generator.device.consumer.http;
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import io.restassured.http.ContentType;
 import org.json.JSONObject;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class HttpJsonTest extends HttpTestBase{
+public class HttpJsonTest extends HttpTestBase {
     HttpData data;
     JSONObject request;
 
     @BeforeEach
-    void runServer() throws ConsumerException, IOException {
+    void runServer() throws ConsumerException {
         super.runServer(false);
 
         request = new JSONObject();
@@ -53,11 +47,6 @@ public class HttpJsonTest extends HttpTestBase{
                 statusLine("HTTP/1.1 200 OK");
 
         data = (HttpData) storage.get();
-    }
-
-    @AfterEach
-    void closeServer() {
-        super.closeServer();
     }
 
 //    @Test

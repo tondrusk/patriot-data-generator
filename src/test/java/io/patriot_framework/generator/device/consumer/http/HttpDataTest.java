@@ -17,8 +17,6 @@
 package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -29,43 +27,36 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HttpDataTest extends HttpTestBase {
-    HttpData httpData;
 
-    @BeforeEach
-    void runServer() throws ConsumerException, IOException {
+    @Test
+    void checkHttpData() throws ConsumerException, IOException {
         super.runServer(false);
 
         createHttpClientWithPayload("payload", port);
         httpClient.execute(httpPost);
 
-        httpData = (HttpData) storage.get();
-    }
+        HttpData data = (HttpData) storage.get();
+        HttpMeta meta = data.getMeta();
 
-    @AfterEach
-    void closeServer() {
-        super.closeServer();
-    }
+        assertEquals(server.getUUID(), meta.getUUID());
 
-    @Test
-    void getPayload() {
-        LocalDateTime timestamp = httpData.getMeta().getTimestamp();
-        Map<String, String> headers = httpData.getMeta().getHeaders();
-
+        LocalDateTime timestamp = meta.getTimestamp();
         assertTrue(timestamp.compareTo(LocalDateTime.now().minusSeconds(3)) >= 0);
-        assertArrayEquals("payload".getBytes(), httpData.getPayload());
-        assertEquals("POST", httpData.getMeta().getRequestMethod());
-        assertEquals("/endpoint", httpData.getMeta().getEndpoint());
-        assertEquals("HTTP/1.1", httpData.getMeta().getProtocolVersion());
-        assertEquals(server.getUUID(), httpData.getMeta().getUUID());
+
+        assertEquals("POST", meta.getRequestMethod());
+
+        assertEquals("/endpoint", meta.getEndpoint());
+
+        assertEquals("HTTP/1.1", meta.getProtocolVersion());
+
+        Map<String, String> headers = meta.getHeaders();
         assertEquals("text/plain", headers.get("Content-type"));
-    }
 
-    @Test
-    void getQueryParams() { // TODO ? @mijaros -> List via URL
-        Map<String, List<String>> queryParams = httpData.getMeta().getQueryParams();
-
+        Map<String, List<String>> queryParams = meta.getQueryParams();
         assertEquals("value1", queryParams.get("key1").get(0));
         assertEquals("value2", queryParams.get("key1").get(1));
         assertEquals("value3", queryParams.get("key2").get(0));
+
+        assertArrayEquals("payload".getBytes(), data.getPayload());
     }
 }
