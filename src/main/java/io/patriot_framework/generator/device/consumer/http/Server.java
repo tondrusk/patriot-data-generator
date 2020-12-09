@@ -39,8 +39,11 @@ public class Server extends AbstractDevice implements Consumer {
 
     @Override
     public void run() throws ConsumerException {
+        if (bossGroup != null || workerGroup != null) {
+            throw new ConsumerException("Server is already running");
+        }
         try {
-            LOGGER.info(String.format("Trying to start HTTP%s server on port %d", ssl ? "S" : "", serverPort));
+            LOGGER.info(String.format("Trying to start HTTP%s server [PORT: %d]", ssl ? "S" : "", serverPort));
 
             bossGroup = new NioEventLoopGroup();
             workerGroup = new NioEventLoopGroup();
@@ -53,7 +56,7 @@ public class Server extends AbstractDevice implements Consumer {
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
             future = bootstrap.bind().sync();
-            LOGGER.info(String.format("Started HTTP%s server on port %d", ssl ? "S" : "", serverPort));
+            LOGGER.info(String.format("Started HTTP%s server [PORT: %d]", ssl ? "S" : "", serverPort));
         } catch (UnresolvedAddressException e) {
             throw new ConsumerException("invalid hostname", e);
         } catch (InterruptedException e) {
@@ -72,7 +75,9 @@ public class Server extends AbstractDevice implements Consumer {
             }
             if (future != null) {
                 future.channel().closeFuture().sync();
-                LOGGER.info(String.format("Stopped HTTP%s server on port %d", ssl ? "S" : "", serverPort));
+                LOGGER.info(String.format("Stopped HTTP%s server [PORT: %d]", ssl ? "S" : "", serverPort));
+            } else {
+                LOGGER.info(String.format("HTTP%s server was not running [PORT: %d]", ssl ? "S" : "", serverPort));
             }
         } catch (Exception e) {
             e.printStackTrace();
