@@ -20,10 +20,16 @@ import io.patriot_framework.generator.device.consumer.exceptions.ConsumerExcepti
 import io.restassured.http.ContentType;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpJsonTest extends HttpTestBase {
+
     HttpData data;
     JSONObject request;
 
@@ -49,10 +55,11 @@ public class HttpJsonTest extends HttpTestBase {
         data = (HttpData) storage.get();
     }
 
-//    @Test
-//    void getHeaders() {
-//        Map<String, String> headers = data.getMeta().getHeaders();
-//
-//        assertEquals("application/json", headers.get("Content-type"));
-//    }
+    @Test
+    @Disabled
+    void getHeaders() {
+        Map<String, String> headers = data.getMeta().getHeaders();
+
+        assertEquals("application/json", headers.get("Content-type"));
+    }
 }

@@ -24,7 +24,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HttpDataTest extends HttpTestBase {
 
@@ -44,9 +46,7 @@ class HttpDataTest extends HttpTestBase {
         assertTrue(timestamp.compareTo(LocalDateTime.now().minusSeconds(3)) >= 0);
 
         assertEquals("POST", meta.getRequestMethod());
-
         assertEquals("/endpoint", meta.getEndpoint());
-
         assertEquals("HTTP/1.1", meta.getProtocolVersion());
 
         Map<String, String> headers = meta.getHeaders();
