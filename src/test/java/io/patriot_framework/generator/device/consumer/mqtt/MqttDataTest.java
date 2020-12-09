@@ -16,17 +16,19 @@
 
 package io.patriot_framework.generator.device.consumer.mqtt;
 
+import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MqttDataTest extends MqttTestBase {
 
     @Test
-    void basicDataTest() throws MqttException {
+    void basicDataTest() throws ConsumerException, MqttException {
         startSubscriber("front-door");
         summonPublisher("front-door", "test message");
 
@@ -44,7 +46,7 @@ public class MqttDataTest extends MqttTestBase {
     }
 
     @Test
-    void multiplePayloadsTest() throws MqttException {
+    void multiplePayloadsTest() throws MqttException, ConsumerException {
         startSubscriber("temperature-meter");
 
         for (int i = 1; i <= 10; i++) {
@@ -57,14 +59,14 @@ public class MqttDataTest extends MqttTestBase {
         }
     }
 
-//    @Test
-//    void bigPayload() throws MqttException {
-//        byte[] message = new byte[1048576];
-//
-//        java.util.Arrays.fill(message, (byte) 's');
-//
-//        startSubscriber("big-messages");
-//        summonPublisher("big-messages", message.toString());
-//        assertEquals(message, storage.get().getPayload());
-//    }
+    @Test
+    void bigPayload() throws MqttException, ConsumerException {
+        byte[] message = new byte[500000];
+
+        java.util.Arrays.fill(message, (byte) 's');
+
+        startSubscriber("big-messages");
+        summonPublisher("big-messages", message);
+        assertArrayEquals(message, storage.get().getPayload());
+    }
 }
