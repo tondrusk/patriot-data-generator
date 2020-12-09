@@ -32,16 +32,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class StorageTest {
     Storage storage;
-    ConsumerData invalidConsumerData;
+    ConsumerData invalidConsumerData = new HttpData(new HttpMetaImpl(UUID.randomUUID(), "host", 0,
+            "requestMethod", "endpoint", "protocolVersion",
+            new HashMap<>(), new HashMap<>()),
+            "payload".getBytes());
 
     @BeforeEach
     void initVariables() {
         storage = new Storage();
-
-        invalidConsumerData = new HttpData(new HttpMetaImpl(UUID.randomUUID(), "host", 0,
-                "requestMethod", "endpoint", "protocolVersion",
-                new HashMap<>(), new HashMap<>()),
-                "payload".getBytes());
     }
 
     @Test
