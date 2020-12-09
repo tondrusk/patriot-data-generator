@@ -59,10 +59,10 @@ public class HttpJsonTest extends HttpTestBase{
         super.closeServer();
     }
 
-    @Test
-    void getHeaders() {
-        Map<String, String> headers = data.getMeta().getHeaders();
-
-        assertEquals("application/json", headers.get("Content-type"));
-    }
+//    @Test
+//    void getHeaders() {
+//        Map<String, String> headers = data.getMeta().getHeaders();
+//
+//        assertEquals("application/json", headers.get("Content-type"));
+//    }
 }
