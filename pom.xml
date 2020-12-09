@@ -295,9 +295,9 @@
          <scope>test</scope>
       </dependency>
       <dependency>
-         <groupId>org.apache.activemq</groupId>
-         <artifactId>activemq-core</artifactId>
-         <version>5.7.0</version>
+         <groupId>io.moquette</groupId>
+         <artifactId>moquette-broker</artifactId>
+         <version>0.13</version>
          <scope>test</scope>
       </dependency>
    </dependencies>
@@ -354,5 +354,12 @@
          </build>
       </profile>
    </profiles>
+
+   <repositories>
+      <repository>
+         <id>bintray</id>
+         <url>http://dl.bintray.com/andsel/maven/</url>
+      </repository>
+   </repositories>
 
 </project>
