@@ -34,11 +34,11 @@ public abstract class HttpTestBase {
     HttpClient httpClient;
     HttpPost httpPost;
 
-    void createHttpClientWithPayload(String payload, int port) throws UnsupportedEncodingException {
+    void createHttpClientWithPayload(String payload, int port, String contentType) throws UnsupportedEncodingException {
         httpClient = HttpClients.createDefault();
 
         httpPost = new HttpPost("http://localhost:" + port + "/endpoint?key1=value1&key1=value2&key2=value3");
-        httpPost.setHeader("Content-type", "text/plain");
+        httpPost.setHeader("Content-type", contentType);
         httpPost.setEntity(new StringEntity(payload));
     }
 
