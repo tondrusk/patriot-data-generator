@@ -46,11 +46,8 @@ public class MqttClient extends AbstractDevice implements Consumer {
 
             LOGGER.info("MQTT client subscribed to " + topic + " with QoS " + qos);
         } catch (MqttException e) {
-            LOGGER.error("Reason code: " + e.getReasonCode());
-            LOGGER.error("Message: " + e.getMessage());
-            LOGGER.error("Localized message: " + e.getLocalizedMessage());
-            LOGGER.error("Cause: " + e.getCause());
-            LOGGER.error("Exception: " + e);
+            LOGGER.error("Initialization of MQTT client failed: " + e);
+            LOGGER.debug("Cause of MQTT error: " + e.getCause() + "\nBroker URI: {} \nTopic: {} \nClient ID: {} \nQoS: {}", broker, topic, clientId, qos);
             e.printStackTrace();
         }
     }
