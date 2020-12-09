@@ -14,23 +14,16 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.consumer.http;
+package io.patriot_framework.generator.device.consumer.http2;
 
-import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.given;
-
-public class HttpsDataTest extends HttpTestBase {
-
-    @BeforeEach
-    void runServer() throws ConsumerException {
-        super.runServer(true);
-    }
+public class Http2ServerTest extends Http2TestBase {
 
     @Test
-    void statusCode200(){
-        given().relaxedHTTPSValidation("TLS").when().post("https://localhost:8080").then().statusCode(200);
+    void basicConnectionTest() throws Exception {
+        runServer(false);
+        createHttp2Client();
     }
+
 }
