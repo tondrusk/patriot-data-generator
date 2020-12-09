@@ -51,7 +51,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
             LastHttpContent trailer = (LastHttpContent) msg;
 
             StringBuilder responseData = new StringBuilder();
-            responseData.append(Arrays.toString(data.getPayload())).append("\n");
+//            responseData.append(Arrays.toString(data.getPayload())).append("\n");
             writeResponse(ctx, trailer, responseData, request);
         }
 
