@@ -15,10 +15,10 @@ public class SSLInit {
         char[] passphrase = "Patriot".toCharArray();
 
         KeyStore keyStore = KeyStore.getInstance("JKS");
-        keyStore.load(new FileInputStream("src/main/resources/SSLCert/server_keystore.jks"), passphrase);
+        keyStore.load(new FileInputStream("src/main/resources/sslcerts/server_keystore.jks"), passphrase);
 
         KeyStore keyStoreTrust = KeyStore.getInstance("JKS");
-        keyStoreTrust.load(new FileInputStream("src/main/resources/SSLCert/server_truststore.jks"), passphrase);
+        keyStoreTrust.load(new FileInputStream("src/main/resources/sslcerts/server_truststore.jks"), passphrase);
 
         KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
         keyManagerFactory.init(keyStore, passphrase);
