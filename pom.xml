@@ -302,6 +302,19 @@
          <version>2.0.0-alpha1</version>
          <scope>test</scope>
       </dependency>
+      <dependency>
+         <groupId>org.eclipse.jetty.http2</groupId>
+         <artifactId>http2-client</artifactId>
+         <version>9.4.35.v20201120</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.eclipse.jetty.http2</groupId>
+         <artifactId>http2-http-client-transport</artifactId>
+         <version>9.4.35.v20201120</version>
+         <scope>test</scope>
+      </dependency>
+
    </dependencies>
 
    <profiles>
