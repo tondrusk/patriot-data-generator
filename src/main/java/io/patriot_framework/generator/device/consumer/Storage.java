@@ -67,4 +67,11 @@ public class Storage {
     public int size() {
         return dataList.size();
     }
+
+    /**
+     * @return Storage content
+     */
+    public ArrayList<ConsumerData> getAll() {
+        return get(size());
+    }
 }

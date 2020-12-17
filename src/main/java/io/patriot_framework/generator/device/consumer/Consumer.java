@@ -19,6 +19,8 @@ package io.patriot_framework.generator.device.consumer;
 import io.patriot_framework.generator.device.Device;
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 
+import java.util.List;
+
 /**
  * Interface for consumer management.
  */
@@ -35,4 +37,9 @@ public interface Consumer extends Device {
      * Close the consumer.
      */
     void close();
+
+    /**
+     * @return Storage content
+     */
+    List<ConsumerData> getContents();
 }
