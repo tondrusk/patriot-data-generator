@@ -27,16 +27,16 @@ import java.util.List;
 public interface Consumer extends Device {
 
     /**
-     * Run the consumer.
+     * Start the consumer.
      *
      * @throws ConsumerException exception
      */
-    void run() throws ConsumerException;
+    void start() throws ConsumerException;
 
     /**
-     * Close the consumer.
+     * Stop the consumer.
      */
-    void close();
+    void stop();
 
     /**
      * @return Storage content

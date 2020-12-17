@@ -50,7 +50,7 @@ public class MqttConsumer extends AbstractDevice implements Consumer {
         this.topic = topic;
     }
 
-    public void run() throws ConsumerException {
+    public void start() throws ConsumerException {
         try {
             LOGGER.info("Trying to connect MQTT client to " + broker);
             mqttClient = new MqttAsyncClient(broker, clientId);
@@ -72,7 +72,7 @@ public class MqttConsumer extends AbstractDevice implements Consumer {
     }
 
     @Override
-    public void close() {
+    public void stop() {
         if (mqttClient.isConnected()) {
             try {
                 mqttClient.disconnect();

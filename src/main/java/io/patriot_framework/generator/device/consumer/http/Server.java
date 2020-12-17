@@ -70,7 +70,7 @@ public class Server extends AbstractDevice implements Consumer {
     }
 
     @Override
-    public void run() throws ConsumerException {
+    public void start() throws ConsumerException {
         if (bossGroup != null || workerGroup != null) {
             throw new ConsumerException("Server is already running");
         }
@@ -97,7 +97,7 @@ public class Server extends AbstractDevice implements Consumer {
     }
 
     @Override
-    public void close() {
+    public void stop() {
         try {
             if (workerGroup != null) {
                 workerGroup.shutdownGracefully();

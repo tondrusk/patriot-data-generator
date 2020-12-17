@@ -44,11 +44,11 @@ public class ConsumerResource extends CoapResource {
     @Override
     public void handlePOST(CoapExchange exchange) {
         if (consumer.isEnabled()) {
-            consumer.close();
+            consumer.stop();
             consumer.setEnabled(false);
         } else {
             try {
-                consumer.run();
+                consumer.start();
                 consumer.setEnabled(true);
             } catch (ConsumerException e) {
                 e.printStackTrace();
