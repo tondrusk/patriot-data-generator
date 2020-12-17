@@ -20,6 +20,10 @@ import io.patriot_framework.generator.device.consumer.exceptions.ConsumerExcepti
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.Base64;
 
 public class ConsumerResource extends CoapResource {
 
@@ -32,7 +36,9 @@ public class ConsumerResource extends CoapResource {
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        exchange.respond("Hello World");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("values", consumer.getContents());
+        exchange.respond(Arrays.toString(Base64.getEncoder().encode(jsonObject.toString().getBytes())));
     }
 
     @Override
