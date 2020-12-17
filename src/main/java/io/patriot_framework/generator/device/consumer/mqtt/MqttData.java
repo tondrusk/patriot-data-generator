@@ -28,6 +28,10 @@ public final class MqttData implements ConsumerData {
         this.payload = payload;
     }
 
+    public String getType() {
+        return "MQTT";
+    }
+
     @Override
     public MqttMeta getMeta() {
         return meta;

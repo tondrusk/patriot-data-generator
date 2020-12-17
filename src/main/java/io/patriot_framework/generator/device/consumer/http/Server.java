@@ -25,6 +25,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.device.AbstractDevice;
 import io.patriot_framework.generator.device.consumer.Consumer;
+import io.patriot_framework.generator.device.consumer.ConsumerData;
 import io.patriot_framework.generator.device.consumer.Storage;
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.slf4j.Logger;
@@ -99,6 +100,11 @@ public class Server extends AbstractDevice implements Consumer {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<ConsumerData> getContents() {
+        return storage.getAll();
     }
 
     @Override

@@ -28,6 +28,10 @@ public final class HttpData implements ConsumerData {
         this.payload = payload;
     }
 
+    public String getType() {
+        return "HTTP";
+    }
+
     @Override
     public HttpMeta getMeta() {
         return meta;

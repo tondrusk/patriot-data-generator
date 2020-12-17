@@ -19,6 +19,7 @@ package io.patriot_framework.generator.device.consumer.mqtt;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.device.AbstractDevice;
 import io.patriot_framework.generator.device.consumer.Consumer;
+import io.patriot_framework.generator.device.consumer.ConsumerData;
 import io.patriot_framework.generator.device.consumer.Storage;
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -80,6 +81,11 @@ public class MqttConsumer extends AbstractDevice implements Consumer {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public List<ConsumerData> getContents() {
+        return storage.getAll();
     }
 
     @Override
