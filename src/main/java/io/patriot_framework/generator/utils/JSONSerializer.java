@@ -33,4 +33,9 @@ public class JSONSerializer {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(file, device);
     }
+
+    public static Device deserialize(Device device, File file) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(file, Device.class);
+    }
 }
