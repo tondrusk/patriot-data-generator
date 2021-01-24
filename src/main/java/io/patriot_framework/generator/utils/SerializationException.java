@@ -16,32 +16,26 @@
 
 package io.patriot_framework.generator.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.patriot_framework.generator.device.Device;
-
-import java.io.File;
-import java.io.IOException;
-
 /**
- * Wrapper class for Device serialization to JSON
- *
  * @author <a href="mailto:jakub.smadis@gmail.com">Jakub Smadiš</a>
  */
-public class JSONSerializer {
-
-    public static void serialize(Device device, File file){
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(file, device);
-        } catch (IOException e) {
-            throw new SerializationException(e);
-        }
+public class SerializationException extends RuntimeException{
+    public SerializationException() {
     }
 
-    public static Device deserialize(File file) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(file, Device.class);
+    public SerializationException(String s) {
+        super(s);
     }
 
+    public SerializationException(String s, Throwable throwable) {
+        super(s, throwable);
+    }
 
+    public SerializationException(Throwable throwable) {
+        super(throwable);
+    }
+
+    public SerializationException(String s, Throwable throwable, boolean b, boolean b1) {
+        super(s, throwable, b, b1);
+    }
 }
