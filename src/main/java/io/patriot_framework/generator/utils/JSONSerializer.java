@@ -18,6 +18,7 @@ package io.patriot_framework.generator.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.patriot_framework.generator.device.Device;
+import io.patriot_framework.generator.device.active.ActiveDevice;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,10 +39,30 @@ public class JSONSerializer {
         }
     }
 
-    public static Device deserialize(File file) throws IOException {
+    public static void serialize(ActiveDevice device, File file){
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(file, Device.class);
+        try {
+            objectMapper.writeValue(file, device);
+        } catch (IOException e) {
+            throw new SerializationException(e);
+        }
     }
 
+    public static Device deserializeDevice(File file)  {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(file, Device.class);
+        } catch (IOException e) {
+            throw new SerializationException(e);
+        }
+    }
 
+    public static ActiveDevice deserializeActiveDevice(File file) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(file, ActiveDevice.class);
+        } catch (IOException e) {
+            throw new SerializationException(e);
+        }
+    }
 }

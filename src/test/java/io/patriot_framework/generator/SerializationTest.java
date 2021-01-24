@@ -17,30 +17,56 @@
 package io.patriot_framework.generator;
 
 import io.patriot_framework.generator.dataFeed.DataFeed;
-import io.patriot_framework.generator.device.impl.basicActuators.RotaryActuator;
-import io.patriot_framework.generator.device.passive.actuators.Actuator;
+import io.patriot_framework.generator.dataFeed.ExponentialDistDataFeed;
+import io.patriot_framework.generator.dataFeed.NormalDistVariateDataFeed;
+import io.patriot_framework.generator.device.Device;
+import io.patriot_framework.generator.device.impl.basicSensors.DHT11;
+import io.patriot_framework.generator.device.impl.basicSensors.Thermometer;
 import io.patriot_framework.generator.device.passive.sensors.Sensor;
 import io.patriot_framework.generator.network.NetworkAdapter;
 import io.patriot_framework.generator.network.Rest;
 import io.patriot_framework.generator.network.wrappers.JSONWrapper;
 import io.patriot_framework.generator.utils.JSONSerializer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:jakub.smadis@gmail.com">Jakub Smadiš</a>
  */
 public class SerializationTest {
+    private File file;
+
+    @BeforeEach
+    void setup() throws IOException {
+        file = File.createTempFile("thermometer", ".json");
+        file.deleteOnExit();
+    }
+
     @Test
-    void serialize()
-    {
+    void serializeThermometer() {
+        DataFeed df = new NormalDistVariateDataFeed(18, 2);
+        NetworkAdapter na = new Rest("https://httpbin.org/post", new JSONWrapper());
+        Device sensor = new Thermometer("simpleThermometer", df);
+        sensor.setNetworkAdapter(na);
+
+        JSONSerializer.serialize(sensor, file);
+        Device another = JSONSerializer.deserializeDevice(file);
+        assert (another.equals(sensor));
+    }
+
+    @Test
+    void serializeDHT11(){
         DataFeed temperature = new ExponentialDistDataFeed(0.02);
         DataFeed humidity = new NormalDistVariateDataFeed(30, 7);
-        Sensor sensor = new DHT11("dht11", temperature, humidity);
-        NetworkAdapter na = new Rest(httpEndpoint, new JSONWrapper());
+        Device sensor = new DHT11("dht11", temperature, humidity);
+        NetworkAdapter na = new Rest("https://httpbin.org/post", new JSONWrapper());
         sensor.setNetworkAdapter(na);
-        JSONSerializer.serialize(actuator, new File("test.json"));
-        System.out.println("bla");
+
+        JSONSerializer.serialize(sensor, file);
+        Device another = JSONSerializer.deserializeDevice(file);
+        assert (another.equals(sensor));
     }
 }

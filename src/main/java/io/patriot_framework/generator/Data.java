@@ -16,11 +16,14 @@
 
 package io.patriot_framework.generator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 /**
  * Class provides simple tool to store data in different data types.
  * To give users freedom in designing Devices and DataFeeds library offers
  * Data structure to save and safety manipulate with generated data.
  */
+@JsonIgnoreType
 public class Data {
 
     /**

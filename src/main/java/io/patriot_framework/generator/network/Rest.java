@@ -27,6 +27,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class Rest implements NetworkAdapter {
 
@@ -74,5 +75,17 @@ public class Rest implements NetworkAdapter {
         this.endpoint = endpoint;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Rest)) return false;
+        Rest rest = (Rest) o;
+        return Objects.equals(endpoint, rest.endpoint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(endpoint);
+    }
 }
 

@@ -16,10 +16,12 @@
 
 package io.patriot_framework.generator.device;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.patriot_framework.generator.controll.server.CoapController;
 import io.patriot_framework.generator.events.DataObservable;
 import io.patriot_framework.generator.network.NetworkAdapter;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class AbstractDevice implements Device {
@@ -32,6 +34,7 @@ public abstract class AbstractDevice implements Device {
 
     private DataObservable dataObserable;
 
+    @JsonIgnore
     private CoapController coapController;
 
     private boolean enabled;
@@ -113,4 +116,20 @@ public abstract class AbstractDevice implements Device {
         this.enabled = enabled;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractDevice)) return false;
+        AbstractDevice that = (AbstractDevice) o;
+        return enabled == that.enabled
+                && Objects.equals(uuid, that.uuid)
+                && Objects.equals(label, that.label)
+                && Objects.equals(networkAdapter, that.networkAdapter)
+                && Objects.equals(dataObserable, that.dataObserable);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, label, networkAdapter, dataObserable, enabled);
+    }
 }

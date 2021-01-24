@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.dataFeed;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.Data;
 
 /**
@@ -23,6 +24,9 @@ import io.patriot_framework.generator.Data;
  * SSJ (Stochastic Simulation in Java) - developed at Université de Montréal
  * https://www.iro.umontreal.ca/~lecuyer/ssj-gh-pages/html/index.html
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
+        property = "className")
 public interface DataFeed {
 
     /**

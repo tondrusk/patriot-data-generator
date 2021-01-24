@@ -16,6 +16,9 @@
 
 package io.patriot_framework.generator.device;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.controll.server.CoapController;
 import io.patriot_framework.generator.events.DataObservable;
@@ -29,6 +32,9 @@ import java.util.List;
  * User should not use this interface for creating device objects. Mainly serves for internal object interaction,
  * but lacks DataFeed manipulation.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
+        property = "className")
 public interface Device extends Unit {
 
     /**

@@ -25,7 +25,6 @@ import io.patriot_framework.generator.controll.server.resources.sensor.DataFeedR
  */
 public class DataFeedBean {
 
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private DataFeed dataFeed;
 
     public DataFeed getDataFeed() {

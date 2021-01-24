@@ -23,6 +23,8 @@ import umontreal.ssj.randvar.NormalGen;
 import umontreal.ssj.rng.MRG32k3a;
 import umontreal.ssj.rng.RandomStream;
 
+import java.util.Objects;
+
 /**
  * DataFeed based on {@link NormalGen}.
  */
@@ -32,11 +34,20 @@ public class NormalDistVariateDataFeed implements DataFeed {
 
     private NormalGen normalGen;
 
+    @JsonProperty
     private double previousValue;
+
+    @JsonProperty
+    private double mu;
+
+    @JsonProperty
+    private double sigma;
 
     @JsonCreator
     public NormalDistVariateDataFeed(@JsonProperty("mu") double mu,
                                      @JsonProperty("sigma") double sigma) {
+        this.mu = mu;
+        this.sigma = sigma;
         RandomStream rs = new MRG32k3a();
         this.normalGen = new NormalGen(rs, mu, sigma);
     }
@@ -73,4 +84,16 @@ public class NormalDistVariateDataFeed implements DataFeed {
         return label;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NormalDistVariateDataFeed that = (NormalDistVariateDataFeed) o;
+        return Double.compare(that.previousValue, previousValue) == 0 && Double.compare(that.mu, mu) == 0 && Double.compare(that.sigma, sigma) == 0 && Objects.equals(label, that.label);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(label, previousValue, mu, sigma);
+    }
 }

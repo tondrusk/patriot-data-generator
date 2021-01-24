@@ -16,8 +16,6 @@
 
 package io.patriot_framework.generator.device.passive.sensors;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +36,6 @@ public abstract class AbstractSimpleSensor extends AbstractSensor implements Sim
     }
 
     @Override
-    @JsonSetter("dataFeed")
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     public void setDataFeed(DataFeed dataFeed) {
         if (!getDataFeeds().isEmpty()) {
             removeDataFeed();
@@ -60,6 +56,10 @@ public abstract class AbstractSimpleSensor extends AbstractSensor implements Sim
 
     @Override
     public void addDataFeed(DataFeed dataFeed) {
+        if (getDataFeeds().isEmpty()) {
+            super.addDataFeed(dataFeed);
+            return;
+        }
         throw new UnsupportedOperationException("Only single data feed is allowed");
     }
 

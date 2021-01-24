@@ -22,19 +22,27 @@ import io.patriot_framework.generator.Data;
 import umontreal.ssj.probdist.ContinuousDistribution;
 import umontreal.ssj.probdist.ExponentialDist;
 
+import java.util.Objects;
+
 /**
  * DataFeed based on {@link ContinuousDistribution}.
  */
 public class ExponentialDistDataFeed implements DataFeed {
 
+
     private String label;
 
     private ContinuousDistribution dist;
 
+    @JsonProperty
     private double previousValue;
+
+    @JsonProperty
+    private double lambda;
 
     @JsonCreator
     public ExponentialDistDataFeed(@JsonProperty("lambda") double lambda) {
+        this.lambda = lambda;
         this.dist = new ExponentialDist(lambda);
     }
 
@@ -71,4 +79,16 @@ public class ExponentialDistDataFeed implements DataFeed {
         return label;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ExponentialDistDataFeed)) return false;
+        ExponentialDistDataFeed that = (ExponentialDistDataFeed) o;
+        return Double.compare(that.previousValue, previousValue) == 0 && Double.compare(that.lambda, lambda) == 0 && Objects.equals(label, that.label);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(label, previousValue, lambda);
+    }
 }

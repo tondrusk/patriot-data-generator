@@ -16,8 +16,13 @@
 
 package io.patriot_framework.generator.device.passive.sensors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.controll.server.SensorCoapController;
 import io.patriot_framework.generator.dataFeed.DataFeed;
@@ -29,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstract class for sensor Composition - one unit with multiple DataFeeds
@@ -37,7 +43,6 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractSensor.class);
 
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     private List<DataFeed> dataFeeds = new ArrayList<>();
 
     public AbstractSensor() {
@@ -46,6 +51,14 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
     public AbstractSensor(String label, DataFeed... dataFeeds) {
         super(label);
         Arrays.asList(dataFeeds).forEach(this::addDataFeed);
+        setCoapController(new SensorCoapController(this));
+    }
+
+    @JsonCreator
+    public AbstractSensor(@JsonProperty("label") String label,
+                          @JsonProperty("dataFeeds") List<DataFeed> dataFeeds){
+        super(label);
+        dataFeeds.forEach(this::addDataFeed);
         setCoapController(new SensorCoapController(this));
     }
 
@@ -69,8 +82,6 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
     }
 
     @Override
-    @JsonSetter("dataFeeds")
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
     public void addDataFeed(DataFeed dataFeed) {
         this.dataFeeds.add(dataFeed);
     }
@@ -81,8 +92,22 @@ public abstract class AbstractSensor extends AbstractDevice implements Sensor {
     }
 
     @Override
+    @JsonGetter("dataFeeds")
     public List<DataFeed> getDataFeeds() {
         return Collections.unmodifiableList(dataFeeds);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractSensor)) return false;
+        if (!super.equals(o)) return false;
+        AbstractSensor that = (AbstractSensor) o;
+        return Objects.equals(dataFeeds, that.dataFeeds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), dataFeeds);
+    }
 }

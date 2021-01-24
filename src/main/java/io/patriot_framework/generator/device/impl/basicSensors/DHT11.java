@@ -21,19 +21,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.device.passive.sensors.AbstractSensor;
 
+import java.util.List;
+
 /**
  * This class represents temperature and humidity sensor as Device Composition.
  * Constructor requires two DataFeeds, one for temperature, one for humidity.
  */
 public class DHT11 extends AbstractSensor {
 
-    @JsonCreator
-    public DHT11(@JsonProperty("label") String label,
-                 @JsonProperty("dataFeed") DataFeed temperature,
-                 @JsonProperty("dataFeed") DataFeed humidity) {
+
+    public DHT11(String label, DataFeed temperature, DataFeed humidity) {
         super(label);
         addDataFeed(temperature);
         addDataFeed(humidity);
     }
 
+    @JsonCreator
+    public DHT11(@JsonProperty("label") String label,
+                 @JsonProperty("dataFeeds") List<DataFeed> dataFeeds) {
+        super(label, dataFeeds);
+    }
 }
