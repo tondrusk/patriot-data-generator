@@ -32,6 +32,8 @@ public class ActiveTransition implements Transition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ActiveTransition.class);
 
+    private CompletableFuture<State> currentState;
+
     /**
      * Variable that tracks current State
      */
@@ -45,6 +47,7 @@ public class ActiveTransition implements Transition {
      */
     public ActiveTransition(State futureState) {
         this.futureState = CompletableFuture.supplyAsync(() -> futureState);
+        currentState = this.futureState;
     }
 
     /**
@@ -70,6 +73,7 @@ public class ActiveTransition implements Transition {
             return null;
 
         futureState = CompletableFuture.completedFuture(processed);
+        currentState = futureState;
         LOGGER.info("Transitioned in to " + processed);
         /*
          * At this point, StateMachine transitioned in to correct State based on event
@@ -87,10 +91,9 @@ public class ActiveTransition implements Transition {
             futureState = futureState.thenApplyAsync(s -> {
                 State toReturn = s.getNextState(event);
                 LOGGER.info("Transitioned in to " + toReturn);
-
+                currentState = CompletableFuture.completedFuture(toReturn);
                 return toReturn;
             }, afterTenSecs);
-
         }
 
         return futureState;
@@ -109,7 +112,7 @@ public class ActiveTransition implements Transition {
 
     @Override
     public CompletableFuture<State> getFutureState() {
-        return futureState;
+        return currentState;
     }
 
     /**
