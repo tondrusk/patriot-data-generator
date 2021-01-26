@@ -14,13 +14,17 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator;
+package io.patriot_framework.generator.serialization;
 
+import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeed;
+import io.patriot_framework.generator.dataFeed.DayTemperatureDataFeed;
 import io.patriot_framework.generator.dataFeed.ExponentialDistDataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistVariateDataFeed;
 import io.patriot_framework.generator.device.Device;
 import io.patriot_framework.generator.device.impl.basicSensors.DHT11;
+import io.patriot_framework.generator.device.impl.basicSensors.Default;
+import io.patriot_framework.generator.device.impl.basicSensors.Hygrometer;
 import io.patriot_framework.generator.device.impl.basicSensors.Thermometer;
 import io.patriot_framework.generator.device.passive.sensors.Sensor;
 import io.patriot_framework.generator.network.NetworkAdapter;
@@ -36,7 +40,7 @@ import java.io.IOException;
 /**
  * @author <a href="mailto:jakub.smadis@gmail.com">Jakub Smadiš</a>
  */
-public class SerializationTest {
+public class SensorSerializationTest {
     private File file;
 
     @BeforeEach
@@ -69,4 +73,26 @@ public class SerializationTest {
         Device another = JSONSerializer.deserializeDevice(file);
         assert (another.equals(sensor));
     }
+
+    @Test
+    void serializeDefaultBasicSensor(){
+        DataFeed df = new ConstantDataFeed(0.42);
+        Device sensor = new Default("default", df);
+
+        JSONSerializer.serialize(sensor, file);
+        Device another = JSONSerializer.deserializeDevice(file);
+        assert (another.equals(sensor));
+    }
+
+    @Test
+    void serializeHygrometer(){
+        DataFeed df = new DayTemperatureDataFeed(0.48f, 42.42f);
+        Device sensor = new Hygrometer("hygro", df);
+
+        JSONSerializer.serialize(sensor, file);
+        Device another = JSONSerializer.deserializeDevice(file);
+        assert (another.equals(sensor));
+    }
+
+
 }

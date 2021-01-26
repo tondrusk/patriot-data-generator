@@ -22,6 +22,8 @@ import io.patriot_framework.generator.Data;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
+import java.util.Objects;
+
 /**
  * DataFeed provides estimation of hourly temperature based on Maximum and Minimum temperature, that was measured in one day.
  * For calculation method uses T_MIN and T_max, which are hours, where ma maximum and minimum temperature occurred within one day.
@@ -37,10 +39,12 @@ public class DayTemperatureDataFeed implements DataFeed {
     /**
      * Minimal temperature of the day
      */
+    @JsonProperty
     private double dayMin;
     /**
      * Maximal temperature of the day
      */
+    @JsonProperty
     private double dayMax;
 
     /**
@@ -115,5 +119,18 @@ public class DayTemperatureDataFeed implements DataFeed {
     @Override
     public String getLabel() {
         return label;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DayTemperatureDataFeed)) return false;
+        DayTemperatureDataFeed that = (DayTemperatureDataFeed) o;
+        return Double.compare(that.dayMin, dayMin) == 0 && Double.compare(that.dayMax, dayMax) == 0 && Double.compare(that.lastValue, lastValue) == 0 && Objects.equals(label, that.label);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(label, dayMin, dayMax, lastValue);
     }
 }

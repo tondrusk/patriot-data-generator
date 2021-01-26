@@ -29,16 +29,15 @@ import java.util.List;
  */
 public class DHT11 extends AbstractSensor {
 
-
-    public DHT11(String label, DataFeed temperature, DataFeed humidity) {
+    @JsonCreator
+    public DHT11(@JsonProperty("label") String label,
+                 @JsonProperty("temperature") DataFeed temperature,
+                 @JsonProperty("humidity") DataFeed humidity) {
         super(label);
         addDataFeed(temperature);
         addDataFeed(humidity);
     }
 
-    @JsonCreator
-    public DHT11(@JsonProperty("label") String label,
-                 @JsonProperty("dataFeeds") List<DataFeed> dataFeeds) {
-        super(label, dataFeeds);
-    }
+
+
 }

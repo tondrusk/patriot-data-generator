@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.Data;
 
+import java.util.Objects;
+
 /**
  * DataFeed generates same predefined value on every request.
  */
@@ -27,6 +29,7 @@ public class ConstantDataFeed implements DataFeed {
 
     private String label;
 
+    @JsonProperty
     private double constant;
 
     @JsonCreator
@@ -54,4 +57,16 @@ public class ConstantDataFeed implements DataFeed {
         return label;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ConstantDataFeed)) return false;
+        ConstantDataFeed that = (ConstantDataFeed) o;
+        return Double.compare(that.constant, constant) == 0 && Objects.equals(label, that.label);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(label, constant);
+    }
 }

@@ -28,8 +28,7 @@ import io.patriot_framework.generator.device.passive.sensors.AbstractSimpleSenso
 public class Default extends AbstractSimpleSensor {
 
     @JsonCreator
-    public Default(@JsonProperty("label") String label, @JsonProperty("label") DataFeed dataFeed) {
+    public Default(@JsonProperty("label") String label, @JsonProperty("dataFeed") DataFeed dataFeed) {
         super(label, dataFeed);
     }
-
 }
