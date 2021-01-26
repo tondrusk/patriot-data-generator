@@ -18,6 +18,7 @@ package io.patriot_framework.generator.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.patriot_framework.generator.device.Device;
+import io.patriot_framework.generator.device.active.Active;
 import io.patriot_framework.generator.device.active.ActiveDevice;
 
 import java.io.File;
@@ -39,7 +40,7 @@ public class JSONSerializer {
         }
     }
 
-    public static void serialize(ActiveDevice device, File file){
+    public static void serialize(Active device, File file){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             objectMapper.writeValue(file, device);

@@ -24,6 +24,7 @@ import io.patriot_framework.generator.device.Device;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,10 +34,10 @@ public class ActiveDevice implements Active {
 
     private Timer timer = new Timer();
 
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
+    @JsonProperty
     private DataFeed timeFeed;
 
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "className")
+    @JsonProperty
     private Device device;
 
     @JsonCreator
@@ -91,5 +92,17 @@ public class ActiveDevice implements Active {
     public DataFeed getTimeFeed() {
         return timeFeed;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ActiveDevice)) return false;
+        ActiveDevice that = (ActiveDevice) o;
+        return Objects.equals(timeFeed, that.timeFeed) && Objects.equals(device, that.device);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timeFeed, device);
+    }
 }
