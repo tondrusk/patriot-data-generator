@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.device.consumer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Generic representation of data.
  */
@@ -24,10 +26,12 @@ public interface ConsumerData {
     /**
      * @return metadata
      */
+    @JsonProperty
     ConsumerMeta getMeta();
 
     /**
      * @return payload
      */
+    @JsonProperty
     byte[] getPayload();
 }
