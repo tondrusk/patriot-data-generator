@@ -16,6 +16,8 @@
 
 package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
@@ -35,6 +37,9 @@ import java.util.concurrent.Future;
  *      3. Keeping StateMachine in consistent state
  *      4. When requested, reliably return current state
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
+        property = "className")
 public interface Transition {
 
     String EPSILON = "epsilon";

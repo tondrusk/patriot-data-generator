@@ -16,6 +16,9 @@
 
 package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.*;
@@ -49,11 +52,14 @@ import java.util.concurrent.Future;
  */
 public final class StateMachine {
 
+    @JsonProperty
     private List<State> states;
 
+    @JsonProperty
     private Transition th;
 
-    public StateMachine(List<State> states) {
+    @JsonCreator
+    public StateMachine(@JsonProperty("states") List<State> states) {
         th = new ActiveTransition(states.get(0));
         this.states = states;
     }
@@ -74,6 +80,7 @@ public final class StateMachine {
      * @throws ExecutionException if the transition threw an exception
      * @throws InterruptedException if the current tread was interrupted while waiting for transition
      */
+    @JsonIgnore
     public String getCurrent() throws ExecutionException, InterruptedException {
         Future<State> current = th.getFutureState();
 
@@ -86,6 +93,19 @@ public final class StateMachine {
                 .findFirst()
                 .get()
                 .setData(data);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StateMachine)) return false;
+        StateMachine that = (StateMachine) o;
+        return Objects.equals(states, that.states) && Objects.equals(th, that.th);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(states, th);
     }
 
     public static class Builder implements Buildable<StateMachine> {
@@ -178,5 +198,4 @@ public final class StateMachine {
             return new StateMachine(new ArrayList<>(stateTransitions.keySet()));
         }
     }
-
 }

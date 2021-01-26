@@ -16,6 +16,7 @@
 
 package io.patriot_framework.generator.device.passive.actuators;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.Data;
 import io.patriot_framework.generator.controll.server.ActuatorCoapController;
 import io.patriot_framework.generator.device.AbstractDevice;
@@ -25,12 +26,14 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public abstract class AbstractActuator extends AbstractDevice implements Actuator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractActuator.class);
 
+    @JsonProperty
     private StateMachine stateMachine;
 
     private boolean isEnabled = true;
@@ -78,4 +81,17 @@ public abstract class AbstractActuator extends AbstractDevice implements Actuato
         this.stateMachine = stateMachine;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractActuator)) return false;
+        if (!super.equals(o)) return false;
+        AbstractActuator that = (AbstractActuator) o;
+        return isEnabled == that.isEnabled && Objects.equals(stateMachine, that.stateMachine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), stateMachine, isEnabled);
+    }
 }

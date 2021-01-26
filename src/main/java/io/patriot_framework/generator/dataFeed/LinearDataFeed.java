@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.patriot_framework.generator.Data;
 
+import java.util.Objects;
+
 /**
  * Data stream values from this feed follows linear function.
  */
@@ -81,4 +83,16 @@ public class LinearDataFeed implements DataFeed {
         return label;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LinearDataFeed)) return false;
+        LinearDataFeed that = (LinearDataFeed) o;
+        return Double.compare(that.period, period) == 0 && Double.compare(that.currentTime, currentTime) == 0 && Objects.equals(label, that.label);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(label, period, currentTime);
+    }
 }

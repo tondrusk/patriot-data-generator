@@ -16,9 +16,13 @@
 
 package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
 import java.util.concurrent.*;
 
 /**
@@ -37,7 +41,11 @@ public class ActiveTransition implements Transition {
     /**
      * Variable that tracks current State
      */
+    @JsonIgnore
     private CompletableFuture<State> futureState;
+
+    @JsonProperty
+    private State state;
 
     /**
      * During initialization of ActiveTransition, the initial state of StateMachine is used to create
@@ -45,7 +53,9 @@ public class ActiveTransition implements Transition {
      *
      * @param futureState
      */
-    public ActiveTransition(State futureState) {
+    @JsonCreator
+    public ActiveTransition(@JsonProperty("state") State futureState) {
+        this.state = futureState;
         this.futureState = CompletableFuture.supplyAsync(() -> futureState);
         currentState = this.futureState;
     }
@@ -134,4 +144,16 @@ public class ActiveTransition implements Transition {
         return state.getNextState(event);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ActiveTransition)) return false;
+        ActiveTransition that = (ActiveTransition) o;
+        return Objects.equals(state, that.state);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(state);
+    }
 }

@@ -16,16 +16,24 @@
 
 package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Objects;
+
 /**
  * Representation of {@link State}, which requires certain amount of time to pass
  * before transition to next state cas occur.
  */
 public class ProgressionState extends State {
 
+    @JsonProperty
     private double duration;
 
-    public ProgressionState(String description, double duration) {
-        super(description);
+    @JsonCreator
+    public ProgressionState(@JsonProperty("name") String name,
+                            @JsonProperty("duration") double duration) {
+        super(name);
         this.duration = duration;
     }
 
@@ -37,4 +45,17 @@ public class ProgressionState extends State {
         this.duration = duration;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProgressionState)) return false;
+        if (!super.equals(o)) return false;
+        ProgressionState that = (ProgressionState) o;
+        return Double.compare(that.duration, duration) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), duration);
+    }
 }

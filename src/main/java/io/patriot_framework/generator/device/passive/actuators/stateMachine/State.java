@@ -16,39 +16,58 @@
 
 package io.patriot_framework.generator.device.passive.actuators.stateMachine;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * State nodes for StateMachine. Used for creating loop of states to simulate actions of Actuator.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
+        property = "className")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "name")
 public class State {
 
     /**
      * Name of representing state (e.g. Started, Stopped, Extracting...)
      */
+    @JsonProperty
     private String name;
 
     /**
      * Map representing [event, next State] pairs
      */
+    @JsonProperty
     private Map<String, State> nextStates = new HashMap<>();
 
     /**
      * Condition associated with state that is valuated during transition
      */
+    @JsonProperty
     private Condition condition;
 
     /**
      * Simple variable that holds arbitrary information
      * Note: this is subject of change in the future to more volatile representation
      */
+    @JsonProperty
     private int data;
 
+    @JsonProperty
     private String description;
 
-    public State(String description) {
-        this.name = description;
+    @JsonCreator
+    public State(@JsonProperty("name") String name) {
+        this.name = name;
     }
 
     public State getNextState(String even) {
@@ -112,5 +131,22 @@ public class State {
         return "State{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof State)) return false;
+        State state = (State) o;
+        return data == state.data
+                && Objects.equals(name, state.name)
+                && Objects.equals(nextStates.keySet(), state.nextStates.keySet())
+                && Objects.equals(condition, state.condition)
+                && Objects.equals(description, state.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, nextStates, condition, data, description);
     }
 }

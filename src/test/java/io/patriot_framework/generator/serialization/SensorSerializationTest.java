@@ -20,6 +20,7 @@ import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.dataFeed.DayTemperatureDataFeed;
 import io.patriot_framework.generator.dataFeed.ExponentialDistDataFeed;
+import io.patriot_framework.generator.dataFeed.LinearDataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistVariateDataFeed;
 import io.patriot_framework.generator.device.Device;
 import io.patriot_framework.generator.device.impl.basicSensors.DHT11;
@@ -87,6 +88,16 @@ public class SensorSerializationTest {
     @Test
     void serializeHygrometer(){
         DataFeed df = new DayTemperatureDataFeed(0.48f, 42.42f);
+        Device sensor = new Hygrometer("hygro", df);
+
+        JSONSerializer.serialize(sensor, file);
+        Device another = JSONSerializer.deserializeDevice(file);
+        assert (another.equals(sensor));
+    }
+
+    @Test
+    void serializeHygrometerLineDataFeed(){
+        DataFeed df = new LinearDataFeed(42);
         Device sensor = new Hygrometer("hygro", df);
 
         JSONSerializer.serialize(sensor, file);
