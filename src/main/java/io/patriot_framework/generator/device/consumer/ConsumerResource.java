@@ -16,14 +16,12 @@
 
 package io.patriot_framework.generator.device.consumer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import org.json.JSONObject;
-
-import java.util.Arrays;
-import java.util.Base64;
 
 public class ConsumerResource extends CoapResource {
 
@@ -36,9 +34,12 @@ public class ConsumerResource extends CoapResource {
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("values", consumer.getContents());
-        exchange.respond(Arrays.toString(Base64.getEncoder().encode(jsonObject.toString().getBytes())));
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            exchange.respond(mapper.writeValueAsString(consumer.getContents()));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
