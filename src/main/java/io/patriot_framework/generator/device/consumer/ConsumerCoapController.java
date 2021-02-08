@@ -17,55 +17,35 @@
 package io.patriot_framework.generator.device.consumer;
 
 import io.patriot_framework.generator.controll.server.CoapController;
-import io.patriot_framework.generator.controll.server.CoapDeviceControlServer;
-import org.eclipse.californium.core.CoapResource;
+import io.patriot_framework.generator.controll.server.CoapControlServer;
 import org.eclipse.californium.core.server.resources.Resource;
 
 public class ConsumerCoapController implements CoapController {
 
-    private CoapDeviceControlServer server;
+    private CoapControlServer server;
 
     private Consumer consumer;
 
-    private ConsumerResource resource;
+    private ConsumerResource consumerResource;
 
     public ConsumerCoapController(Consumer consumer) {
         this.consumer = consumer;
-        server = CoapDeviceControlServer.getInstance();
+        server = CoapControlServer.getInstance();
+        consumerResource = new ConsumerResource(consumer);
     }
 
     @Override
     public void registerDevice() {
-        server.add(createResource());
+        server.add(consumerResource, ConsumerRootResource.NAME);
     }
 
     @Override
     public void removeDevice() {
-        server.remove(resource);
-        resource = null;
+        server.remove(consumerResource);
     }
 
     @Override
     public Resource getResources() {
         return null;
-    }
-
-    @Override
-    public CoapResource createResource() {
-        if (resource == null) {
-            resource = new ConsumerResource(consumer);
-        }
-
-        return resource;
-    }
-
-    @Override
-    public CoapDeviceControlServer getServer() {
-        return server;
-    }
-
-    @Override
-    public void setServer(CoapDeviceControlServer server) {
-        this.server = server;
     }
 }
