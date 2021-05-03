@@ -28,7 +28,7 @@ import java.io.IOException;
 /**
  * Wrapper class for Device serialization to JSON
  *
- * @author <a href="mailto:jakub.smadis@gmail.com">Jakub Smadiš</a>
+ * @author <a href="mailto:jakub.smadis@gmail.com">Jakub Smadis</a>
  */
 public class JSONSerializer {
 

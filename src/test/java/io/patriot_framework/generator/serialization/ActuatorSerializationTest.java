@@ -29,7 +29,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author <a href="mailto:jakub.smadis@gmail.com">Jakub Smadiš</a>
+ * @author <a href="mailto:jakub.smadis@gmail.com">Jakub Smadis</a>
  */
 public class ActuatorSerializationTest {
 
