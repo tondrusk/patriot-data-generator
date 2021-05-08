@@ -24,6 +24,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,7 +44,10 @@ public class Rest implements NetworkAdapter {
 
     @Override
     public void send(List<Data> data) {
-        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpClient httpClient = HttpClientBuilder
+                .create()
+                .setRedirectStrategy(new LaxRedirectStrategy())
+                .build();
         dataWrapper.wrapData(data);
 
         try {
