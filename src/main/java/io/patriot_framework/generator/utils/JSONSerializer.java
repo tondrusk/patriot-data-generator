@@ -86,19 +86,19 @@ public class JSONSerializer {
         }
     }
 
-    public static ActiveDevice deserializeActiveDevice(File file) {
+    public static Active deserializeActiveDevice(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.readValue(file, ActiveDevice.class);
+            return objectMapper.readValue(file, Active.class);
         } catch (IOException e) {
             throw new SerializationException(e);
         }
     }
 
-    public static ActiveDevice deserializeActiveDevice(String content) {
+    public static Active deserializeActiveDevice(String content) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.readValue(content, ActiveDevice.class);
+            return objectMapper.readValue(content, Active.class);
         } catch (IOException e) {
             throw new SerializationException(e);
         }
