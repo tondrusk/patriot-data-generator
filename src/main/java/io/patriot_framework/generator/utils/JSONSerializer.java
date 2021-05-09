@@ -26,12 +26,20 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Wrapper class for Device serialization to JSON
+ * Wrapper class for Device and Active serialization to JSON
  *
  * @author <a href="mailto:jakub.smadis@gmail.com">Jakub Smadis</a>
  */
 public class JSONSerializer {
 
+
+    /**
+     * Serializes the Device to the file using Jackson serialization.
+     * The file will contain the JSON representation of the Device.
+     *
+     * @param device Device to serialize
+     * @param file File where to write the serialized device data
+     */
     public static void serialize(Device device, File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -41,6 +49,12 @@ public class JSONSerializer {
         }
     }
 
+    /**
+     * Serializes the device and returns the string containing serialized Device in JSON format.
+     *
+     * @param device Device to serialize
+     * @return String containing JSON representing the serialized device
+     */
     public static String serialize(Device device) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -50,24 +64,43 @@ public class JSONSerializer {
         }
     }
 
-    public static void serialize(Active device, File file) {
+    /**
+     * Serializes the Active (device) to the file.
+     * The file will contain the JSON representation of the Active.
+     *
+     * @param active Active to serialize
+     * @param file file where to write the serialized Active data
+     */
+    public static void serialize(Active active, File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writeValue(file, device);
+            objectMapper.writeValue(file, active);
         } catch (IOException e) {
             throw new SerializationException(e);
         }
     }
 
-    public static String serialize(Active device) {
+    /**
+     * Serializes the Active and returns the String representation of serialized device.
+     *
+     * @param active Active to serialize
+     * @return String containing JSON representation of the Active (device)
+     */
+    public static String serialize(Active active) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.writeValueAsString(device);
+            return objectMapper.writeValueAsString(active);
         } catch (JsonProcessingException e) {
             throw new SerializationException(e);
         }
     }
 
+    /**
+     * Deserializes the file containing serialized Device to the Device object.
+     *
+     * @param file File containing serialized Device in the JSON format
+     * @return Device object of given file
+     */
     public static Device deserializeDevice(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -77,6 +110,12 @@ public class JSONSerializer {
         }
     }
 
+    /**
+     * Deserializes the String containing serialized Device to the Device object.
+     *
+     * @param content String containing serialized Device in the JSON format
+     * @return Device object of given String
+     */
     public static Device deserializeDevice(String content) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -86,6 +125,12 @@ public class JSONSerializer {
         }
     }
 
+    /**
+     * Deserializes the file containing serialized Active to the Active object.
+     *
+     * @param file File containing serialized Active object in the JSON format
+     * @return Active object of given file
+     */
     public static Active deserializeActiveDevice(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -95,6 +140,12 @@ public class JSONSerializer {
         }
     }
 
+    /**
+     * Deserializes the String containing serialized Active to the Active object.
+     *
+     * @param content String containing serialized Active in the JSON format
+     * @return Active object of given String
+     */
     public static Active deserializeActiveDevice(String content) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
