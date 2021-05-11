@@ -29,7 +29,7 @@ public class Runner {
 
         if (System.getenv(ACTIVE_CONFIG_FILE) != null) {
             String file = System.getenv(ACTIVE_CONFIG_FILE);
-            Active activeDevice = JSONSerializer.deserializeActiveDevice(new File(file));
+            Active activeDevice = JSONSerializer.deserializeActive(new File(file));
             activeDevice.getDevice().registerToCoapServer();
             activeDevice.start();
         }
