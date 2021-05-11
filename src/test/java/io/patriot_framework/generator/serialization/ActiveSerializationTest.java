@@ -57,7 +57,7 @@ public class ActiveSerializationTest {
 
 
         JSONSerializer.serialize(activeDevice, file);
-        Active another = JSONSerializer.deserializeActiveDevice(file);
+        Active another = JSONSerializer.deserializeActive(file);
         assert (activeDevice.equals(another));
     }
 }

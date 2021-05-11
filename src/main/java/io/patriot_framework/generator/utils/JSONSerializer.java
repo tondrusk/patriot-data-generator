@@ -130,7 +130,7 @@ public class JSONSerializer {
      * @param file File containing serialized Active object in the JSON format
      * @return Active object of given file
      */
-    public static Active deserializeActiveDevice(File file) {
+    public static Active deserializeActive(File file) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.readValue(file, Active.class);
@@ -145,7 +145,7 @@ public class JSONSerializer {
      * @param content String containing serialized Active in the JSON format
      * @return Active object of given String
      */
-    public static Active deserializeActiveDevice(String content) {
+    public static Active deserializeActive(String content) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.readValue(content, Active.class);
