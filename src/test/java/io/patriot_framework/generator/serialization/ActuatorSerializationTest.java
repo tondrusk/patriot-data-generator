@@ -43,7 +43,7 @@ public class ActuatorSerializationTest {
 
 
     @Test
-    void rotaryActuator(){
+    void rotaryActuator() {
         Device actuator = new RotaryActuator("rotor", 100.42);
 
         JSONSerializer.serialize(actuator, file);
@@ -52,7 +52,7 @@ public class ActuatorSerializationTest {
     }
 
     @Test
-    void linearActuator(){
+    void linearActuator() {
         Device actuator = new LinearActuator("line", 42);
 
         JSONSerializer.serialize(actuator, file);
@@ -61,7 +61,7 @@ public class ActuatorSerializationTest {
     }
 
     @Test
-    void binaryActuator(){
+    void binaryActuator() {
         Device actuator = new BinaryActuator("binary");
 
         JSONSerializer.serialize(actuator, file);
@@ -70,7 +70,7 @@ public class ActuatorSerializationTest {
     }
 
     @Test
-    void basicActuator(){
+    void basicActuator() {
         Device actuator = new BasicActuator("basic");
 
         JSONSerializer.serialize(actuator, file);

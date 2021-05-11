@@ -38,6 +38,4 @@ public class DHT11 extends AbstractSensor {
         addDataFeed(humidity);
     }
 
-
-
 }

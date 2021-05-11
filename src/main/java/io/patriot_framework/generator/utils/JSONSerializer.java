@@ -20,7 +20,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.patriot_framework.generator.device.Device;
 import io.patriot_framework.generator.device.active.Active;
-import io.patriot_framework.generator.device.active.ActiveDevice;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +37,7 @@ public class JSONSerializer {
      * The file will contain the JSON representation of the Device.
      *
      * @param device Device to serialize
-     * @param file File where to write the serialized device data
+     * @param file   File where to write the serialized device data
      */
     public static void serialize(Device device, File file) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -69,7 +68,7 @@ public class JSONSerializer {
      * The file will contain the JSON representation of the Active.
      *
      * @param active Active to serialize
-     * @param file file where to write the serialized Active data
+     * @param file   file where to write the serialized Active data
      */
     public static void serialize(Active active, File file) {
         ObjectMapper objectMapper = new ObjectMapper();

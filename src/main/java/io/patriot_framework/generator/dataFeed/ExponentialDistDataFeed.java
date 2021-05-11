@@ -29,7 +29,6 @@ import java.util.Objects;
  */
 public class ExponentialDistDataFeed implements DataFeed {
 
-
     private String label;
 
     private ContinuousDistribution dist;

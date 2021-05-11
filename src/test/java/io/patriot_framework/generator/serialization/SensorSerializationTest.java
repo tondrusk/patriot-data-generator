@@ -27,7 +27,6 @@ import io.patriot_framework.generator.device.impl.basicSensors.DHT11;
 import io.patriot_framework.generator.device.impl.basicSensors.Default;
 import io.patriot_framework.generator.device.impl.basicSensors.Hygrometer;
 import io.patriot_framework.generator.device.impl.basicSensors.Thermometer;
-import io.patriot_framework.generator.device.passive.sensors.Sensor;
 import io.patriot_framework.generator.network.NetworkAdapter;
 import io.patriot_framework.generator.network.Rest;
 import io.patriot_framework.generator.network.wrappers.JSONWrapper;
@@ -63,7 +62,7 @@ public class SensorSerializationTest {
     }
 
     @Test
-    void serializeDHT11(){
+    void serializeDHT11() {
         DataFeed temperature = new ExponentialDistDataFeed(0.02);
         DataFeed humidity = new NormalDistVariateDataFeed(30, 7);
         Device sensor = new DHT11("dht11", temperature, humidity);
@@ -76,7 +75,7 @@ public class SensorSerializationTest {
     }
 
     @Test
-    void serializeDefaultBasicSensor(){
+    void serializeDefaultBasicSensor() {
         DataFeed df = new ConstantDataFeed(0.42);
         Device sensor = new Default("default", df);
 
@@ -86,7 +85,7 @@ public class SensorSerializationTest {
     }
 
     @Test
-    void serializeHygrometer(){
+    void serializeHygrometer() {
         DataFeed df = new DayTemperatureDataFeed(0.48f, 42.42f);
         Device sensor = new Hygrometer("hygro", df);
 
@@ -96,7 +95,7 @@ public class SensorSerializationTest {
     }
 
     @Test
-    void serializeHygrometerLineDataFeed(){
+    void serializeHygrometerLineDataFeed() {
         DataFeed df = new LinearDataFeed(42);
         Device sensor = new Hygrometer("hygro", df);
 

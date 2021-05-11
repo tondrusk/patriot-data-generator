@@ -16,7 +16,6 @@
 
 package io.patriot_framework.generator.serialization;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.patriot_framework.generator.dataFeed.ConstantDataFeed;
 import io.patriot_framework.generator.dataFeed.DataFeed;
 import io.patriot_framework.generator.dataFeed.NormalDistVariateDataFeed;
@@ -48,7 +47,7 @@ public class ActiveSerializationTest {
 
 
     @Test
-    void activeDevice(){
+    void activeDevice() {
         DataFeed df = new NormalDistVariateDataFeed(18, 2);
         Device temperature = new Thermometer("activeThermometer", df);
         NetworkAdapter na = new Rest("https://httpbin.org/post", new JSONWrapper());
@@ -59,6 +58,6 @@ public class ActiveSerializationTest {
 
         JSONSerializer.serialize(activeDevice, file);
         Active another = JSONSerializer.deserializeActiveDevice(file);
-        assert(activeDevice.equals(another));
+        assert (activeDevice.equals(another));
     }
 }
