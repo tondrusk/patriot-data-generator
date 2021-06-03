@@ -28,10 +28,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public abstract class HttpTestBase {
+
     Server server;
     static int port = 8080;
     Storage storage = new Storage();
-
     HttpClient httpClient;
     HttpPost httpPost;
 

@@ -27,7 +27,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class MqttBroker {
+
     public Server mqttBroker;
+
     public static final Logger LOGGER = LoggerFactory.getLogger(MqttBroker.class);
 
     public void startMqttBroker() throws IOException {

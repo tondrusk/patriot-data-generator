@@ -20,6 +20,7 @@ import io.patriot_framework.generator.device.consumer.Storage;
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.net.BindException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,8 +44,8 @@ class ServerExceptionTest extends HttpTestBase {
     }
 
     @Test
-    void alreadyRunning() throws ConsumerException {
-        runServer(false);
+    void alreadyRunning() throws ConsumerException, IOException {
+        runServer();
 
         ConsumerException exception = assertThrows(ConsumerException.class, server::start);
         assertEquals("Server is already running", exception.getMessage());
