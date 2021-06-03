@@ -14,11 +14,10 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.consumer.exceptions;
+package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.Storage;
-import io.patriot_framework.generator.device.consumer.http.Server;
-import org.junit.jupiter.api.AfterEach;
+import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.junit.jupiter.api.Test;
 
 import java.net.BindException;
@@ -26,22 +25,29 @@ import java.net.BindException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ServerExceptionTest {
-    Server server;
+class ServerExceptionTest extends HttpTestBase {
 
     @Test
     void throwsConsumerException() {
-        server = new Server("hostlocal", 8080, new Storage());
+        server = new Server("hostlocal", port, storage);
 
         assertThrows(ConsumerException.class, server::start);
     }
 
     @Test
     void invalidHostname() {
-        server = new Server("hostlocal", 8080, new Storage());
+        server = new Server("hostlocal", port, storage);
 
         ConsumerException exception = assertThrows(ConsumerException.class, server::start);
         assertEquals("Invalid hostname", exception.getMessage());
+    }
+
+    @Test
+    void alreadyRunning() throws ConsumerException {
+        runServer(false);
+
+        ConsumerException exception = assertThrows(ConsumerException.class, server::start);
+        assertEquals("Server is already running", exception.getMessage());
     }
 
     @Test

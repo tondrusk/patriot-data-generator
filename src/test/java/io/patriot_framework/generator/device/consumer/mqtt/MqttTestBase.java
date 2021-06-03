@@ -17,6 +17,7 @@
 package io.patriot_framework.generator.device.consumer.mqtt;
 
 import io.patriot_framework.generator.device.consumer.Storage;
+import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -30,10 +31,10 @@ public class MqttTestBase {
     MqttConsumer subscriber;
     MqttClient publisher;
 
-    void startSubscriber(String topic) {
+    void startSubscriber(String topic) throws ConsumerException {
         storage = new Storage();
         subscriber = new MqttConsumer(brokerURI, topic, "patriot-subscriber", 2, storage);
-        subscriber.run();
+        subscriber.start();
     }
 
     void summonPublisher(String topic, String message) throws MqttException {
