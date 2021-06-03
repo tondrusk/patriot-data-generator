@@ -21,6 +21,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,14 +59,14 @@ public class MqttDataTest extends MqttTestBase {
         }
     }
 
-//    @Test
-//    void bigPayload() throws MqttException {
-//        byte[] message = new byte[1048576];
-//
-//        java.util.Arrays.fill(message, (byte) 's');
-//
-//        startSubscriber("big-messages");
-//        summonPublisher("big-messages", message.toString());
-//        assertEquals(message, storage.get().getPayload());
-//    }
+    @Test
+    void bigPayload() throws MqttException, ConsumerException {
+        byte[] message = new byte[500000];
+
+        java.util.Arrays.fill(message, (byte) 's');
+
+        startSubscriber("big-messages");
+        summonPublisher("big-messages", message);
+        assertArrayEquals(message, storage.get().getPayload());
+    }
 }

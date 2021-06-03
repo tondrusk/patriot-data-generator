@@ -50,6 +50,13 @@ public class MqttTestBase {
         publisher.disconnect();
     }
 
+    void summonPublisher(String topic, byte[] message) throws MqttException {
+        publisher = new MqttClient(brokerURI, "patriot-publisher");
+        publisher.connect();
+        publisher.publish(topic, new MqttMessage(message));
+        publisher.disconnect();
+    }
+
     @BeforeEach
     void createBroker() throws Exception {
         broker = new MqttBroker();
@@ -59,10 +66,6 @@ public class MqttTestBase {
     @AfterEach
     void close() {
         broker.stopMqttBroker();
-    }
-
-    @AfterEach
-    void closeSubscriber() {
         subscriber.stop();
     }
 }
