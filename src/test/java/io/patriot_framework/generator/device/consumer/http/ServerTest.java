@@ -17,53 +17,29 @@
 package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.ConsumerData;
-import io.patriot_framework.generator.device.consumer.Storage;
 import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClients;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ServerTest {
-    Server server;
-    static int port = 8080;
-    Storage storage;
-
-    HttpClient httpClient;
-    HttpPost httpPost;
+class ServerTest extends HttpTestBase{
 
     @BeforeEach
-    void runServer() throws ConsumerException {
-        storage = new Storage();
-        server = new Server("localhost", port, storage);
-        server.start();
+    void runServer() throws ConsumerException, IOException {
+        super.runServer();
     }
 
     @AfterEach
     void closeServer() {
-        server.stop();
-    }
-
-    void createHttpClientWithPayload(String payload, int port) throws UnsupportedEncodingException {
-        httpClient = HttpClients.createDefault();
-
-        httpPost = new HttpPost("http://localhost:" + port);
-        httpPost.setHeader("Content-type", "text/plain");
-        httpPost.setEntity(new StringEntity(payload));
+        super.closeServer();
     }
 
     @Test
@@ -93,34 +69,5 @@ class ServerTest {
                 .collect(Collectors.toList());
 
         assertEquals(expected, result);
-    }
-
-    // TODO HttpDataTest.java
-
-    @Test
-    void checkPayload() throws IOException {
-        createHttpClientWithPayload("payload", port);
-        httpClient.execute(httpPost);
-
-        assertArrayEquals("payload".getBytes(), storage.get().getPayload());
-    }
-
-    @Test
-    void checkTimestamp() throws IOException {
-        createHttpClientWithPayload("payload", port);
-        httpClient.execute(httpPost);
-
-        LocalDateTime timestamp = storage.get().getMeta().getTimestamp();
-
-        assertTrue(timestamp.compareTo(LocalDateTime.now().minusSeconds(3)) >= 0);
-    }
-
-
-    @Test
-    void checkRequestMethod() throws IOException {
-        createHttpClientWithPayload("payload", port);
-        httpClient.execute(httpPost);
-
-        assertEquals("POST", ((HttpMeta) storage.get().getMeta()).getRequestMethod());
     }
 }

@@ -14,16 +14,17 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.consumer.http;
+package io.patriot_framework.generator.device.consumer.exceptions;
 
 import io.patriot_framework.generator.device.consumer.Storage;
-import io.patriot_framework.generator.device.consumer.exceptions.ConsumerException;
+import io.patriot_framework.generator.device.consumer.http.Server;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ServerExceptionTest {
+
     @Test
     void throwsConsumerException() {
         Server server = new Server("hostlocal", 8080, new Storage());
