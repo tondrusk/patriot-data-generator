@@ -83,4 +83,12 @@ class StorageTest {
             assertEquals(expected, storage.size());
         }
     }
+
+    @Test
+    void checkSizeAfterEmptying(){
+        storage.write(invalidConsumerData);
+        storage.write(invalidConsumerData);
+        storage.get(7);
+        assertEquals(0, storage.size());
+    }
 }
