@@ -27,7 +27,8 @@ class MqttConsumerTest extends MqttTestBase {
     @Test
     void simpleMessage() throws MqttException, ConsumerException {
         startSubscriber("front-door");
-        summonPublisher("front-door", "patriot");
+        summonPublisher();
+        publish("front-door", "patriot");
 
         assertArrayEquals("patriot".getBytes(), storage.get().getPayload());
     }

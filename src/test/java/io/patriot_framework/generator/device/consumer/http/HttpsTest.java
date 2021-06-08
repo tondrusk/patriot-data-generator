@@ -24,7 +24,7 @@ import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
 
-public class HttpsDataTest extends HttpTestBase {
+public class HttpsTest extends HttpTestBase {
 
     @BeforeEach
     void runServer() throws ConsumerException, IOException {
