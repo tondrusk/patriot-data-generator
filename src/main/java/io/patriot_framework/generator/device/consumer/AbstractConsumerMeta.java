@@ -19,7 +19,7 @@ package io.patriot_framework.generator.device.consumer;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class AbstractConsumerMeta implements ConsumerMeta {
+public abstract class AbstractConsumerMeta implements ConsumerMeta {
 
     private UUID uuid;
     private LocalDateTime timestamp = LocalDateTime.now();

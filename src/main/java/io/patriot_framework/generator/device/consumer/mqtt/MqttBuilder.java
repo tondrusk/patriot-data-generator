@@ -20,7 +20,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.UUID;
 
-public class MqttBuilder {
+final class MqttBuilder {
 
     private UUID uuid;
     private final String topic;

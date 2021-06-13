@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public final class HttpMetaImpl extends AbstractConsumerMeta implements HttpMeta {
+final class HttpMetaImpl extends AbstractConsumerMeta implements HttpMeta {
 
     private String host;
     private int port;

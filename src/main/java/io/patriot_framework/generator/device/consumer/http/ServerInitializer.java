@@ -28,7 +28,7 @@ import io.patriot_framework.generator.device.consumer.Storage;
 import javax.net.ssl.SSLEngine;
 import java.util.UUID;
 
-public class ServerInitializer extends ChannelInitializer<SocketChannel> {
+final class ServerInitializer extends ChannelInitializer<SocketChannel> {
 
     private final UUID uuid;
     private final Storage storage;

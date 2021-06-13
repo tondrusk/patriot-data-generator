@@ -31,7 +31,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
-public class MqttConsumer extends AbstractDevice implements Consumer {
+public final class MqttConsumer extends AbstractDevice implements Consumer {
 
     private MqttAsyncClient mqttClient;
     private String broker;

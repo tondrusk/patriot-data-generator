@@ -18,7 +18,7 @@ package io.patriot_framework.generator.device.consumer.http;
 
 import io.patriot_framework.generator.device.consumer.ConsumerData;
 
-public final class HttpData implements ConsumerData {
+final class HttpData implements ConsumerData {
 
     private HttpMeta meta;
     private byte[] payload;

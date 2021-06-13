@@ -21,7 +21,7 @@ import javax.net.ssl.SSLContext;
 public interface SSLInit {
 
     /**
-     * Create SSL context for SSL engine in the {@code ServerInitializer} class.
+     * Create SSL context for {@code Server}.
      *
      * @return SSL context
      */

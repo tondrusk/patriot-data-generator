@@ -18,7 +18,7 @@ package io.patriot_framework.generator.device.consumer.mqtt;
 
 import io.patriot_framework.generator.device.consumer.ConsumerData;
 
-public final class MqttData implements ConsumerData {
+final class MqttData implements ConsumerData {
 
     private MqttMeta meta;
     private byte[] payload;

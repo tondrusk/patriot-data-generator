@@ -20,7 +20,7 @@ import io.patriot_framework.generator.device.consumer.AbstractConsumerMeta;
 
 import java.util.UUID;
 
-public final class MqttMetaImpl extends AbstractConsumerMeta implements MqttMeta {
+final class MqttMetaImpl extends AbstractConsumerMeta implements MqttMeta {
 
     private final String topic;
     private final int id;

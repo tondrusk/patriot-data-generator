@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
-public class ServerHandler extends SimpleChannelInboundHandler<Object> {
+final class ServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private final UUID uuid;
     private final Storage storage;

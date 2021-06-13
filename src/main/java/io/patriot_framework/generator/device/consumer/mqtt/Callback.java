@@ -26,7 +26,7 @@ import java.util.UUID;
 /**
  * Callback is called when something happens on topic to which mqttClient is connected
  */
-public class Callback implements MqttCallback {
+final class Callback implements MqttCallback {
 
     private UUID uuid;
     Storage storage;

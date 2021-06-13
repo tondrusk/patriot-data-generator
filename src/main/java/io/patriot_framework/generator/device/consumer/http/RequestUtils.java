@@ -23,7 +23,7 @@ import io.netty.util.CharsetUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestUtils {
+final class RequestUtils {
 
     public static byte[] payloadReader(HttpContent content) {
         return content.content().toString(CharsetUtil.UTF_8).getBytes();
