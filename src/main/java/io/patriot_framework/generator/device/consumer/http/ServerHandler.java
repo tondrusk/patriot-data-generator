@@ -80,15 +80,26 @@ final class ServerHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     private void writeResponse(ChannelHandlerContext ctx) {
-        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE, Unpooled.EMPTY_BUFFER, false);
+        FullHttpResponse response = new DefaultFullHttpResponse(
+                HttpVersion.HTTP_1_1,
+                HttpResponseStatus.CONTINUE,
+                Unpooled.EMPTY_BUFFER,
+                false
+        );
         ctx.write(response);
     }
 
-    private void writeResponse(ChannelHandlerContext ctx, LastHttpContent trailer, StringBuilder responseData, HttpRequest request) {
+    private void writeResponse(ChannelHandlerContext ctx, LastHttpContent trailer, StringBuilder responseData,
+                               HttpRequest request) {
         boolean keepAlive = HttpUtil.isKeepAlive(request);
 
-        FullHttpResponse httpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, trailer.decoderResult()
-                .isSuccess() ? HttpResponseStatus.OK : HttpResponseStatus.BAD_REQUEST, Unpooled.copiedBuffer(responseData.toString(), CharsetUtil.UTF_8), false);
+        FullHttpResponse httpResponse = new DefaultFullHttpResponse(
+                HttpVersion.HTTP_1_1,
+                trailer.decoderResult().isSuccess() ?
+                        HttpResponseStatus.OK :
+                        HttpResponseStatus.BAD_REQUEST,
+                Unpooled.copiedBuffer(responseData.toString(), CharsetUtil.UTF_8), false
+        );
 
         httpResponse.headers()
                 .set(HttpHeaderNames.CONTENT_TYPE, "text/plain; charset=UTF-8");
