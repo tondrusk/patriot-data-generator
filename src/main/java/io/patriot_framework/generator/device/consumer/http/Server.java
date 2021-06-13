@@ -55,17 +55,12 @@ public class Server extends AbstractDevice implements Consumer {
     }
 
     public Server(String serverHost, int serverPort, Storage storage, SSLInit sslInit) {
-        this.serverHost = serverHost;
-        this.serverPort = serverPort;
-        this.storage = storage;
+        this(serverHost, serverPort, storage);
         this.sslInit = sslInit;
     }
 
     public Server(String serverHost, int serverPort, Storage storage, SSLInit sslInit, String[] suites) {
-        this.serverHost = serverHost;
-        this.serverPort = serverPort;
-        this.storage = storage;
-        this.sslInit = sslInit;
+        this(serverHost, serverPort, storage, sslInit);
         this.suites = suites;
     }
 
@@ -101,12 +96,15 @@ public class Server extends AbstractDevice implements Consumer {
         try {
             if (workerGroup != null) {
                 workerGroup.shutdownGracefully();
+                workerGroup = null;
             }
             if (bossGroup != null) {
                 bossGroup.shutdownGracefully();
+                bossGroup = null;
             }
             if (future != null) {
                 future.channel().closeFuture().sync();
+                future = null;
                 LOGGER.info(String.format("Stopped HTTP%s server [PORT: %d]", sslInit != null ? "S" : "", serverPort));
             } else {
                 LOGGER.info(String.format("HTTP%s server was not running [PORT: %d]", sslInit != null ? "S" : "", serverPort));
