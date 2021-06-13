@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Patriot project
+ * Copyright 2021 Patriot project
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  *    limitations under the License.
  */
 
-package io.patriot_framework.generator.device.consumer;
+package io.patriot_framework.generator.device.consumer.http;
 
-import io.patriot_framework.generator.device.consumer.http.HttpData;
-import io.patriot_framework.generator.device.consumer.http.HttpMetaImpl;
+import io.patriot_framework.generator.device.consumer.ConsumerData;
+import io.patriot_framework.generator.device.consumer.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

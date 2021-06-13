@@ -28,7 +28,9 @@ public class HttpsTest extends HttpTestBase {
 
     @BeforeEach
     void runServer() throws ConsumerException, IOException {
-        SSLInit sslInit = new SSLInitImpl();
+        String passphrase = "Patriot";
+        SSLInit sslInit = new BasicSSLInit("src/test/resources/sslcerts/server_keystore.jks", passphrase,
+                "src/test/resources/sslcerts/server_truststore.jks", passphrase);
         super.runServer(sslInit);
     }
 
